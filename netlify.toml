@@ -1,0 +1,16 @@
+# Configuration Netlify pour Hublot (StatDirm)
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command   = "npm run build"
+  publish   = "build"
+
+# Variables d'environnement à définir dans Netlify (Site settings → Environment variables) :
+#   VITE_APP_USERNAME = identifiant de connexion
+#   VITE_APP_PASSWORD = mot de passe
+
+# SPA : toutes les routes renvoient index.html (connexion / tableau de bord)
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200

@@ -121,13 +121,15 @@ Pour un hébergement statique gratuit (front uniquement).
 
 ### Netlify
 
-1. Compte sur [netlify.com](https://netlify.com), connexion au dépôt Git.
-2. **Build settings :**
+Le projet contient un fichier **`netlify.toml`** : Netlify utilise automatiquement la commande de build, le dossier de publication et les redirects SPA.
+
+1. Compte sur [netlify.com](https://netlify.com), connexion au dépôt Git (GitHub/GitLab/Bitbucket).
+2. **Nouveau site → Importer un projet** : choisir le dépôt. Les paramètres sont lus depuis `netlify.toml` :
    - **Build command :** `npm run build`
    - **Publish directory :** `build`
-3. **Variables d’environnement** (optionnel) :  
-   `VITE_APP_USERNAME`, `VITE_APP_PASSWORD` (pour le build).
-4. Déploiement automatique à chaque push.
+3. **Variables d’environnement** (Site settings → Environment variables) :  
+   `VITE_APP_USERNAME`, `VITE_APP_PASSWORD` (pour le build ; optionnel si valeurs par défaut en dev).
+4. Déploiement automatique à chaque push sur la branche connectée.
 
 ### Vercel
 
