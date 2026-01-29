@@ -41,6 +41,7 @@ Thumbs.db
 *.md
 !README.md
 !HOSTING.md
+!COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md
 
 # Scripts Python (gardés séparément)
 __pycache__
@@ -54,9 +55,7 @@ env/
 # Données sensibles - NE JAMAIS COMMITTER
 trdata/
 src/data/
-!src/data/agents.fallback.json
 **/agents.json
-!public/data/agents.json
 *.xlsx
 *.xls
 *.htpasswd

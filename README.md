@@ -40,7 +40,7 @@ make dev
 
 ## 📊 Données
 
-Les données sont chargées depuis `src/data/agents.json` en local. Pour mettre à jour les données depuis Excel :
+Les données sont chargées depuis `src/data/agents.json`. Pour mettre à jour les données depuis Excel :
 
 ```bash
 # Sans Docker
@@ -50,15 +50,11 @@ python3 scripts/convert_excel_to_json.py trdata/Interface_Effectifs_DIRM_Central
 make convert
 ```
 
-### Données sur Netlify
+## 📺 Voir les données sur Netlify
 
-Le site déployé charge les données depuis **`public/data/agents.json`**. Pour afficher tes vraies données sur Netlify :
-
-1. Place ton fichier `agents.json` dans **`src/data/agents.json`** (comme en local).
-2. Lance : **`npm run copy-data-for-netlify`** (copie vers `public/data/agents.json`).
-3. Commite et pousse : `git add public/data/agents.json && git commit -m "Données Netlify" && git push`.
-
-Le fichier `public/data/agents.json` est déjà présent dans le dépôt (données vides) pour que le déploiement fonctionne ; tu peux le remplacer par tes données avec la commande ci-dessus.
+**Tu déploies sur Netlify et tu ne vois pas les données ?**  
+→ Tout est expliqué pas à pas ici : **[COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md](./COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md)**  
+(2 options : avec ou sans base de données Neon.)
 
 ## 📚 Documentation
 

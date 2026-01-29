@@ -3,6 +3,7 @@
       "version": "0.1.0",
       "private": true,
       "dependencies": {
+            "@neondatabase/serverless": "^0.10.0",
             "@radix-ui/react-accordion": "^1.2.3",
             "@radix-ui/react-alert-dialog": "^1.1.6",
             "@radix-ui/react-aspect-ratio": "^1.1.2",
@@ -37,7 +38,6 @@
             "exceljs": "^4.4.0",
             "input-otp": "^1.4.2",
             "lucide-react": "^0.487.0",
-            "framer-motion": "^11.15.0",
             "next-themes": "^0.4.6",
             "react": "^18.3.1",
             "react-day-picker": "^8.10.1",
@@ -65,6 +65,6 @@
             "docker:stop": "docker-compose -f docker-compose.dev.yml -f docker-compose.prod.yml down",
             "docker:logs": "docker-compose -f docker-compose.dev.yml logs -f",
             "docker:convert": "docker-compose run --rm converter python3 scripts/convert_excel_to_json.py",
-            "copy-data-for-netlify": "node scripts/copy-data-for-netlify.js"
+            "push-agents-to-neon": "node scripts/push-agents-to-neon.js"
       }
 }

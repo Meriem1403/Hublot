@@ -1,15 +1,17 @@
-# Configuration Netlify pour Hublot (StatDirm)
-# https://docs.netlify.com/configure-builds/file-based-configuration/
+# Netlify : build + function agents (Neon)
+# La variable NETLIFY_DATABASE_URL est créée par l’extension Neon sur Netlify.
 
 [build]
   command   = "npm run build"
   publish   = "build"
 
-# Variables d'environnement à définir dans Netlify (Site settings → Environment variables) :
-#   VITE_APP_USERNAME = identifiant de connexion
-#   VITE_APP_PASSWORD = mot de passe
+# Ne pas rediriger les functions vers index.html
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to   = "/.netlify/functions/:splat"
+  status = 200
 
-# SPA : toutes les routes renvoient index.html (connexion / tableau de bord)
+# SPA : toutes les autres URLs → index.html
 [[redirects]]
   from = "/*"
   to   = "/index.html"
