@@ -1,0 +1,65 @@
+# Dépendances
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build
+build
+dist
+.next
+out
+
+# Environnement
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+*.md
+!README.md
+
+# Scripts Python (gardés séparément)
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+
+# Données sensibles (optionnel - à adapter selon vos besoins)
+# trdata/*.xlsx
+
+# Rapports et logs
+*.log
+coverage
+.nyc_output
+
+# Tests
+test-results
+playwright-report

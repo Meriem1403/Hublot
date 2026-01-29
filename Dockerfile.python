@@ -1,0 +1,23 @@
+# Dockerfile pour les scripts Python de conversion Excel
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Installer les dépendances système nécessaires
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copier et installer les dépendances Python
+COPY scripts/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier les scripts
+COPY scripts/ ./scripts/
+COPY trdata/ ./trdata/
+
+# Créer le répertoire de sortie
+RUN mkdir -p /app/src/data
+
+# Commande par défaut
+CMD ["python3", "scripts/convert_excel_to_json.py"]

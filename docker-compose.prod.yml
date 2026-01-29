@@ -1,0 +1,59 @@
+# Configuration Docker Compose pour la production
+# Usage: docker-compose -f docker-compose.prod.yml up -d
+# 
+# IMPORTANT : Avant de déployer en production :
+# 1. Créer le fichier .htpasswd : sudo htpasswd -c /etc/nginx/.htpasswd admin
+# 2. Configurer HTTPS et décommenter les lignes correspondantes dans nginx.conf
+# 3. Créer un fichier .env avec VITE_APP_PASSWORD
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: statdirm-prod
+    ports:
+      - "80:80"
+      # Décommenter pour HTTPS :
+      # - "443:443"
+    volumes:
+      # Montage en lecture seule des données JSON
+      - ./src/data:/usr/share/nginx/html/data:ro
+      # Montage du fichier d'authentification (créer avant avec htpasswd)
+      # - /etc/nginx/.htpasswd:/etc/nginx/.htpasswd:ro
+      # Montage des certificats SSL (si HTTPS activé)
+      # - /etc/letsencrypt/live/votre-domaine.fr/fullchain.pem:/etc/nginx/ssl/cert.pem:ro
+      # - /etc/letsencrypt/live/votre-domaine.fr/privkey.pem:/etc/nginx/ssl/key.pem:ro
+    environment:
+      - NODE_ENV=production
+    networks:
+      - statdirm-network
+    restart: unless-stopped
+    # Sécurité : ne pas exécuter en root
+    # user: "nginx"  # Décommenter si nginx user existe dans l'image
+    # Limites de ressources
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Labels pour le monitoring
+    labels:
+      - "com.statdirm.description=Application StatDirm"
+      - "com.statdirm.version=1.0"
+
+networks:
+  statdirm-network:
+    driver: bridge
+    # Isolation du réseau
+    internal: false

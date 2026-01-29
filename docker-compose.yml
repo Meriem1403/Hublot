@@ -1,0 +1,54 @@
+services:
+  # Application React en développement
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: statdirm-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/build
+    environment:
+      - NODE_ENV=development
+    command: npm run dev -- --host 0.0.0.0
+    networks:
+      - statdirm-network
+
+  # Application React en production
+  app-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: statdirm-prod
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/data:/usr/share/nginx/html/data:ro
+    environment:
+      - NODE_ENV=production
+    networks:
+      - statdirm-network
+    restart: unless-stopped
+
+  # Service Python pour conversion Excel
+  converter:
+    build:
+      context: .
+      dockerfile: Dockerfile.python
+    container_name: statdirm-converter
+    volumes:
+      - ./trdata:/app/trdata
+      - ./src/data:/app/src/data
+    networks:
+      - statdirm-network
+    profiles:
+      - tools
+
+networks:
+  statdirm-network:
+    driver: bridge

@@ -1,0 +1,30 @@
+# Configuration Docker Compose pour le développement
+# Usage: docker-compose -f docker-compose.dev.yml up
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: statdirm-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Montage du code source pour le hot-reload
+      - .:/app
+      # Exclusion de node_modules pour éviter les conflits
+      - /app/node_modules
+      - /app/build
+    environment:
+      - NODE_ENV=development
+      - VITE_HOST=0.0.0.0
+    command: npm run dev -- --host 0.0.0.0 --port 3000
+    stdin_open: true
+    tty: true
+    networks:
+      - statdirm-network
+
+networks:
+  statdirm-network:
+    driver: bridge
