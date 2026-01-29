@@ -4,8 +4,9 @@
  */
 
 import { useMemo } from 'react';
-import { getAllAgents, filterAgentsFrom, loadCapacites } from '../services/dataService';
+import { getAllAgents, filterAgentsFrom, loadCapacites, DIRM_MEDITERANEE_LABEL, DIRM_MEDITERANEE_REGIONS } from '../services/dataService';
 import { useAgentsDataContextOptional } from '../contexts/AgentsDataContext';
+import { useGlobalFilterContext } from '../contexts/GlobalFilterContext';
 import {
   calculerOverviewStats,
   calculerRepartitionStatut,
@@ -24,9 +25,26 @@ import {
 } from '../utils/dataCalculations';
 import type { Agent } from '../types/data';
 
-export function useAgentsData(): Agent[] {
+/** Agents bruts (sans filtre global) — pour construire les listes de filtres. */
+export function useAgentsDataRaw(): Agent[] {
   const ctx = useAgentsDataContextOptional();
   return useMemo(() => (ctx ? ctx.agents : getAllAgents()), [ctx]);
+}
+
+/** Agents éventuellement filtrés par le filtre global (Région / Service dont DIRM Méditerranée / Statut). */
+export function useAgentsData(): Agent[] {
+  const rawAgents = useAgentsDataRaw();
+  const globalFilter = useGlobalFilterContext();
+  return useMemo(() => {
+    if (!globalFilter || (globalFilter.filters.region === 'all' && globalFilter.filters.service === 'all' && globalFilter.filters.statut === 'all')) {
+      return rawAgents;
+    }
+    return filterAgentsFrom(rawAgents, {
+      region: globalFilter.filters.region !== 'all' ? globalFilter.filters.region : undefined,
+      service: globalFilter.filters.service !== 'all' ? globalFilter.filters.service : undefined,
+      statut: globalFilter.filters.statut !== 'all' ? globalFilter.filters.statut : undefined
+    });
+  }, [rawAgents, globalFilter]);
 }
 
 export function useFilteredAgents(filters: {
@@ -42,14 +60,35 @@ export function useFilteredAgents(filters: {
 export function useUniqueValues() {
   const agents = useAgentsData();
   return useMemo(
-    () => ({
-      regions: Array.from(new Set(agents.map((a) => a.region))).sort(),
-      services: Array.from(new Set(agents.map((a) => a.service))).sort(),
-      statuts: Array.from(new Set(agents.map((a) => a.statut))).sort(),
-      missions: Array.from(new Set(agents.map((a) => a.mission))).sort(),
-      metiers: Array.from(new Set(agents.map((a) => a.metier))).sort()
-    }),
+    () => {
+      const servicesSet = new Set(agents.map((a) => a.service));
+      servicesSet.add(DIRM_MEDITERANEE_LABEL);
+      const services = [DIRM_MEDITERANEE_LABEL, ...Array.from(servicesSet).filter((s) => s !== DIRM_MEDITERANEE_LABEL).sort()];
+      return {
+        regions: Array.from(new Set(agents.map((a) => a.region))).sort(),
+        services,
+        statuts: Array.from(new Set(agents.map((a) => a.statut))).sort(),
+        missions: Array.from(new Set(agents.map((a) => a.mission))).sort(),
+        metiers: Array.from(new Set(agents.map((a) => a.metier))).sort()
+      };
+    },
     [agents]
+  );
+}
+
+/** Options pour la barre de filtres globale (basées sur les agents bruts, avec DIRM Méditerranée dans Service). */
+export function useFilterOptions() {
+  const rawAgents = useAgentsDataRaw();
+  return useMemo(
+    () => {
+      const regions = Array.from(new Set(rawAgents.map((a) => a.region))).sort();
+      const servicesSet = new Set(rawAgents.map((a) => a.service));
+      servicesSet.add(DIRM_MEDITERANEE_LABEL);
+      const services = [DIRM_MEDITERANEE_LABEL, ...Array.from(servicesSet).filter((s) => s !== DIRM_MEDITERANEE_LABEL)].sort((a, b) => a.localeCompare(b, 'fr'));
+      const statuts = Array.from(new Set(rawAgents.map((a) => a.statut))).sort();
+      return { regions, services, statuts };
+    },
+    [rawAgents]
   );
 }
 
@@ -74,7 +113,32 @@ export function useStatutRepartition() {
 
 export function useContratRepartition() {
   const agents = useAgentsData();
-  return useMemo(() => calculerRepartitionContrat(agents), [agents]);
+  return useMemo(() => {
+    const base = calculerRepartitionContrat(agents);
+    const agentsActifs = agents.filter((a) => a.actif);
+    const dirmMedAgents = agentsActifs.filter((a) =>
+      (DIRM_MEDITERANEE_REGIONS as readonly string[]).includes(a.region)
+    );
+    let tempsPlein = 0;
+    let tempsPartiel = 0;
+    let cdd = 0;
+    let stagiaires = 0;
+    dirmMedAgents.forEach((agent) => {
+      if (agent.statut === 'Stagiaire') stagiaires++;
+      else if (agent.statut === 'CDD') cdd++;
+      else if (agent.contratType === 'Temps partiel') tempsPartiel++;
+      else tempsPlein++;
+    });
+    const dirmMedEntry = {
+      service: DIRM_MEDITERANEE_LABEL,
+      tempsPlein,
+      tempsPartiel,
+      cdd,
+      stagiaires
+    };
+    const withDirmMed = [...base.filter((s) => s.service !== DIRM_MEDITERANEE_LABEL), dirmMedEntry];
+    return withDirmMed.sort((a, b) => (b.tempsPlein + b.tempsPartiel + b.cdd + b.stagiaires) - (a.tempsPlein + a.tempsPartiel + a.cdd + a.stagiaires));
+  }, [agents]);
 }
 
 export function useResponsabiliteRepartition() {
@@ -139,5 +203,31 @@ export function useCapacitesRegions() {
 
 export function useStatsParService() {
   const agents = useAgentsData();
-  return useMemo(() => calculerStatsParService(agents), [agents]);
+  return useMemo(() => {
+    const baseStats = calculerStatsParService(agents);
+    const agentsActifs = agents.filter((a) => a.actif);
+    const total = agentsActifs.length;
+    const nbServices = baseStats.length || 1;
+    const moyenne = total / nbServices;
+
+    const dirmMedEffectif = agentsActifs.filter((a) =>
+      (DIRM_MEDITERANEE_REGIONS as readonly string[]).includes(a.region)
+    ).length;
+
+    let dirmMedStatus: 'normal' | 'fragile' | 'critique' = 'normal';
+    if (dirmMedEffectif < 10 || (moyenne > 20 && dirmMedEffectif < moyenne * 0.3)) {
+      dirmMedStatus = 'critique';
+    } else if (dirmMedEffectif < 20 || (moyenne > 30 && dirmMedEffectif < moyenne * 0.5)) {
+      dirmMedStatus = 'fragile';
+    }
+
+    const dirmMedEntry = {
+      name: DIRM_MEDITERANEE_LABEL,
+      effectif: dirmMedEffectif,
+      status: dirmMedStatus
+    };
+
+    const withDirmMed = [...baseStats.filter((s) => s.name !== DIRM_MEDITERANEE_LABEL), dirmMedEntry];
+    return withDirmMed.sort((a, b) => b.effectif - a.effectif);
+  }, [agents]);
 }

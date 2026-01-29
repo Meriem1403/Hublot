@@ -24,7 +24,7 @@ COLONNES_ATTENDUES = {
     # Aligné sur analyze_excel.COLS_ATTENDUES pour mieux détecter la colonne "Temps de travail"
     'contratType': ['contrat_type', 'type_contrat', 'temps_travail', 'temps travail', 'quotite', 'temps de travail'],
     'tempsPartielPourcentage': ['temps_partiel', 'quotite', 'quotité', 'pourcentage_tp'],
-    'region': ['region', 'région', 'zone', 'site'],
+    'region': ['region', 'région', 'zone', 'site', 'implantation'],
     'service': ['service', 'direction', 'departement', 'unite'],
     'mission': ['mission', 'activite', 'fonction', 'action'],
     'metier': ['metier', 'métier', 'poste', 'fonction', 'grade'],
@@ -699,7 +699,7 @@ def convertir_excel_vers_json(chemin_excel: Path, chemin_json: Path, feuille: Op
         
         print(f"   Colonnes mappées: {len(mapping)}/{len(COLONNES_ATTENDUES)}")
         
-        # Filtrer pour DIRM Méditerranée si demandé
+        # Filtrer pour DIRM Méditerranée si demandé (optionnel, pas par défaut)
         if filtrer_dirm_med and 'region' in mapping:
             col_region = mapping['region']
             regions_med = ['PROVENCE-ALPES-COTE-D\'AZUR', 'PROVENCE ALPES COTE D\'AZUR', 

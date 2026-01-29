@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, TrendingUp, AlertTriangle, MapPin, LogOut } from 'lucide-react';
+import { Users, TrendingUp, AlertTriangle, MapPin, LogOut, Filter } from 'lucide-react';
 import { OverviewCards } from './components/OverviewCards';
 import { MissionChart } from './components/MissionChart';
 import { RegionMap } from './components/RegionMap';
@@ -14,6 +14,8 @@ import { WorkTimeGauge } from './components/WorkTimeGauge';
 import { DynamicView } from './components/DynamicView';
 import { LoginPage } from './components/LoginPage';
 import { isAuthenticated, clearSession, getUsername } from './utils/security';
+import { GlobalFilterProvider, useGlobalFilterContext } from './contexts/GlobalFilterContext';
+import { useFilterOptions } from './hooks/useAgentsData';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -47,6 +49,7 @@ export default function App() {
 
   return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <GlobalFilterProvider>
       {/* Header */}
       <header className="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -57,7 +60,7 @@ export default function App() {
               </div>
               <div>
                 <h1 className="text-2xl">Hublot</h1>
-                <p className="text-blue-200 mt-1">Direction Interrégionale de la Mer Méditerranée – Tableau de bord des effectifs et statistiques RH</p>
+                <p className="text-blue-200 mt-1">Direction générale des Affaires maritimes, de la Pêche et de l'Aquaculture – Tableau de bord des effectifs et statistiques RH</p>
               </div>
             </div>
             {/* Session : utilisateur + déconnexion */}
@@ -119,6 +122,9 @@ export default function App() {
         </div>
       </nav>
 
+      {/* Filtres globaux (tous les onglets) — Service inclut DIRM Méditerranée */}
+      <GlobalFilterBar />
+
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" key={activeTab}>
         {activeTab === 'overview' && <OverviewCards />}
@@ -143,6 +149,64 @@ export default function App() {
           </p>
         </div>
       </footer>
+      </GlobalFilterProvider>
       </div>
+  );
+}
+
+function GlobalFilterBar() {
+  const ctx = useGlobalFilterContext();
+  const { regions, services, statuts } = useFilterOptions();
+  if (!ctx) return null;
+  const { filters, setRegion, setService, setStatut, resetFilters } = ctx;
+  const hasFilter = filters.region !== 'all' || filters.service !== 'all' || filters.statut !== 'all';
+  return (
+    <div className="bg-white/80 backdrop-blur border-b border-gray-200 sticky top-[52px] z-[9]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <Filter className="w-4 h-4 text-gray-500" />
+          <span className="text-sm font-medium text-gray-700">Filtres :</span>
+          <select
+            value={filters.region}
+            onChange={(e) => setRegion(e.target.value)}
+            className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="all">Toutes les régions</option>
+            {regions.map((r) => (
+              <option key={r} value={r}>{r}</option>
+            ))}
+          </select>
+          <select
+            value={filters.service}
+            onChange={(e) => setService(e.target.value)}
+            className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[180px]"
+          >
+            <option value="all">Tous les services</option>
+            {services.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+          <select
+            value={filters.statut}
+            onChange={(e) => setStatut(e.target.value)}
+            className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="all">Tous les statuts</option>
+            {statuts.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+          {hasFilter && (
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+            >
+              Réinitialiser
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

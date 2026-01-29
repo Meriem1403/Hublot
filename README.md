@@ -1,6 +1,6 @@
 # Hublot
 
-**Tableau de bord des effectifs et statistiques RH** de la Direction Interrégionale de la Mer Méditerranée (Ministère de la Mer). Visualisation des données par mission, région, service, statuts, contrats et indicateurs RH.
+**Tableau de bord des effectifs et statistiques RH** de la Direction générale des Affaires maritimes, de la Pêche et de l'Aquaculture (Ministère de la Mer). Visualisation des données par mission, région, service, statuts, contrats et indicateurs RH.
 
 ## ⚠️ Données sensibles
 

@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { useFilteredAgents, useUniqueValues } from '../hooks/useAgentsData';
+import { DIRM_MEDITERANEE_LABEL } from '../services/dataService';
 import { calculerAge, getTrancheAge, calculerRepartitionAge } from '../utils/dataCalculations';
 import type { Agent } from '../types/data';
 import ExcelJS from 'exceljs';
@@ -237,9 +238,14 @@ export function DynamicView() {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">Tous les services</option>
-              {uniqueValues.services.map(service => (
-                <option key={service} value={service}>{service}</option>
-              ))}
+              {[
+                DIRM_MEDITERANEE_LABEL,
+                ...uniqueValues.services.filter((s) => s !== DIRM_MEDITERANEE_LABEL)
+              ]
+                .sort((a, b) => a.localeCompare(b, 'fr'))
+                .map((service) => (
+                  <option key={service} value={service}>{service}</option>
+                ))}
             </select>
           </div>
 

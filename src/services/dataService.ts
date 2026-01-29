@@ -48,6 +48,12 @@ const SERVICE_TO_REGION_MAPPING: Record<string, string> = {
   'DIRM MED': 'Marseille' // DIRM Méditerranée basée à Marseille
 };
 
+/** Libellé de l’option de filtre DIRM Méditerranée */
+export const DIRM_MEDITERANEE_LABEL = 'DIRM Méditerranée';
+
+/** Régions de la DIRM Méditerranée (option de filtre "DIRM Méditerranée") */
+export const DIRM_MEDITERANEE_REGIONS = ['Marseille', 'Nice', 'Toulon', 'Sète'] as const;
+
 /** Données de repli (build + absence de /data/agents.json) */
 export const fallbackData: StatDirmData = agentsData as StatDirmData;
 
@@ -151,7 +157,13 @@ export type AgentsFilters = {
 export function filterAgentsFrom(agents: Agent[], filters: AgentsFilters): Agent[] {
   let result = agents;
   if (filters.region && filters.region !== 'all') result = result.filter((a) => a.region === filters.region);
-  if (filters.service && filters.service !== 'all') result = result.filter((a) => a.service === filters.service);
+  if (filters.service && filters.service !== 'all') {
+    if (filters.service === DIRM_MEDITERANEE_LABEL) {
+      result = result.filter((a) => DIRM_MEDITERANEE_REGIONS.includes(a.region as typeof DIRM_MEDITERANEE_REGIONS[number]));
+    } else {
+      result = result.filter((a) => a.service === filters.service);
+    }
+  }
   if (filters.statut && filters.statut !== 'all') result = result.filter((a) => a.statut === filters.statut);
   if (filters.mission && filters.mission !== 'all') result = result.filter((a) => a.mission === filters.mission);
   return result;
