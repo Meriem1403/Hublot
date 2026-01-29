@@ -1,0 +1,21 @@
+{
+  "agents": [],
+  "capacites": {
+    "missions": [
+      { "mission": "Contrôle et surveillance", "capaciteMaximale": 95 },
+      { "mission": "Police des pêches", "capaciteMaximale": 60 },
+      { "mission": "Sauvetage en mer", "capaciteMaximale": 48 },
+      { "mission": "Protection environnement", "capaciteMaximale": 42 },
+      { "mission": "Gestion portuaire", "capaciteMaximale": 35 },
+      { "mission": "Formation maritime", "capaciteMaximale": 32 },
+      { "mission": "Affaires maritimes", "capaciteMaximale": 35 },
+      { "mission": "Support administratif", "capaciteMaximale": 28 }
+    ],
+    "regions": [
+      { "region": "Marseille", "capaciteMaximale": 150, "status": "normal", "coordonnees": { "x": 83, "y": 81 } },
+      { "region": "Nice", "capaciteMaximale": 85, "status": "normal", "coordonnees": { "x": 94, "y": 76 } },
+      { "region": "Toulon", "capaciteMaximale": 92, "status": "normal", "coordonnees": { "x": 88, "y": 83 } },
+      { "region": "Sète", "capaciteMaximale": 48, "status": "normal", "coordonnees": { "x": 66, "y": 80 } }
+    ]
+  }
+}

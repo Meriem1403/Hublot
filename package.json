@@ -64,6 +64,7 @@
             "docker:prod:build": "docker-compose -f docker-compose.prod.yml up --build -d",
             "docker:stop": "docker-compose -f docker-compose.dev.yml -f docker-compose.prod.yml down",
             "docker:logs": "docker-compose -f docker-compose.dev.yml logs -f",
-            "docker:convert": "docker-compose run --rm converter python3 scripts/convert_excel_to_json.py"
+            "docker:convert": "docker-compose run --rm converter python3 scripts/convert_excel_to_json.py",
+            "copy-data-for-netlify": "node scripts/copy-data-for-netlify.js"
       }
 }

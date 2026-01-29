@@ -1,9 +1,11 @@
 /**
  * Hook React pour accéder aux données des agents
+ * Utilise le contexte (données chargées depuis /data/agents.json) quand il est disponible.
  */
 
 import { useMemo } from 'react';
-import { getAllAgents, filterAgents, getUniqueValues, loadCapacites } from '../services/dataService';
+import { getAllAgents, filterAgentsFrom, loadCapacites } from '../services/dataService';
+import { useAgentsDataContextOptional } from '../contexts/AgentsDataContext';
 import {
   calculerOverviewStats,
   calculerRepartitionStatut,
@@ -22,8 +24,9 @@ import {
 } from '../utils/dataCalculations';
 import type { Agent } from '../types/data';
 
-export function useAgentsData() {
-  return useMemo(() => getAllAgents(), []);
+export function useAgentsData(): Agent[] {
+  const ctx = useAgentsDataContextOptional();
+  return useMemo(() => (ctx ? ctx.agents : getAllAgents()), [ctx]);
 }
 
 export function useFilteredAgents(filters: {
@@ -32,11 +35,22 @@ export function useFilteredAgents(filters: {
   statut?: string;
   mission?: string;
 }) {
-  return useMemo(() => filterAgents(filters), [filters.region, filters.service, filters.statut, filters.mission]);
+  const agents = useAgentsData();
+  return useMemo(() => filterAgentsFrom(agents, filters), [agents, filters.region, filters.service, filters.statut, filters.mission]);
 }
 
 export function useUniqueValues() {
-  return useMemo(() => getUniqueValues(), []);
+  const agents = useAgentsData();
+  return useMemo(
+    () => ({
+      regions: Array.from(new Set(agents.map((a) => a.region))).sort(),
+      services: Array.from(new Set(agents.map((a) => a.service))).sort(),
+      statuts: Array.from(new Set(agents.map((a) => a.statut))).sort(),
+      missions: Array.from(new Set(agents.map((a) => a.mission))).sort(),
+      metiers: Array.from(new Set(agents.map((a) => a.metier))).sort()
+    }),
+    [agents]
+  );
 }
 
 export function useOverviewStats() {
@@ -104,21 +118,23 @@ export function useTempsTravail() {
 }
 
 export function useCapacitesMissions() {
+  const ctx = useAgentsDataContextOptional();
   const agents = useAgentsData();
-  const capacites = useMemo(() => loadCapacites(), []);
-  
-  return useMemo(() => {
-    return mettreAJourCapacitesMissions(capacites.missions, agents);
-  }, [agents, capacites.missions]);
+  const capacites = ctx ? ctx.capacites : loadCapacites();
+  return useMemo(
+    () => mettreAJourCapacitesMissions(capacites.missions, agents),
+    [agents, capacites.missions]
+  );
 }
 
 export function useCapacitesRegions() {
+  const ctx = useAgentsDataContextOptional();
   const agents = useAgentsData();
-  const capacites = useMemo(() => loadCapacites(), []);
-  
-  return useMemo(() => {
-    return mettreAJourCapacitesRegions(capacites.regions, agents);
-  }, [agents, capacites.regions]);
+  const capacites = ctx ? ctx.capacites : loadCapacites();
+  return useMemo(
+    () => mettreAJourCapacitesRegions(capacites.regions, agents),
+    [agents, capacites.regions]
+  );
 }
 
 export function useStatsParService() {

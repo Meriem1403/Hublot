@@ -131,6 +131,12 @@ Le projet contient un fichier **`netlify.toml`** : Netlify utilise automatiqueme
    `VITE_APP_USERNAME`, `VITE_APP_PASSWORD` (pour le build ; optionnel si valeurs par défaut en dev).
 4. Déploiement automatique à chaque push sur la branche connectée.
 
+**Afficher les données en production :** l’app charge les données à l’exécution. Pour afficher les effectifs réels sur Netlify :
+- **Option A :** placer le fichier **`public/data/agents.json`** (même format que pour le build local) dans le dépôt. Il sera déployé et servi ; l’app le charge au chargement de la page.
+- **Option B :** héberger le JSON ailleurs et définir la variable d’environnement **`VITE_APP_DATA_URL`** (URL complète du JSON) au build.
+
+Sans `public/data/agents.json` ni `VITE_APP_DATA_URL`, le tableau de bord s’affiche avec des données vides (repli).
+
 ### Vercel
 
 1. Compte sur [vercel.com](https://vercel.com), import du projet Git.

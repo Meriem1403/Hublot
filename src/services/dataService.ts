@@ -48,13 +48,14 @@ const SERVICE_TO_REGION_MAPPING: Record<string, string> = {
   'DIRM MED': 'Marseille' // DIRM Méditerranée basée à Marseille
 };
 
+/** Données de repli (build + absence de /data/agents.json) */
+export const fallbackData: StatDirmData = agentsData as StatDirmData;
+
 /**
- * Charge et normalise les données des agents
+ * Normalise une liste d'agents (mapping région, mission, service, statut)
  */
-export function loadAgentsData(): Agent[] {
-  const data = agentsData as StatDirmData;
-  
-  return data.agents.map(agent => {
+export function normalizeAgents(agents: Agent[]): Agent[] {
+  return agents.map(agent => {
     // Créer une copie pour éviter de muter les données originales
     const normalizedAgent = { ...agent };
     
@@ -89,28 +90,47 @@ export function loadAgentsData(): Agent[] {
 }
 
 /**
+ * Charge et normalise les données des agents (depuis une source donnée)
+ */
+export function loadAgentsDataFrom(data: StatDirmData): Agent[] {
+  return normalizeAgents(data.agents);
+}
+
+/**
+ * Charge et normalise les données des agents (fallback intégré)
+ */
+export function loadAgentsData(): Agent[] {
+  return loadAgentsDataFrom(fallbackData);
+}
+
+const DEFAULT_CAPACITES = {
+  missions: [
+    { mission: 'Contrôle et surveillance', capaciteMaximale: 95 },
+    { mission: 'Police des pêches', capaciteMaximale: 60 },
+    { mission: 'Sauvetage en mer', capaciteMaximale: 48 },
+    { mission: 'Protection environnement', capaciteMaximale: 42 },
+    { mission: 'Gestion portuaire', capaciteMaximale: 35 },
+    { mission: 'Formation maritime', capaciteMaximale: 32 },
+    { mission: 'Affaires maritimes', capaciteMaximale: 35 },
+    { mission: 'Support administratif', capaciteMaximale: 28 }
+  ],
+  regions: [
+    { region: 'Marseille', capaciteMaximale: 150, status: 'normal' as const, coordonnees: { x: 83, y: 81 } },
+    { region: 'Nice', capaciteMaximale: 85, status: 'normal' as const, coordonnees: { x: 94, y: 76 } },
+    { region: 'Toulon', capaciteMaximale: 92, status: 'normal' as const, coordonnees: { x: 88, y: 83 } },
+    { region: 'Sète', capaciteMaximale: 48, status: 'normal' as const, coordonnees: { x: 66, y: 80 } }
+  ]
+};
+
+/**
  * Charge les capacités depuis les données
  */
+export function loadCapacitesFrom(data: StatDirmData) {
+  return data.capacites || DEFAULT_CAPACITES;
+}
+
 export function loadCapacites() {
-  const data = agentsData as StatDirmData;
-  return data.capacites || {
-    missions: [
-      { mission: 'Contrôle et surveillance', capaciteMaximale: 95 },
-      { mission: 'Police des pêches', capaciteMaximale: 60 },
-      { mission: 'Sauvetage en mer', capaciteMaximale: 48 },
-      { mission: 'Protection environnement', capaciteMaximale: 42 },
-      { mission: 'Gestion portuaire', capaciteMaximale: 35 },
-      { mission: 'Formation maritime', capaciteMaximale: 32 },
-      { mission: 'Affaires maritimes', capaciteMaximale: 35 },
-      { mission: 'Support administratif', capaciteMaximale: 28 }
-    ],
-    regions: [
-      { region: 'Marseille', capaciteMaximale: 150, coordonnees: { x: 83, y: 81 } },
-      { region: 'Nice', capaciteMaximale: 85, coordonnees: { x: 94, y: 76 } },
-      { region: 'Toulon', capaciteMaximale: 92, coordonnees: { x: 88, y: 83 } },
-      { region: 'Sète', capaciteMaximale: 48, coordonnees: { x: 66, y: 80 } }
-    ]
-  };
+  return loadCapacitesFrom(fallbackData);
 }
 
 /**
@@ -120,34 +140,28 @@ export function getAllAgents(): Agent[] {
   return loadAgentsData();
 }
 
-/**
- * Filtre les agents selon des critères
- */
-export function filterAgents(filters: {
+export type AgentsFilters = {
   region?: string;
   service?: string;
   statut?: string;
   mission?: string;
-}): Agent[] {
-  let agents = getAllAgents();
-  
-  if (filters.region && filters.region !== 'all') {
-    agents = agents.filter(a => a.region === filters.region);
-  }
-  
-  if (filters.service && filters.service !== 'all') {
-    agents = agents.filter(a => a.service === filters.service);
-  }
-  
-  if (filters.statut && filters.statut !== 'all') {
-    agents = agents.filter(a => a.statut === filters.statut);
-  }
-  
-  if (filters.mission && filters.mission !== 'all') {
-    agents = agents.filter(a => a.mission === filters.mission);
-  }
-  
-  return agents;
+};
+
+/** Filtre une liste d'agents selon des critères */
+export function filterAgentsFrom(agents: Agent[], filters: AgentsFilters): Agent[] {
+  let result = agents;
+  if (filters.region && filters.region !== 'all') result = result.filter((a) => a.region === filters.region);
+  if (filters.service && filters.service !== 'all') result = result.filter((a) => a.service === filters.service);
+  if (filters.statut && filters.statut !== 'all') result = result.filter((a) => a.statut === filters.statut);
+  if (filters.mission && filters.mission !== 'all') result = result.filter((a) => a.mission === filters.mission);
+  return result;
+}
+
+/**
+ * Filtre les agents selon des critères (utilise getAllAgents)
+ */
+export function filterAgents(filters: AgentsFilters): Agent[] {
+  return filterAgentsFrom(getAllAgents(), filters);
 }
 
 /**
