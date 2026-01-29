@@ -4,7 +4,8 @@
  */
 
 import type { Agent, StatDirmData } from '../types/data';
-import agentsData from '../data/agents.json';
+// Fichier versionné pour que le build (ex. Netlify) réussisse sans agents.json (données sensibles)
+import agentsData from '../data/agents.fallback.json';
 
 // Mapping des codes Action vers les noms de missions
 const MISSION_MAPPING: Record<string, string> = {
