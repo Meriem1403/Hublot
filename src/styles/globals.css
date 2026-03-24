@@ -131,6 +131,8 @@
   }
 }
 
+/* (plus de styles custom pour les <select>, on laisse l'icône native) */
+
 /**
  * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
  */

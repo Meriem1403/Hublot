@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { CheckCircle, Lightbulb } from 'lucide-react';
 import { useStatutRepartition } from '../hooks/useAgentsData';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function StatusDonut() {
   const repartition = useStatutRepartition();
@@ -74,11 +75,41 @@ export function StatusDonut() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Répartition des statuts</h2>
-        <p className="text-gray-600">
-          Analyse de la stabilité des équipes et du risque de turnover
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Répartition des statuts</h2>
+          <p className="text-gray-600">
+            Analyse de la stabilité des équipes et du risque de turnover
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Répartition des statuts"
+          intro="Comptages et pourcentages calculés sur les agents filtrés."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Fichier Excel source: colonne `Catégorie` (pas de colonne `Statut` dans les tableaux fournis).',
+                'Filtre global appliqué avant les calculs.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Normalisation des statuts depuis `Catégorie`: A/B/C -> Titulaire ; Contractuel -> CDI ; autres valeurs (ex. Autre) -> CDD par défaut.',
+                'Regroupement d’affichage: Titulaire -> Titulaires ; CDI -> Contractuels CDI ; CDD -> Contractuels CDD ; Stagiaire -> Stagiaires.',
+                'Comptage des agents par statut.',
+                'Pourcentage = nombre statut / total filtré x 100.',
+                'Base de calcul commune: on applique d’abord les filtres globaux, puis on garde uniquement les agents `actif = true`.',
+                'Taux de titularisation = (nombre "Titulaires" / total agents actifs filtrés) x 100.',
+                'Agents permanents = ((nombre "Titulaires" + nombre "Contractuels CDI") / total agents actifs filtrés) x 100.',
+                'Agents temporaires = ((nombre "Contractuels CDD" + nombre "Stagiaires") / total agents actifs filtrés) x 100.',
+                'Contrôle de cohérence: Agents permanents + Agents temporaires = 100% (hors arrondi au dixième).',
+                'Aucun indicateur théorique ajouté.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -170,7 +201,7 @@ export function StatusDonut() {
 
         <div className="space-y-4">
           <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-            <h3 className="mb-4">Analyse de stabilité</h3>
+            <h3 className="mb-4">Indicateurs factuels</h3>
             
             <div className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
@@ -181,7 +212,7 @@ export function StatusDonut() {
                   </span>
                 </div>
                 <p className="text-sm text-blue-800">
-                  Base stable, conforme aux objectifs du ministère
+                  Part des agents classés "Titulaires" dans les données filtrées.
                 </p>
               </div>
 
@@ -194,7 +225,7 @@ export function StatusDonut() {
                   </span>
                 </div>
                 <p className="text-sm text-green-800">
-                  Titulaires + CDI : stabilité élevée
+                  Somme des catégories "Titulaires" et "Contractuels CDI".
                 </p>
               </div>
 
@@ -207,7 +238,7 @@ export function StatusDonut() {
                   </span>
                 </div>
                 <p className="text-sm text-orange-800">
-                  CDD + Stagiaires : turnover potentiel
+                  Somme des catégories "Contractuels CDD" et "Stagiaires".
                 </p>
               </div>
             </div>
@@ -216,25 +247,23 @@ export function StatusDonut() {
           <div className="bg-green-50 border border-green-200 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle className="w-5 h-5 text-green-900" />
-              <h3 className="text-lg text-green-900">Stabilité bonne</h3>
+              <h3 className="text-lg text-green-900">Lecture des données</h3>
             </div>
             <p className="text-sm text-green-900">
-              {Math.round(((data.find(d => d.name === 'Titulaires')?.percent || 0) + 
-                          (data.find(d => d.name === 'Contractuels CDI')?.percent || 0)))}% des agents sont en situation stable (titulaires ou CDI), 
-              ce qui garantit la continuité du service public maritime.
+              Les valeurs affichées sont uniquement des comptages et pourcentages
+              calculés sur les statuts normalisés à partir de la colonne Excel
+              `Catégorie`, après application des filtres.
             </p>
           </div>
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <Lightbulb className="w-5 h-5 text-blue-900" />
-              <h3 className="text-lg text-blue-900">Recommandation</h3>
+              <h3 className="text-lg text-blue-900">Traçabilité</h3>
             </div>
             <p className="text-sm text-blue-900">
-              {data.find(d => d.name === 'Contractuels CDI')?.value ? 
-                `Prévoir la titularisation de ${Math.max(1, Math.round((data.find(d => d.name === 'Contractuels CDI')?.value || 0) * 0.2))} contractuels CDI éligibles d'ici fin 2025.` :
-                'Surveiller les opportunités de titularisation.'
-              }
+              Aucun objectif théorique ni recommandation RH n’est injecté dans ce
+              composant: l’onglet restitue la donnée observée.
             </p>
           </div>
         </div>

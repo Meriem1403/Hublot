@@ -21,38 +21,15 @@ const MISSION_MAPPING: Record<string, string> = {
   '0.5': 'Support administratif'
 };
 
-// Mapping des services vers les noms normalisés
-const SERVICE_MAPPING: Record<string, string> = {
-  'DDTM 06': 'Opérations maritimes',
-  'DIRM MED': 'Opérations maritimes',
-  'DDTM 13': 'Surveillance et contrôle',
-  'DDTM 83': 'Surveillance et contrôle',
-  'DDTM 30': 'Administration',
-  'DDTM 34': 'Administration',
-  'DDTM 11': 'Affaires juridiques',
-  'DDTM 66': 'Environnement',
-  'DDTM 04': 'Formation',
-  'DDTM 05': 'Formation'
-};
-
-// Mapping des services (codes DDTM) vers les régions DIRM Méditerranée
-// DDTM 06 = Alpes-Maritimes (Nice)
-// DDTM 13 = Bouches-du-Rhône (Marseille)
-// DDTM 83 = Var (Toulon)
-// DDTM 34 = Hérault (Sète/Montpellier)
-const SERVICE_TO_REGION_MAPPING: Record<string, string> = {
-  'DDTM 06': 'Nice',
-  'DDTM 13': 'Marseille',
-  'DDTM 83': 'Toulon',
-  'DDTM 34': 'Sète',
-  'DIRM MED': 'Marseille' // DIRM Méditerranée basée à Marseille
-};
-
 /** Libellé de l’option de filtre DIRM Méditerranée */
 export const DIRM_MEDITERANEE_LABEL = 'DIRM Méditerranée';
 
-/** Régions de la DIRM Méditerranée (option de filtre "DIRM Méditerranée") */
-export const DIRM_MEDITERANEE_REGIONS = ['Marseille', 'Nice', 'Toulon', 'Sète'] as const;
+/** Services rattachés à la façade DIRM Méditerranée (option de filtre dédiée). */
+export const DIRM_MEDITERANEE_SERVICES = ['DIRM MED', 'DDTM 06', 'DDTM 13', 'DDTM 34', 'DDTM 83', 'DMLC CORSE', 'DML CORSE'] as const;
+
+export function isDirmMediterraneeAgent(agent: Agent): boolean {
+  return DIRM_MEDITERANEE_SERVICES.includes(agent.service as typeof DIRM_MEDITERANEE_SERVICES[number]);
+}
 
 /** Données de repli (build + absence de /data/agents.json) */
 export const fallbackData: StatDirmData = agentsData as StatDirmData;
@@ -65,21 +42,9 @@ export function normalizeAgents(agents: Agent[]): Agent[] {
     // Créer une copie pour éviter de muter les données originales
     const normalizedAgent = { ...agent };
     
-    // IMPORTANT: Corriger la région AVANT de normaliser le service
-    // Car le mapping utilise les codes DDTM originaux (DDTM 13, DDTM 83, etc.)
-    const serviceOriginal = normalizedAgent.service;
-    if (serviceOriginal && SERVICE_TO_REGION_MAPPING[serviceOriginal]) {
-      normalizedAgent.region = SERVICE_TO_REGION_MAPPING[serviceOriginal] as any;
-    }
-    
     // Normaliser la mission
     if (normalizedAgent.mission && MISSION_MAPPING[normalizedAgent.mission]) {
       normalizedAgent.mission = MISSION_MAPPING[normalizedAgent.mission];
-    }
-    
-    // Normaliser le service si possible (après avoir utilisé le service original pour la région)
-    if (normalizedAgent.service && SERVICE_MAPPING[normalizedAgent.service]) {
-      normalizedAgent.service = SERVICE_MAPPING[normalizedAgent.service];
     }
     
     // Corriger le statut basé sur la catégorie si nécessaire
@@ -151,6 +116,9 @@ export type AgentsFilters = {
   service?: string;
   statut?: string;
   mission?: string;
+  pasa?: string;
+  corps?: string;
+  fonction?: string; // catégorie générique
 };
 
 /** Filtre une liste d'agents selon des critères */
@@ -159,13 +127,16 @@ export function filterAgentsFrom(agents: Agent[], filters: AgentsFilters): Agent
   if (filters.region && filters.region !== 'all') result = result.filter((a) => a.region === filters.region);
   if (filters.service && filters.service !== 'all') {
     if (filters.service === DIRM_MEDITERANEE_LABEL) {
-      result = result.filter((a) => DIRM_MEDITERANEE_REGIONS.includes(a.region as typeof DIRM_MEDITERANEE_REGIONS[number]));
+      result = result.filter((a) => isDirmMediterraneeAgent(a));
     } else {
       result = result.filter((a) => a.service === filters.service);
     }
   }
   if (filters.statut && filters.statut !== 'all') result = result.filter((a) => a.statut === filters.statut);
   if (filters.mission && filters.mission !== 'all') result = result.filter((a) => a.mission === filters.mission);
+  if (filters.pasa && filters.pasa !== 'all') result = result.filter((a) => a.pasaCode === filters.pasa);
+  if (filters.corps && filters.corps !== 'all') result = result.filter((a) => (a.corps || a.metier) === filters.corps);
+  if (filters.fonction && filters.fonction !== 'all') result = result.filter((a) => a.fonctionCategorie === filters.fonction);
   return result;
 }
 

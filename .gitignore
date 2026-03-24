@@ -37,12 +37,11 @@ Thumbs.db
 .gitignore
 .gitattributes
 
-# Documentation (conserver README et HOSTING pour le dépôt)
+# Documentation (README à la racine + tout le dossier docs/)
 *.md
 !README.md
-!HOSTING.md
-!COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md
-!COMPETENCE_DEPLOIEMENT_STUDI.md
+!docs/
+!docs/*.md
 
 # Scripts Python (gardés séparément)
 __pycache__
@@ -67,6 +66,7 @@ src/data/
 *.pfx
 scripts/rapport_analyse.json
 **/rapport*.json
+scripts/backups/
 
 # Rapports et logs
 *.log

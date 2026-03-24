@@ -4,7 +4,7 @@
  */
 
 import { useMemo } from 'react';
-import { getAllAgents, filterAgentsFrom, loadCapacites, DIRM_MEDITERANEE_LABEL, DIRM_MEDITERANEE_REGIONS } from '../services/dataService';
+import { getAllAgents, filterAgentsFrom, loadCapacites, DIRM_MEDITERANEE_LABEL, isDirmMediterraneeAgent } from '../services/dataService';
 import { useAgentsDataContextOptional } from '../contexts/AgentsDataContext';
 import { useGlobalFilterContext } from '../contexts/GlobalFilterContext';
 import {
@@ -36,13 +36,24 @@ export function useAgentsData(): Agent[] {
   const rawAgents = useAgentsDataRaw();
   const globalFilter = useGlobalFilterContext();
   return useMemo(() => {
-    if (!globalFilter || (globalFilter.filters.region === 'all' && globalFilter.filters.service === 'all' && globalFilter.filters.statut === 'all')) {
+    if (
+      !globalFilter ||
+      (globalFilter.filters.region === 'all' &&
+        globalFilter.filters.service === 'all' &&
+        globalFilter.filters.statut === 'all' &&
+        globalFilter.filters.pasa === 'all' &&
+        globalFilter.filters.corps === 'all' &&
+        globalFilter.filters.fonction === 'all')
+    ) {
       return rawAgents;
     }
     return filterAgentsFrom(rawAgents, {
       region: globalFilter.filters.region !== 'all' ? globalFilter.filters.region : undefined,
       service: globalFilter.filters.service !== 'all' ? globalFilter.filters.service : undefined,
-      statut: globalFilter.filters.statut !== 'all' ? globalFilter.filters.statut : undefined
+      statut: globalFilter.filters.statut !== 'all' ? globalFilter.filters.statut : undefined,
+      pasa: globalFilter.filters.pasa !== 'all' ? globalFilter.filters.pasa : undefined,
+      corps: globalFilter.filters.corps !== 'all' ? globalFilter.filters.corps : undefined,
+      fonction: globalFilter.filters.fonction !== 'all' ? globalFilter.filters.fonction : undefined
     });
   }, [rawAgents, globalFilter]);
 }
@@ -86,7 +97,10 @@ export function useFilterOptions() {
       servicesSet.add(DIRM_MEDITERANEE_LABEL);
       const services = [DIRM_MEDITERANEE_LABEL, ...Array.from(servicesSet).filter((s) => s !== DIRM_MEDITERANEE_LABEL)].sort((a, b) => a.localeCompare(b, 'fr'));
       const statuts = Array.from(new Set(rawAgents.map((a) => a.statut))).sort();
-      return { regions, services, statuts };
+      const pasas = Array.from(new Set(rawAgents.map((a) => a.pasaCode).filter(Boolean) as string[])).sort();
+      const corps = Array.from(new Set(rawAgents.map((a) => (a.corps || a.metier)).filter(Boolean) as string[])).sort((a, b) => a.localeCompare(b, 'fr'));
+      const fonctions = Array.from(new Set(rawAgents.map((a) => a.fonctionCategorie).filter(Boolean) as string[])).sort((a, b) => a.localeCompare(b, 'fr'));
+      return { regions, services, statuts, pasas, corps, fonctions };
     },
     [rawAgents]
   );
@@ -116,9 +130,7 @@ export function useContratRepartition() {
   return useMemo(() => {
     const base = calculerRepartitionContrat(agents);
     const agentsActifs = agents.filter((a) => a.actif);
-    const dirmMedAgents = agentsActifs.filter((a) =>
-      (DIRM_MEDITERANEE_REGIONS as readonly string[]).includes(a.region)
-    );
+    const dirmMedAgents = agentsActifs.filter((a) => isDirmMediterraneeAgent(a));
     let tempsPlein = 0;
     let tempsPartiel = 0;
     let cdd = 0;
@@ -210,9 +222,7 @@ export function useStatsParService() {
     const nbServices = baseStats.length || 1;
     const moyenne = total / nbServices;
 
-    const dirmMedEffectif = agentsActifs.filter((a) =>
-      (DIRM_MEDITERANEE_REGIONS as readonly string[]).includes(a.region)
-    ).length;
+    const dirmMedEffectif = agentsActifs.filter((a) => isDirmMediterraneeAgent(a)).length;
 
     let dirmMedStatus: 'normal' | 'fragile' | 'critique' = 'normal';
     if (dirmMedEffectif < 10 || (moyenne > 20 && dirmMedEffectif < moyenne * 0.3)) {

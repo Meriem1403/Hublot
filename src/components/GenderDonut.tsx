@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { AlertTriangle, BarChart3, Target, Check, ArrowRight } from 'lucide-react';
 import { useGenreRepartition, useGenreParService, useGenreParNiveau } from '../hooks/useAgentsData';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function GenderDonut() {
   const globalData = useGenreRepartition();
@@ -44,11 +45,34 @@ export function GenderDonut() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Répartition femmes / hommes</h2>
-        <p className="text-gray-600">
-          Suivi de l'équilibre et de la parité au sein de la DIRM
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Répartition femmes / hommes</h2>
+          <p className="text-gray-600">
+            Suivi de l'équilibre et de la parité au sein de la DIRM
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Répartition femmes / hommes"
+          intro="Comptage des effectifs H/F sur l’échantillon filtré."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Genre agent (Excel).',
+                'Service et niveau de responsabilité pour les ventilations.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Comptage hommes/femmes au global.',
+                'Pourcentages par service et par niveau = part du genre sur le total du groupe.',
+                'Aucune correction artificielle de parité.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
