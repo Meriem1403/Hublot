@@ -239,8 +239,14 @@ export function calculerRepartitionMetier(
   
   const metiers: Record<string, number> = {};
   agentsActifs.forEach(agent => {
-    const corps = (agent.corps || agent.metier || 'Non défini').trim();
-    metiers[corps] = (metiers[corps] || 0) + 1;
+    const libelle = (
+      agent.libelleNNE ||
+      agent.fonctionExercee ||
+      agent.corps ||
+      agent.metier ||
+      'Non défini'
+    ).trim();
+    metiers[libelle] = (metiers[libelle] || 0) + 1;
   });
   
   return Object.entries(metiers).map(([metier, effectif]) => {

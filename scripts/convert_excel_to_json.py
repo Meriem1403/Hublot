@@ -635,6 +635,7 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
 
     # Corps / fonction exercée (proposition)
     # - corps : issu de la colonne "Grade" si présente
+    # - libelleNNE : issu de la colonne "Libellé NNE" (souvent plus explicite)
     # - fonctionExercee : issu de la colonne "Poste"
     col_grade_excel = None
     for col in row.index:
@@ -643,6 +644,12 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
             break
     if col_grade_excel and pd.notna(row[col_grade_excel]):
         agent['corps'] = str(row[col_grade_excel]).strip()
+
+    col_libelle_nne = mapping.get('libelleNNE')
+    if col_libelle_nne and col_libelle_nne in row.index and pd.notna(row[col_libelle_nne]):
+        libelle_nne = str(row[col_libelle_nne]).strip()
+        if libelle_nne:
+            agent['libelleNNE'] = libelle_nne
 
     col_poste = mapping.get('poste')
     if col_poste and col_poste in row.index and pd.notna(row[col_poste]):
