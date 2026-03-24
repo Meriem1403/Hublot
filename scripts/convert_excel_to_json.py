@@ -680,6 +680,11 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
         elif valeur == 'C':
             agent['niveauResponsabilite'] = 'Opérationnel'
             niveau_determine = True
+        else:
+            # Valeurs non A/B/C (ex: Contractuel, Autre) :
+            # on reste sur une règle strictement traçable et descriptive.
+            agent['niveauResponsabilite'] = 'Opérationnel'
+            niveau_determine = True
     
     # Si pas déterminé, utiliser la colonne statut (qui contient aussi A, B, C)
     if not niveau_determine and col_statut and col_statut in row.index:
@@ -693,19 +698,6 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
         elif valeur_statut == 'C':
             agent['niveauResponsabilite'] = 'Opérationnel'
             niveau_determine = True
-    
-    # Si toujours pas déterminé, essayer avec le grade ou le poste
-    if not niveau_determine:
-        col_grade = mapping.get('metier') or mapping.get('poste')
-        if col_grade and col_grade in row.index:
-            grade_str = str(row[col_grade]).upper()
-            # Mots-clés pour direction/encadrement
-            if any(mot in grade_str for mot in ['DIRECTEUR', 'DIRECTION', 'CHEF', 'RESPONSABLE', 'COORDINATEUR']):
-                if 'DIRECTEUR' in grade_str or 'DIRECTION' in grade_str:
-                    agent['niveauResponsabilite'] = 'Direction'
-                else:
-                    agent['niveauResponsabilite'] = 'Encadrement'
-                niveau_determine = True
     
     # Par défaut, opérationnel
     if not niveau_determine:

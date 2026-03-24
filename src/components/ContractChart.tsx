@@ -2,14 +2,16 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { Briefcase, ClipboardList } from 'lucide-react';
 import { useContratRepartition, useAgentsData, useTempsTravail } from '../hooks/useAgentsData';
 import { MethodologyDialog } from './MethodologyDialog';
+import { DIRM_MEDITERANEE_LABEL } from '../services/dataService';
 
 export function ContractChart() {
   const repartitionContrat = useContratRepartition();
   const agents = useAgentsData();
   const tempsTravail = useTempsTravail();
+  const repartitionAffichee = repartitionContrat.filter((item) => item.service !== DIRM_MEDITERANEE_LABEL);
   
   // Formater les données pour le graphique (sans stagiaires, non présents dans les données actuelles)
-  const data = repartitionContrat.map(item => ({
+  const data = repartitionAffichee.map(item => ({
     service: item.service,
     'Temps plein': item.tempsPlein,
     'Temps partiel': item.tempsPartiel,
@@ -17,11 +19,11 @@ export function ContractChart() {
   }));
   
   // Calculer les totaux (on garde totalStagiaires pour d'éventuelles évolutions, mais on ne l'affiche plus)
-  const totalTempsPlein = repartitionContrat.reduce((sum, item) => sum + item.tempsPlein, 0);
-  const totalTempsPartiel = repartitionContrat.reduce((sum, item) => sum + item.tempsPartiel, 0);
-  const totalCDD = repartitionContrat.reduce((sum, item) => sum + item.cdd, 0);
-  const totalStagiaires = repartitionContrat.reduce((sum, item) => sum + item.stagiaires, 0);
+  const totalTempsPlein = repartitionAffichee.reduce((sum, item) => sum + item.tempsPlein, 0);
+  const totalTempsPartiel = repartitionAffichee.reduce((sum, item) => sum + item.tempsPartiel, 0);
+  const totalCDD = repartitionAffichee.reduce((sum, item) => sum + item.cdd, 0);
   const totalAgents = agents.filter(a => a.actif).length;
+  const chartMinWidth = Math.max(680, data.length * 56);
 
   return (
     <div className="space-y-6">
@@ -29,7 +31,7 @@ export function ContractChart() {
         <div>
           <h2 className="text-2xl mb-2">Types de contrats</h2>
           <p className="text-gray-600">
-            Analyse de la diversité des situations contractuelles pour optimiser la gestion RH
+            Répartition des catégories contractuelles observées après filtres
           </p>
         </div>
         <MethodologyDialog
@@ -39,16 +41,19 @@ export function ContractChart() {
             {
               title: 'Sources',
               bullets: [
-                'Temps de travail (Excel) -> temps plein/temps partiel.',
-                'Statut (Excel) -> CDD / CDI / Titulaire / Stagiaire.',
+                'Champ Excel `Temps de travail` -> `contratType` (Temps plein/Temps partiel).',
+                'Champ Excel `Catégorie` -> `statut` normalisé (Titulaire/CDI/CDD/Stagiaire).',
                 'Service (Excel) pour la répartition par service.'
               ]
             },
             {
               title: 'Calculs affichés',
               bullets: [
-                'Comptage réel par service pour chaque type de contrat.',
+                'Base commune: filtres globaux appliqués, puis agents `actif = true`.',
+                'Règle de priorité par agent pour la répartition affichée: Stagiaire > CDD > Temps partiel > Temps plein.',
+                'Comptage réel par service pour chaque catégorie selon cette priorité.',
                 'Pourcentages = (nombre catégorie / effectif filtré) x 100.',
+                'DIRM Méditerranée est une agrégation calculée à partir des services DIRM MED/DDTM/DML Corse présents dans les données.',
                 'Aucune capacité théorique ni taux inventé.'
               ]
             }
@@ -57,36 +62,51 @@ export function ContractChart() {
       </div>
 
       <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-        <ResponsiveContainer width="100%" height={450}>
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="service" />
-            <YAxis />
-            <Tooltip
-              content={({ active, payload, label }) => {
-                if (active && payload && payload.length) {
-                  const total = payload.reduce((sum, p) => sum + (p.value as number || 0), 0);
-                  return (
-                    <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
-                      <p className="mb-2">{label}</p>
-                      {payload.map((p, index) => (
-                        <p key={index} style={{ color: p.color }}>
-                          {p.name}: {p.value} agents
-                        </p>
-                      ))}
-                      <p className="text-gray-900 mt-2 pt-2 border-t">Total: {total} agents</p>
-                    </div>
-                  );
-                }
-                return null;
-              }}
-            />
-            <Legend />
-            <Bar dataKey="Temps plein" stackId="a" fill="#3b82f6" />
-            <Bar dataKey="Temps partiel" stackId="a" fill="#10b981" />
-            <Bar dataKey="CDD" stackId="a" fill="#f59e0b" />
-          </BarChart>
-        </ResponsiveContainer>
+        <div className="overflow-x-auto">
+          <div style={{ minWidth: `${chartMinWidth}px` }}>
+            <ResponsiveContainer width="100%" height={450}>
+              <BarChart
+                data={data}
+                margin={{ top: 56, right: 30, left: 20, bottom: 88 }}
+                barCategoryGap="0%"
+                barGap={0}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="service"
+                  interval={0}
+                  angle={-30}
+                  textAnchor="end"
+                  height={88}
+                />
+                <YAxis />
+                <Tooltip
+                  content={({ active, payload, label }) => {
+                    if (active && payload && payload.length) {
+                      const total = payload.reduce((sum, p) => sum + (p.value as number || 0), 0);
+                      return (
+                        <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+                          <p className="mb-2">{label}</p>
+                          {payload.map((p, index) => (
+                            <p key={index} style={{ color: p.color }}>
+                              {p.name}: {p.value} agents
+                            </p>
+                          ))}
+                          <p className="text-gray-900 mt-2 pt-2 border-t">Total: {total} agents</p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Legend verticalAlign="top" align="center" wrapperStyle={{ top: 8 }} />
+                <Bar dataKey="Temps plein" stackId="a" fill="#3b82f6" barSize={16} />
+                <Bar dataKey="Temps partiel" stackId="a" fill="#10b981" barSize={16} />
+                <Bar dataKey="CDD" stackId="a" fill="#f59e0b" barSize={16} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
           <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
@@ -131,11 +151,11 @@ export function ContractChart() {
             <h3 className="text-lg text-orange-900">CDD</h3>
           </div>
           <p className="text-sm text-orange-900 mb-2">
-            {totalCDD} agents non permanents ({totalAgents > 0 ? Math.round((totalCDD / totalAgents) * 1000) / 10 : 0}% de l'effectif)
+              {totalCDD} agents classés CDD ({totalAgents > 0 ? Math.round((totalCDD / totalAgents) * 1000) / 10 : 0}% de l'effectif)
           </p>
           <p className="text-sm text-orange-800">
-            • {totalCDD} CDD<br />
-            • Opportunité de titularisation à étudier
+              • Comptage direct des agents avec `statut = CDD`<br />
+              • Valeur descriptive (aucune recommandation ajoutée)
           </p>
         </div>
       </div>

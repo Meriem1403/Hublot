@@ -1,4 +1,3 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { CheckCircle, Lightbulb } from 'lucide-react';
 import { useResponsabiliteRepartition, useAgentsData } from '../hooks/useAgentsData';
 import { MethodologyDialog } from './MethodologyDialog';
@@ -8,21 +7,29 @@ export function ResponsibilityPyramid() {
   const agents = useAgentsData();
   const total = agents.filter(a => a.actif).length;
   
-  // Mapper les données avec les couleurs et exemples
-  const levels = repartition.map(item => {
-    let color = 'from-green-500 to-green-600';
-    if (item.niveau === 'Direction') {
-      color = 'from-purple-500 to-purple-600';
-    } else if (item.niveau === 'Encadrement') {
-      color = 'from-blue-500 to-blue-600';
-    }
-    
+  // Ordre logique fixe pour une pyramide lisible (du sommet vers la base)
+  const LEVEL_ORDER = ['Direction', 'Encadrement', 'Opérationnel'] as const;
+  const LEVEL_WIDTH: Record<(typeof LEVEL_ORDER)[number], number> = {
+    Direction: 36,
+    Encadrement: 62,
+    Opérationnel: 88
+  };
+  const LEVEL_COLOR: Record<(typeof LEVEL_ORDER)[number], string> = {
+    Direction: 'from-purple-500 to-purple-600',
+    Encadrement: 'from-blue-500 to-blue-600',
+    Opérationnel: 'from-green-500 to-green-600'
+  };
+
+  // Mapper les données avec un ordre déterministe
+  const levels = LEVEL_ORDER.map((niveau) => {
+    const item = repartition.find((r) => r.niveau === niveau);
     return {
-      level: item.niveau,
-      count: item.nombre,
-      percent: Math.round(item.pourcentage * 10) / 10,
-      examples: item.exemples,
-      color
+      level: niveau,
+      count: item?.nombre || 0,
+      percent: Math.round((item?.pourcentage || 0) * 10) / 10,
+      examples: item?.exemples || 'Non renseigné',
+      color: LEVEL_COLOR[niveau],
+      width: LEVEL_WIDTH[niveau]
     };
   });
   
@@ -79,7 +86,7 @@ export function ResponsibilityPyramid() {
         <div>
           <h2 className="text-2xl mb-2">Niveaux de responsabilité</h2>
           <p className="text-gray-600">
-            Analyse de l'équilibre entre encadrement et agents opérationnels
+            Répartition des niveaux hiérarchiques observés après filtres
           </p>
         </div>
         <MethodologyDialog
@@ -89,16 +96,20 @@ export function ResponsibilityPyramid() {
             {
               title: 'Sources',
               bullets: [
-                'Poste / fonction exercée (Excel).',
-                'Règles de catégorisation Direction / Encadrement / Opérationnel.'
+                'Colonne Excel `Catégorie` (A/B/C/Autre/Contractuel) : source du niveau hiérarchique.',
+                'Colonne Excel `Service` : utilisée pour le tableau de répartition par service.',
+                'Champ `actif` : seuls les agents actifs sont inclus dans les comptages.'
               ]
             },
             {
               title: 'Calculs affichés',
               bullets: [
+                'Base commune: filtres globaux appliqués, puis agents `actif = true`.',
+                'Règle de classification: A -> Direction ; B -> Encadrement ; autres valeurs -> Opérationnel.',
                 'Comptage des agents par niveau.',
                 'Pourcentage par niveau sur le total filtré.',
-                'Ratios d’encadrement calculés depuis les effectifs réels.'
+                'Ratios descriptifs: Direction/Total = 1:arrondi(total / direction), Encadrement/Opérationnel = 1:arrondi(operationnel / encadrement).',
+                'Tableau par service: pour chaque service, comptage Direction/Encadrement/Opérationnel, puis pourcentages = (effectif niveau service / total service) x 100.'
               ]
             }
           ]}
@@ -111,13 +122,12 @@ export function ResponsibilityPyramid() {
           <h3 className="mb-6">Pyramide hiérarchique</h3>
           
           <div className="space-y-3">
-            {levels.map((level, index) => {
-              const width = 30 + (index * 35); // Progressive width
+            {levels.map((level) => {
               return (
                 <div key={level.level} className="flex flex-col items-center">
                   <div
                     className={`bg-gradient-to-r ${level.color} text-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer w-full`}
-                    style={{ maxWidth: `${width}%` }}
+                    style={{ maxWidth: `${level.width}%` }}
                   >
                     <div className="text-center">
                       <p className="text-sm opacity-90 mb-1">{level.level}</p>
@@ -194,9 +204,9 @@ export function ResponsibilityPyramid() {
                       {item.niveau} ({levelData.percent}%)
                     </h4>
                     <p className={`text-sm ${classes.textLight}`}>
-                      {item.niveau === 'Direction' && `Effectif cohérent pour une structure de cette taille. Ratio ${ratioDirection} conforme aux standards.`}
-                      {item.niveau === 'Encadrement' && `Bon équilibre. Ratio ${ratioEncadrement}, ${ratioValue !== null && ratioValue >= 6 && ratioValue <= 8 ? 'conforme' : 'à ajuster'} à la cible (1:6-8).`}
-                      {item.niveau === 'Opérationnel' && `Base opérationnelle solide. Permet une bonne capacité d'action sur le terrain.`}
+                      {item.niveau === 'Direction' && `Lecture descriptive: ${item.nombre} agents classés en Direction (${levelData.percent}%).`}
+                      {item.niveau === 'Encadrement' && `Lecture descriptive: ${item.nombre} agents classés en Encadrement (${levelData.percent}%). Ratio observé ${ratioEncadrement}.`}
+                      {item.niveau === 'Opérationnel' && `Lecture descriptive: ${item.nombre} agents classés en Opérationnel (${levelData.percent}%).`}
                     </p>
                   </div>
                 );
@@ -207,89 +217,23 @@ export function ResponsibilityPyramid() {
           <div className="bg-green-50 border border-green-200 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle className="w-5 h-5 text-green-900" />
-              <h3 className="text-lg text-green-900">Équilibre satisfaisant</h3>
+              <h3 className="text-lg text-green-900">Lecture des données</h3>
             </div>
             <p className="text-sm text-green-900">
-              La pyramide est bien proportionnée avec une base opérationnelle large 
-              et un encadrement adapté.
+              La pyramide affiche uniquement les effectifs observés par niveau
+              hiérarchique, sans cible théorique ni benchmark externe.
             </p>
           </div>
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <Lightbulb className="w-5 h-5 text-blue-900" />
-              <h3 className="text-lg text-blue-900">Perspective</h3>
+              <h3 className="text-lg text-blue-900">Traçabilité</h3>
             </div>
             <p className="text-sm text-blue-900">
-              {encadrement > 0 ? 
-                `Prévoir le renouvellement de ${Math.max(1, Math.round(encadrement * 0.15))} postes d'encadrement d'ici 2026 (départs en retraite).` :
-                'Surveiller les besoins en encadrement.'
-              }
+              Aucun scénario RH n’est injecté dans cet onglet. Les valeurs
+              présentées sont des comptages réels après filtres.
             </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Comparaison avec les standards de la fonction publique */}
-      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-        <h3 className="mb-4">Comparaison avec les standards de la fonction publique</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* DIRM Méditerranée (valeurs calculées) */}
-          <div className="text-center">
-            <p className="text-gray-600 mb-2">DIRM Méditerranée</p>
-            <div className="flex justify-center gap-2">
-              {levels.map((level) => {
-                const getColorClass = (niveau: string) => {
-                  if (niveau === 'Direction') return 'bg-purple-500';
-                  if (niveau === 'Encadrement') return 'bg-blue-500';
-                  return 'bg-green-500';
-                };
-                return (
-                  <div key={level.level} className="text-sm">
-                    <div className={`${getColorClass(level.level)} text-white px-3 py-1 rounded`}>{level.percent}%</div>
-                    <p className="text-xs text-gray-500 mt-1">{level.level}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Moyenne DIRM (référence fixe) */}
-          <div className="text-center">
-            <p className="text-gray-600 mb-2">Moyenne DIRM</p>
-            <div className="flex justify-center gap-2">
-              <div className="text-sm">
-                <div className="bg-purple-400 text-white px-3 py-1 rounded">4%</div>
-                <p className="text-xs text-gray-500 mt-1">Direction</p>
-              </div>
-              <div className="text-sm">
-                <div className="bg-blue-400 text-white px-3 py-1 rounded">15%</div>
-                <p className="text-xs text-gray-500 mt-1">Encadrement</p>
-              </div>
-              <div className="text-sm">
-                <div className="bg-green-400 text-white px-3 py-1 rounded">81%</div>
-                <p className="text-xs text-gray-500 mt-1">Opérationnel</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Cible optimale (référence fixe) */}
-          <div className="text-center">
-            <p className="text-gray-600 mb-2">Cible optimale</p>
-            <div className="flex justify-center gap-2">
-              <div className="text-sm">
-                <div className="bg-purple-300 text-gray-800 px-3 py-1 rounded">3-5%</div>
-                <p className="text-xs text-gray-500 mt-1">Direction</p>
-              </div>
-              <div className="text-sm">
-                <div className="bg-blue-300 text-gray-800 px-3 py-1 rounded">12-18%</div>
-                <p className="text-xs text-gray-500 mt-1">Encadrement</p>
-              </div>
-              <div className="text-sm">
-                <div className="bg-green-300 text-gray-800 px-3 py-1 rounded">77-85%</div>
-                <p className="text-xs text-gray-500 mt-1">Opérationnel</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
