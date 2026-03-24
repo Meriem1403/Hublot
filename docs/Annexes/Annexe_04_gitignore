@@ -1,0 +1,84 @@
+# Annexe 04 — Fichiers exclus du dépôt (sécurité, secrets)
+# Fichier original : .gitignore
+
+# Dépendances
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build
+build
+dist
+.next
+out
+
+# Environnement (ne jamais commiter de vrais identifiants)
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation (README à la racine + tout le dossier docs/)
+*.md
+!README.md
+!docs/
+!docs/*.md
+
+# Scripts Python (gardés séparément)
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+
+# Données sensibles - NE JAMAIS COMMITTER
+trdata/
+src/data/
+**/agents.json
+*.xlsx
+*.xls
+*.htpasswd
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+scripts/rapport_analyse.json
+**/rapport*.json
+
+# Rapports et logs
+*.log
+coverage
+.nyc_output
+
+# Tests
+test-results
+playwright-report
+
+# Sécurité
+secrets/
+*.secret

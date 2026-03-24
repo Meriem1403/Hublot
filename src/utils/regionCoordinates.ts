@@ -18,6 +18,9 @@ export const REGION_COORDINATES: Record<string, RegionCoordinates> = {
   'BRETAGNE': { latitude: 48.1173, longitude: -1.6778, nom: 'Bretagne' }, // Rennes
   'HAUTS-DE-FRANCE': { latitude: 50.6292, longitude: 3.0573, nom: 'Hauts-de-France' }, // Lille
   'OCCITANIE': { latitude: 43.6047, longitude: 1.4442, nom: 'Occitanie' }, // Toulouse
+  "PROVENCE-ALPES-COTE-D'AZUR": { latitude: 43.9352, longitude: 6.0679, nom: "Provence-Alpes-Cote d'Azur" },
+  "PROVENCE ALPES COTE D'AZUR": { latitude: 43.9352, longitude: 6.0679, nom: "Provence-Alpes-Cote d'Azur" },
+  'PACA': { latitude: 43.9352, longitude: 6.0679, nom: "Provence-Alpes-Cote d'Azur" },
   'Nice': { latitude: 43.7102, longitude: 7.2620, nom: 'Nice' },
   'Marseille': { latitude: 43.2965, longitude: 5.3698, nom: 'Marseille' },
   'Toulon': { latitude: 43.1242, longitude: 5.9280, nom: 'Toulon' },
@@ -40,6 +43,9 @@ export const REGION_COORDINATES: Record<string, RegionCoordinates> = {
   'COM-STC': { latitude: 48.8566, longitude: 2.3522, nom: 'COM-STC' }, // Paris (approximation)
   'EP-AAI-OPERATEURS': { latitude: 48.8566, longitude: 2.3522, nom: 'EP-AAI-OPÉRATEURS' }, // Paris (approximation)
   'HORS ZG': { latitude: 48.8566, longitude: 2.3522, nom: 'Hors zone géographique' }, // Paris (approximation)
+  'NON DEFINIE': { latitude: 48.8566, longitude: 2.3522, nom: 'Non définie' }, // Position neutre (Paris)
+  'Non définie': { latitude: 48.8566, longitude: 2.3522, nom: 'Non définie' },
+  'Non défini': { latitude: 48.8566, longitude: 2.3522, nom: 'Non défini' },
 };
 
 /**
@@ -49,7 +55,12 @@ export function getRegionCoordinates(regionName: string): RegionCoordinates | nu
   if (!regionName) return null;
   
   // Normaliser le nom de la région (enlever accents et mettre en majuscules)
-  const normalized = regionName.trim();
+  const normalized = regionName
+    .trim()
+    // Harmoniser les apostrophes typographiques (’ / ‘) vers une apostrophe ASCII '
+    .replace(/[’‘`]/g, "'")
+    // Harmoniser les espaces
+    .replace(/\s+/g, ' ');
   const normalizedUpper = normalized.toUpperCase();
   
   // Chercher une correspondance exacte (sensible à la casse)

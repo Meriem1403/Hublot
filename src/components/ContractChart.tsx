@@ -1,6 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Briefcase, ClipboardList } from 'lucide-react';
 import { useContratRepartition, useAgentsData, useTempsTravail } from '../hooks/useAgentsData';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function ContractChart() {
   const repartitionContrat = useContratRepartition();
@@ -24,11 +25,35 @@ export function ContractChart() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Types de contrats</h2>
-        <p className="text-gray-600">
-          Analyse de la diversité des situations contractuelles pour optimiser la gestion RH
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Types de contrats</h2>
+          <p className="text-gray-600">
+            Analyse de la diversité des situations contractuelles pour optimiser la gestion RH
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Types de contrats"
+          intro="Calculs réalisés sur les agents filtrés."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Temps de travail (Excel) -> temps plein/temps partiel.',
+                'Statut (Excel) -> CDD / CDI / Titulaire / Stagiaire.',
+                'Service (Excel) pour la répartition par service.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Comptage réel par service pour chaque type de contrat.',
+                'Pourcentages = (nombre catégorie / effectif filtré) x 100.',
+                'Aucune capacité théorique ni taux inventé.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">

@@ -8,6 +8,7 @@
     test: {
       globals: true,
       environment: 'jsdom',
+      exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/docs/Annexes/**'],
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],

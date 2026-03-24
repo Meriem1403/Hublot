@@ -5,6 +5,7 @@ import { DIRM_MEDITERANEE_LABEL } from '../services/dataService';
 import { calculerAge, getTrancheAge, calculerRepartitionAge } from '../utils/dataCalculations';
 import type { Agent } from '../types/data';
 import ExcelJS from 'exceljs';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function DynamicView() {
   const [selectedRegion, setSelectedRegion] = useState<string>('all');
@@ -205,11 +206,34 @@ export function DynamicView() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Vue dynamique avec filtres</h2>
-        <p className="text-gray-600">
-          Explorez les données interactivement comme dans Excel sans refaire de tableaux
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Vue dynamique avec filtres</h2>
+          <p className="text-gray-600">
+            Explorez les données interactivement comme dans Excel sans refaire de tableaux
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Vue dynamique"
+          intro="Tous les graphiques sont recalculés en direct selon les filtres sélectionnés."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Données agents issues de la conversion Excel -> JSON.',
+                'Champs région, service, statut, âge, genre, PASA, corps et fonction.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Filtrage initial puis agrégations (comptages, moyennes d’âge, répartitions).',
+                'Les tableaux exportables reprennent strictement les lignes filtrées.',
+                'Aucune donnée extrapolée n’est injectée.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       {/* Filters */}

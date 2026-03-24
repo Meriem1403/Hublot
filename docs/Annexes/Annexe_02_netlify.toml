@@ -1,0 +1,30 @@
+# Annexe 02 — Configuration Netlify (build, headers, redirects)
+# Fichier original : netlify.toml
+
+# Netlify : build + function agents (Neon)
+# La variable NETLIFY_DATABASE_URL est créée par l'extension Neon sur Netlify.
+
+[build]
+  command   = "npm run build"
+  publish   = "build"
+
+# Headers de sécurité (voir docs/SECURITE_4_DEPLOIEMENT.md)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Ne pas rediriger les functions vers index.html
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to   = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA : toutes les autres URLs → index.html
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200

@@ -88,114 +88,6 @@ export function calculerOverviewStats(
 ): OverviewStats {
   const agentsActifs = agents.filter(a => a.actif);
   const effectifsTotaux = agentsActifs.length;
-  const postesPourvus = effectifsTotaux;
-  const postesVacants = capacitesTotal - postesPourvus;
-  const tauxPourvu = capacitesTotal > 0 
-    ? (postesPourvus / capacitesTotal) * 100 
-    : 0;
-  
-  // Départs prévus en 2025
-  // Si dateDepartPrevue est disponible, l'utiliser
-  // Sinon, estimer basé sur l'âge (retraite à 62-65 ans) ou dateFinContrat pour les CDD
-  const annee2025 = new Date('2025-01-01');
-  const annee2026 = new Date('2026-01-01');
-  
-  let departsPrevu2025 = 0;
-  
-  // Compter les départs avec dateDepartPrevue renseignée
-  const departsAvecDate = agentsActifs.filter(agent => {
-    if (!agent.dateDepartPrevue) return false;
-    try {
-      const dateDepart = new Date(agent.dateDepartPrevue);
-      return dateDepart >= annee2025 && dateDepart < annee2026;
-    } catch {
-      return false;
-    }
-  }).length;
-  
-  // Compter les CDD se terminant en 2025
-  const cddFin2025 = agentsActifs.filter(agent => {
-    if (agent.statut !== 'CDD' || !agent.dateFinContrat) return false;
-    try {
-      const dateFin = new Date(agent.dateFinContrat);
-      return dateFin >= annee2025 && dateFin < annee2026;
-    } catch {
-      return false;
-    }
-  }).length;
-  
-  // Estimer les départs en retraite basés sur l'âge
-  // Vérifier d'abord si les dates de naissance sont valides (pas toutes "1970-01-01")
-  const datesNaissanceValides = agentsActifs.filter(agent => {
-    if (!agent.dateNaissance) return false;
-    try {
-      const anneeNaissance = new Date(agent.dateNaissance).getFullYear();
-      // Exclure les valeurs par défaut (1970) et les valeurs invalides
-      return anneeNaissance >= 1950 && anneeNaissance <= 2010 && anneeNaissance !== 1970;
-    } catch {
-      return false;
-    }
-  });
-  
-  let retraitesEstimees = 0;
-  
-  if (datesNaissanceValides.length > 0) {
-    // Utiliser les vraies dates de naissance
-    retraitesEstimees = datesNaissanceValides.filter(agent => {
-      try {
-        const anneeNaissance = new Date(agent.dateNaissance).getFullYear();
-        const ageEn2025 = 2025 - anneeNaissance;
-        // Départ probable si âge entre 62 et 65 ans en 2025
-        return ageEn2025 >= 62 && ageEn2025 <= 65;
-      } catch {
-        return false;
-      }
-    }).length;
-  } else {
-    // Si pas de dates valides, utiliser une estimation statistique basée sur les agents avec dates valides
-    // Compter seulement ceux qui ont des dates de naissance valides pour l'estimation
-    const agentsAvecDatesValides = agentsActifs.filter(agent => {
-      if (!agent.dateNaissance) return false;
-      try {
-        const anneeNaissance = new Date(agent.dateNaissance).getFullYear();
-        return anneeNaissance >= 1950 && anneeNaissance <= 2010 && anneeNaissance !== 1970;
-      } catch {
-        return false;
-      }
-    });
-    
-    if (agentsAvecDatesValides.length > 0) {
-      // Utiliser les dates valides pour estimer
-      retraitesEstimees = agentsAvecDatesValides.filter(agent => {
-        try {
-          const anneeNaissance = new Date(agent.dateNaissance).getFullYear();
-          const ageEn2025 = 2025 - anneeNaissance;
-          return ageEn2025 >= 62 && ageEn2025 <= 65;
-        } catch {
-          return false;
-        }
-      }).length;
-    } else {
-      // Si vraiment aucune date valide, estimation statistique conservatrice : 1-2% par an
-      const estimationStatistique = Math.round(agentsActifs.length * 0.015); // 1.5% par an
-      retraitesEstimees = estimationStatistique;
-    }
-  }
-  
-  departsPrevu2025 = departsAvecDate + cddFin2025 + retraitesEstimees;
-  
-  // Taux de présence
-  // Compter les absences réelles depuis les données
-  const enConges = agentsActifs.filter(a => a.enConges === true).length;
-  const enArretMaladie = agentsActifs.filter(a => a.enArretMaladie === true).length;
-  const enFormation = agentsActifs.filter(a => a.enFormation === true).length;
-  const totalAbsents = enConges + enArretMaladie + enFormation;
-  
-  const agentsPresents = effectifsTotaux - totalAbsents;
-  const tauxPresence = effectifsTotaux > 0 
-    ? (agentsPresents / effectifsTotaux) * 100 
-    : 0;
-  
   // Ratio encadrement
   const encadrants = agentsActifs.filter(
     a => a.niveauResponsabilite === 'Encadrement' || a.niveauResponsabilite === 'Direction'
@@ -215,39 +107,18 @@ export function calculerOverviewStats(
     ratioEncadrement = 'N/A';
   }
   
-  // Tension RH (basé sur les postes vacants réels)
-  // Si les capacités sont inférieures au nombre d'agents, la tension est faible
-  // Sinon, calculer basé sur le taux de postes vacants
-  let tensionRH: 'Faible' | 'Modérée' | 'Élevée' = 'Faible';
-  let tauxVacants = 0;
-  
-  if (postesVacants > 0 && capacitesTotal > effectifsTotaux) {
-    tauxVacants = (postesVacants / capacitesTotal) * 100;
-    if (tauxVacants > 15) {
-      tensionRH = 'Élevée';
-    } else if (tauxVacants > 10) {
-      tensionRH = 'Modérée';
-    } else {
-      tensionRH = 'Faible';
-    }
-  } else if (postesVacants <= 0) {
-    // Si pas de postes vacants ou sur-effectif, tension faible
-    tensionRH = 'Faible';
-    tauxVacants = 0;
-  }
+  const nbTempsPlein = agentsActifs.filter((a) => a.contratType === 'Temps plein').length;
+  const nbTempsPartiel = agentsActifs.filter((a) => a.contratType === 'Temps partiel').length;
+  const etpTotal = agentsActifs.reduce((sum, a) => sum + (typeof a.etp === 'number' ? a.etp : 0), 0);
   
   return {
     effectifsTotaux,
-    postesPourvus,
-    postesVacants,
-    tauxPourvu,
-    tauxVacants,
-    departsPrevu2025,
-    tauxPresence,
     ratioEncadrement,
-    tensionRH,
     encadrantsTotal: encadrants,
-    operationnelsTotal: operationnels
+    operationnelsTotal: operationnels,
+    etpTotal,
+    nbTempsPlein,
+    nbTempsPartiel
   };
 }
 
@@ -368,7 +239,8 @@ export function calculerRepartitionMetier(
   
   const metiers: Record<string, number> = {};
   agentsActifs.forEach(agent => {
-    metiers[agent.metier] = (metiers[agent.metier] || 0) + 1;
+    const corps = (agent.corps || agent.metier || 'Non défini').trim();
+    metiers[corps] = (metiers[corps] || 0) + 1;
   });
   
   return Object.entries(metiers).map(([metier, effectif]) => {

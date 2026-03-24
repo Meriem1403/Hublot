@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { CheckCircle, AlertTriangle, Lightbulb, BarChart3 } from 'lucide-react';
 import { useTempsTravail, useAgentsData } from '../hooks/useAgentsData';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function WorkTimeGauge() {
   const tempsTravail = useTempsTravail();
@@ -101,11 +102,34 @@ export function WorkTimeGauge() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Temps de travail et disponibilité</h2>
-        <p className="text-gray-600">
-          Analyse de la disponibilité réelle des équipes et des absences
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Temps de travail et disponibilité</h2>
+          <p className="text-gray-600">
+            Analyse de la disponibilité réelle des équipes et des absences
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Temps de travail et disponibilité"
+          intro="Indicateurs agrégés sur les champs de temps de travail et présence."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Temps de travail (Excel): temps plein / temps partiel.',
+                'Statuts de présence/absence disponibles dans les données agents.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Taux = nombre catégorie / total filtré x 100.',
+                'Disponibilité ETP dérivée des équivalents temps plein effectifs.',
+                'Aucune absence synthétique générée à l’affichage.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       {/* Main Gauges */}

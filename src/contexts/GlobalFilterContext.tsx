@@ -8,12 +8,18 @@ export type GlobalFilters = {
   region: string;
   service: string;
   statut: string;
+  pasa: string;
+  corps: string;
+  fonction: string;
 };
 
 const defaultFilters: GlobalFilters = {
   region: 'all',
   service: 'all',
-  statut: 'all'
+  statut: 'all',
+  pasa: 'all',
+  corps: 'all',
+  fonction: 'all'
 };
 
 type GlobalFilterContextValue = {
@@ -21,6 +27,9 @@ type GlobalFilterContextValue = {
   setRegion: (v: string) => void;
   setService: (v: string) => void;
   setStatut: (v: string) => void;
+  setPasa: (v: string) => void;
+  setCorps: (v: string) => void;
+  setFonction: (v: string) => void;
   resetFilters: () => void;
 };
 
@@ -38,6 +47,15 @@ export function GlobalFilterProvider({ children }: { children: ReactNode }) {
   const setStatut = useCallback((v: string) => {
     setFilters((prev) => ({ ...prev, statut: v }));
   }, []);
+  const setPasa = useCallback((v: string) => {
+    setFilters((prev) => ({ ...prev, pasa: v }));
+  }, []);
+  const setCorps = useCallback((v: string) => {
+    setFilters((prev) => ({ ...prev, corps: v }));
+  }, []);
+  const setFonction = useCallback((v: string) => {
+    setFilters((prev) => ({ ...prev, fonction: v }));
+  }, []);
   const resetFilters = useCallback(() => {
     setFilters(defaultFilters);
   }, []);
@@ -47,6 +65,9 @@ export function GlobalFilterProvider({ children }: { children: ReactNode }) {
     setRegion,
     setService,
     setStatut,
+    setPasa,
+    setCorps,
+    setFonction,
     resetFilters
   };
 

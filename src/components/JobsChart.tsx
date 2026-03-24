@@ -1,6 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Lightbulb } from 'lucide-react';
 import { useMetierRepartition } from '../hooks/useAgentsData';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function JobsChart() {
   const repartitionMetiers = useMetierRepartition();
@@ -16,11 +17,34 @@ export function JobsChart() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Métiers et postes clés</h2>
-        <p className="text-gray-600">
-          Répartition des effectifs par métier à partir des données réelles
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Corps (grade)</h2>
+          <p className="text-gray-600">
+            Répartition des effectifs par corps à partir des données réelles
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Corps (grade)"
+          intro="Répartition par corps depuis les champs agents."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Corps (prioritaire) sinon métier historique dans les données agents.',
+                'Filtres globaux appliqués avant agrégation.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Comptage des agents par corps.',
+                'Tri décroissant des effectifs.',
+                'Top 20 affiché pour lisibilité.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
@@ -78,8 +102,8 @@ export function JobsChart() {
           <h3 className="text-lg text-blue-900">Comment lire ce graphique</h3>
         </div>
         <p className="text-sm text-blue-900 leading-relaxed">
-          Chaque barre représente un métier, avec sa longueur proportionnelle au nombre d'agents en poste.
-          Les métiers sont triés du plus au moins représenté et seuls les 20 premiers sont affichés pour
+          Chaque barre représente un corps, avec sa longueur proportionnelle au nombre d'agents en poste.
+          Les corps sont triés du plus au moins représenté et seuls les 20 premiers sont affichés pour
           garder une bonne lisibilité. Cela permet d’identifier rapidement les métiers dominants dans la DIRM
           ainsi que ceux qui sont plus rares.
         </p>

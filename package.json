@@ -69,6 +69,8 @@
             "docker:stop": "docker-compose -f docker-compose.dev.yml -f docker-compose.prod.yml down",
             "docker:logs": "docker-compose -f docker-compose.dev.yml logs -f",
             "docker:convert": "docker-compose run --rm converter python3 scripts/convert_excel_to_json.py",
-            "push-agents-to-neon": "node scripts/push-agents-to-neon.js"
+            "push-agents-to-neon": "node scripts/push-agents-to-neon.js",
+            "reset-neon-agents": "node scripts/reset-neon-agents.js",
+            "check-neon-agents": "node scripts/check-neon-agents.js"
       }
 }

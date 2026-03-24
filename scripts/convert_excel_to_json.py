@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 from datetime import datetime, timedelta
 import warnings
+import re
 
 warnings.filterwarnings('ignore')
 
@@ -138,6 +139,58 @@ def convertir_code_mission_en_nom(code_mission: str, row: pd.Series, mapping: Di
         else:
             return f'Mission {code_str}'
 
+
+def mapper_pasa(code_action: Any, sous_action: Any, thematique: Any) -> Dict[str, Optional[str]]:
+    """
+    Déduit la politique publique PASA (code + libellé) et un segment (optionnel)
+    à partir des colonnes Action / Sous-Action / Thématique.
+
+    IMPORTANT:
+    Le classeur fourni ne contient pas directement le code 217-11-xx. Cette déduction
+    est basée sur les codes observés (Action / Sous-Action) et la thématique.
+    """
+    action = str(code_action).strip() if pd.notna(code_action) else ''
+    sous = str(sous_action).strip() if pd.notna(sous_action) else ''
+    thema = str(thematique).strip() if pd.notna(thematique) else ''
+
+    LIBELLES = {
+        '217-11-02': "217-11-02 enseignement maritime, emploi et formations maritimes",
+        '217-11-03': "217-11-03 pavillon français, flotte de commerce et sécurité des navires",
+        '217-11-04': "217-11-04 police en mer (contrôle/surveillance, environnement marin, cultures marines)",
+        '217-11-05': "217-11-05 soutien et systèmes d’information",
+        '217-11-08': "217-11-08 planification maritime, plaisance et sécurité des loisirs nautiques",
+        '217-11-11': "217-11-11 sauvetage et sécurité en mer",
+        '217-11-13': "217-11-13 aides à la navigation (phares et balises) / lutte contre les pollutions marines",
+        '217-11-16': "217-11-16 capitaineries et sécurité portuaire",
+    }
+
+    thema_norm = thema.lower()
+    if thema_norm == 'phares et balises':
+        return {'pasaCode': '217-11-13', 'pasaLibelle': LIBELLES['217-11-13'], 'pasaSegment': 'Phares et balises', 'pasaSousSegment': sous or None}
+    if thema.upper() == 'ISN':
+        return {'pasaCode': '217-11-05', 'pasaLibelle': LIBELLES['217-11-05'], 'pasaSegment': 'Systèmes d’information', 'pasaSousSegment': sous or None}
+    if thema.upper() == 'LPM':
+        return {'pasaCode': '217-11-16', 'pasaLibelle': LIBELLES['217-11-16'], 'pasaSegment': 'Capitaineries / ports', 'pasaSousSegment': sous or None}
+
+    # Codes décimaux -> formation
+    if action in ['0.4', '0.5', '0.62', '0.7', '0.8', '0.85', '0.86', '0.9']:
+        return {'pasaCode': '217-11-02', 'pasaLibelle': LIBELLES['217-11-02'], 'pasaSegment': 'Formation maritime', 'pasaSousSegment': action}
+
+    # Sauvetage
+    if action == '1':
+        return {'pasaCode': '217-11-11', 'pasaLibelle': LIBELLES['217-11-11'], 'pasaSegment': 'Sauvetage', 'pasaSousSegment': sous or action}
+
+    # Contrôle/surveillance/pêches
+    if action.startswith('0205') or action.startswith('0203'):
+        return {'pasaCode': '217-11-04', 'pasaLibelle': LIBELLES['217-11-04'], 'pasaSegment': 'Police en mer', 'pasaSousSegment': sous or action}
+
+    # Affaires maritimes
+    if action == '0113-07':
+        return {'pasaCode': '217-11-03', 'pasaLibelle': LIBELLES['217-11-03'], 'pasaSegment': 'Affaires maritimes', 'pasaSousSegment': sous or action}
+
+    # Par défaut
+    return {'pasaCode': '217-11-05', 'pasaLibelle': LIBELLES['217-11-05'], 'pasaSegment': thema or None, 'pasaSousSegment': sous or None}
+
 def normaliser_valeur_genre(valeur: Any) -> str:
     """Normalise la valeur du genre"""
     if pd.isna(valeur):
@@ -151,6 +204,116 @@ def normaliser_valeur_genre(valeur: Any) -> str:
         return 'F'
     else:
         return 'Autre'
+
+def normaliser_service(valeur: Any, thematique: Optional[str]) -> str:
+    """
+    Normalise le champ service en conservant les structures réelles (DDTM/DIRM/DM/SAM…)
+    et en ventilant COM-STC quand c’est possible.
+    """
+    if pd.isna(valeur):
+        service = 'Non défini'
+    else:
+        service = str(valeur).strip()
+        if not service:
+            service = 'Non défini'
+
+    # Harmoniser "DDTM06" -> "DDTM 06" (et variantes)
+    m = re.match(r'^(DDTM|DDT|DIRM|DM|SAM)\s*[-_/]?\s*(\d{1,2})$', service.upper())
+    if m:
+        prefix = m.group(1)
+        num = m.group(2).zfill(2)
+        service = f'{prefix} {num}'
+
+    # Normaliser quelques libellés fréquents
+    s_upper = service.upper()
+    if s_upper in ['DIRM MED', 'DIRM MÉD', 'DIRM MEDITERRANEE', 'DIRM MÉDITERRANÉE', 'DIRM MEDITERRANÉE']:
+        service = 'DIRM MED'
+    if s_upper == 'DMSOI':
+        service = 'DM SOI'
+        s_upper = service.upper()
+    # DML / DMLC : harmoniser
+    if s_upper.startswith('DML '):
+        service = 'DMLC ' + service[4:].strip()
+        s_upper = service.upper()
+    if s_upper == 'DML CORSE':
+        service = 'DMLC CORSE'
+        s_upper = service.upper()
+
+    # Ventilation COM-STC -> APB / ESP Mer / CROSS Minarm / LPM (ou fallback)
+    if 'COM-STC' in s_upper or s_upper == 'COM STC':
+        th = (thematique or '').strip()
+        th_upper = th.upper()
+        if th_upper in ['APB', 'LPM', 'ISN']:
+            return th_upper
+        if 'CROSS' in th_upper or 'MINARM' in th_upper:
+            return 'CROSS Minarm'
+        if 'ESP' in th_upper:
+            return 'ESP Mer'
+        return 'Autre COM-STC'
+
+    return service
+
+def categoriser_fonction(poste: Optional[str]) -> Optional[str]:
+    """
+    Catégorise une fonction exercée (champ Poste) en catégories génériques
+    pour faciliter le filtrage et l'analyse.
+    """
+    if not poste:
+        return None
+    p = str(poste).strip()
+    if not p:
+        return None
+    up = p.upper()
+
+    # Encadrement / direction
+    if any(k in up for k in ['DIRECT', 'DIR.', 'CHEF', 'RESPONS', 'COORDIN', 'ENCAD', 'MANAGER']):
+        return 'Encadrement'
+
+    # Contrôle / surveillance / police
+    if any(k in up for k in ['CONTROLE', 'CONTRÔLE', 'SURVEILL', 'POLICE', 'PATROUIL', 'INSPECT', 'DCS', 'PECHE', 'PÊCHE', 'CULTURES MARINES']):
+        return 'Contrôle/Surveillance'
+
+    # Sauvetage / CROSS / secours
+    if any(k in up for k in ['CROSS', 'SAUVET', 'SECOURS', 'SAR', 'MRCC']):
+        return 'Sauvetage/Secours'
+
+    # Systèmes d'information
+    if any(k in up for k in ['SI', 'SIC', 'INFORMAT', 'RÉSEAU', 'RESEAU', 'CYBER', 'DATA', 'APPLICATION']):
+        return "Systèmes d'information"
+
+    # Environnement / pollution
+    if any(k in up for k in ['ENVIRON', 'POLLUTION', 'POLLUT', 'AIRE MARINE', 'NATURA', 'BIODIVERS']):
+        return 'Environnement'
+
+    # Portuaire / capitainerie
+    if any(k in up for k in ['PORT', 'CAPITAIN', 'CAPITAINERIE', 'QUAI', 'DOCK']):
+        return 'Portuaire'
+
+    # Marins / navigation / balisage
+    if any(k in up for k in ['NAVIGATION', 'BALIS', 'PHARES', 'BALISE', 'AIDE A LA NAVIGATION', 'AIDE À LA NAVIGATION']):
+        return 'Navigation'
+
+    # Juridique
+    if any(k in up for k in ['JURIDI', 'CONTENTIEUX', 'REGLEMENT', 'RÉGLEMENT']):
+        return 'Juridique'
+
+    # Formation
+    if any(k in up for k in ['FORMATION', 'ENSEIGN', 'PEDAGOG', 'PÉDAGOG']):
+        return 'Formation'
+
+    # Technique / maintenance
+    if any(k in up for k in ['TECHNI', 'MAINTEN', 'MECANI', 'MÉCANI', 'ELECT', 'ÉLECT', 'NAV', 'PHARES', 'BALISE']):
+        return 'Technique/Maintenance'
+
+    # Administratif / RH / finances
+    if any(k in up for k in ['ADMIN', 'SECRET', 'RH', 'RESSOURCES', 'FINANC', 'BUDGET', 'COMPTA', 'ACHAT', 'MARCHE']):
+        return 'Administratif/RH/Finances'
+
+    # Logistique
+    if any(k in up for k in ['LOGIST', 'APPRO', 'STOCK', 'MAGASIN', 'FLOTTE']):
+        return 'Logistique'
+
+    return 'Autre'
 
 def extraire_date_naissance_du_nne(libelle_nne: Any) -> Optional[str]:
     """
@@ -415,28 +578,28 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
         agent['contratType'] = 'Temps plein'
         agent['tempsPartielPourcentage'] = None
     
-    # Région
+    # Région (conserver la valeur source Excel, sans conversion en villes)
     col_region = mapping.get('region')
     if col_region and col_region in row.index:
-        region = str(row[col_region]).strip()
-        # Normaliser les régions
-        if 'MARSEILLE' in region.upper():
-            agent['region'] = 'Marseille'
-        elif 'NICE' in region.upper() or 'COTE' in region.upper() or 'CÔTE' in region.upper():
-            agent['region'] = 'Nice'
-        elif 'TOULON' in region.upper():
-            agent['region'] = 'Toulon'
-        elif 'SETE' in region.upper() or 'SÈTE' in region.upper() or 'MONTPELLIER' in region.upper():
-            agent['region'] = 'Sète'
-        else:
-            agent['region'] = region
+        region = str(row[col_region]).strip() if pd.notna(row[col_region]) else ''
+        agent['region'] = region or 'Non définie'
     else:
-        agent['region'] = 'Marseille'  # Par défaut
+        agent['region'] = 'Non définie'
     
     # Service
+    # Récupérer la thématique si disponible (utile pour COM-STC)
+    col_thematique = None
+    for col in row.index:
+        if 'thématique' in str(col).lower() or 'thematique' in str(col).lower():
+            col_thematique = col
+            break
+    thematique_val = None
+    if col_thematique and col_thematique in row.index and pd.notna(row[col_thematique]):
+        thematique_val = str(row[col_thematique]).strip()
+
     col_service = mapping.get('service')
     if col_service and col_service in row.index:
-        agent['service'] = str(row[col_service]) if pd.notna(row[col_service]) else 'Non défini'
+        agent['service'] = normaliser_service(row[col_service], thematique_val)
     else:
         agent['service'] = 'Non défini'
     
@@ -445,12 +608,48 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
     if col_mission and col_mission in row.index:
         code_mission = str(row[col_mission]) if pd.notna(row[col_mission]) else None
         if code_mission:
+            # Conserver le code Action brut (référence fiable Excel)
+            agent['missionCode'] = code_mission.strip()
             # Convertir le code Action en nom de mission lisible
             agent['mission'] = convertir_code_mission_en_nom(code_mission, row, mapping)
         else:
             agent['mission'] = 'Non définie'
     else:
         agent['mission'] = 'Non définie'
+
+    # PASA : politique publique + segment (dérivés de Action / Sous-Action / Thématique)
+    col_sous_action = None
+    for col in row.index:
+        col_lower = str(col).lower()
+        if 'sous-action' in col_lower or col_lower.strip() == 'sous_action':
+            col_sous_action = col
+
+    pasa = mapper_pasa(
+        row[col_mission] if col_mission and col_mission in row.index else None,
+        row[col_sous_action] if col_sous_action and col_sous_action in row.index else None,
+        row[col_thematique] if col_thematique and col_thematique in row.index else None,
+    )
+    for k, v in pasa.items():
+        if v is not None and v != '':
+            agent[k] = v
+
+    # Corps / fonction exercée (proposition)
+    # - corps : issu de la colonne "Grade" si présente
+    # - fonctionExercee : issu de la colonne "Poste"
+    col_grade_excel = None
+    for col in row.index:
+        if str(col).strip().lower() == 'grade':
+            col_grade_excel = col
+            break
+    if col_grade_excel and pd.notna(row[col_grade_excel]):
+        agent['corps'] = str(row[col_grade_excel]).strip()
+
+    col_poste = mapping.get('poste')
+    if col_poste and col_poste in row.index and pd.notna(row[col_poste]):
+        agent['fonctionExercee'] = str(row[col_poste]).strip()
+        cat = categoriser_fonction(agent.get('fonctionExercee'))
+        if cat:
+            agent['fonctionCategorie'] = cat
     
     # Métier
     col_metier = mapping.get('metier')
@@ -539,86 +738,17 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
     else:
         agent['etp'] = 1.0 if agent['contratType'] == 'Temps plein' else (agent['tempsPartielPourcentage'] or 80) / 100
     
-    # Disponibilité (détectée depuis "Temps de travail")
-    # Si "Temps de travail" = 0, l'agent est probablement absent
-    # On ne peut pas distinguer le type d'absence, donc on considère comme congés par défaut
+    # Absences
+    # IMPORTANT: ne JAMAIS inventer des absences. Si la source ne fournit pas le motif,
+    # on laisse à False (données non renseignées).
     col_conges = mapping.get('enConges')
     col_formation = mapping.get('enFormation')
     col_maladie = mapping.get('enArretMaladie')
-    col_temps_travail = mapping.get('contratType')  # Cette colonne correspond à "Temps de travail"
     
     # Vérifier d'abord les colonnes explicites d'absence si elles existent
     agent['enConges'] = bool(row[col_conges]) if col_conges and col_conges in row.index and pd.notna(row[col_conges]) else False
     agent['enFormation'] = bool(row[col_formation]) if col_formation and col_formation in row.index and pd.notna(row[col_formation]) else False
     agent['enArretMaladie'] = bool(row[col_maladie]) if col_maladie and col_maladie in row.index and pd.notna(row[col_maladie]) else False
-    
-    # Si aucune absence détectée mais "Temps de travail" = 0, considérer comme congés
-    if not agent['enConges'] and not agent['enFormation'] and not agent['enArretMaladie']:
-        # Chercher la colonne "Temps de travail" directement
-        col_temps_travail_direct = None
-        for col in row.index:
-            if 'temps' in str(col).lower() and 'travail' in str(col).lower():
-                col_temps_travail_direct = col
-                break
-        
-        if col_temps_travail_direct and col_temps_travail_direct in row.index:
-            try:
-                temps_travail_val = row[col_temps_travail_direct]
-                if pd.notna(temps_travail_val):
-                    temps_travail_num = float(temps_travail_val)
-                    # Si temps de travail = 0, l'agent est absent
-                    if temps_travail_num == 0:
-                        # Essayer de déterminer le type d'absence selon des critères
-                        # 1. Vérifier le Poste/Grade pour détecter la formation
-                        col_poste = mapping.get('poste') or mapping.get('metier')
-                        col_grade = mapping.get('metier') or mapping.get('poste')
-                        
-                        est_formation = False
-                        est_maladie = False
-                        
-                        if col_poste and col_poste in row.index:
-                            poste_str = str(row[col_poste]).upper()
-                            # Mots-clés pour formation
-                            if any(mot in poste_str for mot in ['FORMATION', 'FORMATEUR', 'STAGE', 'APPRENTI', 'STAGIAIRE']):
-                                est_formation = True
-                        
-                        if col_grade and col_grade in row.index:
-                            grade_str = str(row[col_grade]).upper()
-                            if any(mot in grade_str for mot in ['FORMATION', 'FORMATEUR', 'STAGE', 'APPRENTI', 'STAGIAIRE']):
-                                est_formation = True
-                        
-                        # 2. Vérifier la date d'affectation récente (peut indiquer formation)
-                        col_date_affectation = mapping.get('dateEmbauche')
-                        if col_date_affectation and col_date_affectation in row.index:
-                            try:
-                                date_aff = pd.to_datetime(row[col_date_affectation])
-                                if pd.notna(date_aff):
-                                    # Si affectation très récente (< 3 mois), peut-être formation
-                                    trois_mois = datetime.now() - timedelta(days=90)
-                                    if date_aff > trois_mois:
-                                        est_formation = True
-                            except:
-                                pass
-                        
-                        # Répartition statistique si aucun critère ne correspond
-                        # En moyenne dans la fonction publique :
-                        # - Congés : ~70% des absences
-                        # - Maladie : ~20% des absences  
-                        # - Formation : ~10% des absences
-                        if est_formation:
-                            agent['enFormation'] = True
-                        else:
-                            # Utiliser un hash de l'ID pour une répartition déterministe
-                            agent_id = agent.get('id', str(row.name))
-                            hash_val = hash(str(agent_id)) % 100
-                            if hash_val < 70:  # 70% en congés
-                                agent['enConges'] = True
-                            elif hash_val < 90:  # 20% en maladie
-                                agent['enArretMaladie'] = True
-                            else:  # 10% en formation
-                                agent['enFormation'] = True
-            except:
-                pass
     
     # Actif
     col_actif = mapping.get('actif')
@@ -756,31 +886,86 @@ def convertir_excel_vers_json(chemin_excel: Path, chemin_json: Path, feuille: Op
     
     return data
 
+def convertir_excels_vers_historique(chemins_excel: List[Path], feuille: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Construit un StatDirmData avec `historique` (snapshots).
+    Le dernier fichier devient le snapshot courant (champ `agents`).
+    """
+    snapshots: List[Dict[str, Any]] = []
+    latest: Optional[Dict[str, Any]] = None
+
+    for p in chemins_excel:
+        # Ecriture dans un chemin bidon : on ne garde que le dict retourné
+        tmp = convertir_excel_vers_json(p, Path('/dev/null'), feuille)
+        snapshots.append({
+            'agents': tmp.get('agents', []),
+            'metadonnees': {
+                'dateExport': tmp.get('metadonnees', {}).get('dateExport', datetime.now().strftime('%Y-%m-%d')),
+                'version': tmp.get('metadonnees', {}).get('version', '1.0'),
+                'source': p.name
+            }
+        })
+        latest = tmp
+
+    if latest is None:
+        raise ValueError("Aucun fichier Excel fourni")
+
+    return {
+        'agents': latest.get('agents', []),
+        'capacites': latest.get('capacites', {}),
+        'metadonnees': latest.get('metadonnees', {}),
+        'historique': snapshots
+    }
+
 def main():
     """Fonction principale"""
     import sys
     
     base_path = Path(__file__).parent.parent
     
-    # Fichier Excel à convertir
-    if len(sys.argv) > 1:
-        fichier_excel = Path(sys.argv[1])
+    # Fichiers Excel à convertir (un ou plusieurs)
+    excel_args = [a for a in sys.argv[1:] if str(a).lower().endswith('.xlsx')]
+    if excel_args:
+        fichiers_excel = [Path(a) for a in excel_args]
     else:
         # Par défaut, utiliser le fichier corrigé
-        fichier_excel = base_path / 'trdata' / 'Interface_Effectifs_DIRM_Central_V6_corrected.xlsx'
+        fichiers_excel = [base_path / 'trdata' / 'Interface_Effectifs_DIRM_Central_V6_corrected.xlsx']
     
-    if not fichier_excel.exists():
-        print(f"❌ Fichier non trouvé: {fichier_excel}")
-        return
+    for f in fichiers_excel:
+        if not f.exists():
+            print(f"❌ Fichier non trouvé: {f}")
+            return
     
-    # Fichier JSON de sortie
-    fichier_json = base_path / 'src' / 'data' / 'agents.json'
-    fichier_json.parent.mkdir(parents=True, exist_ok=True)
+    # Fichiers JSON de sortie (synchronisés)
+    # - src/data/agents.json : utilisé en fallback build
+    # - public/data/agents.json : servi à l'exécution via /data/agents.json
+    fichier_json_src = base_path / 'src' / 'data' / 'agents.json'
+    fichier_json_public = base_path / 'public' / 'data' / 'agents.json'
+    fichier_json_src.parent.mkdir(parents=True, exist_ok=True)
+    fichier_json_public.parent.mkdir(parents=True, exist_ok=True)
     
     # Feuille spécifique (optionnel)
-    feuille = sys.argv[2] if len(sys.argv) > 2 else None
-    
-    convertir_excel_vers_json(fichier_excel, fichier_json, feuille)
+    feuille = None
+    if '--sheet' in sys.argv:
+        try:
+            feuille = sys.argv[sys.argv.index('--sheet') + 1]
+        except Exception:
+            feuille = None
+
+    if len(fichiers_excel) == 1:
+        data = convertir_excel_vers_json(fichiers_excel[0], fichier_json_src, feuille)
+    else:
+        data = convertir_excels_vers_historique(fichiers_excel, feuille)
+        with open(fichier_json_src, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False, default=str)
+        print(f"\n✅ Fichier JSON (historique) créé: {fichier_json_src}")
+        print(f"   Snapshots: {len(data.get('historique', []))}")
+        print(f"   Total agents (snapshot courant): {len(data.get('agents', []))}")
+
+    # Synchroniser la version servie par l'application
+    with open(fichier_json_public, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False, default=str)
+    print(f"✅ Copie synchronisée: {fichier_json_public}")
 
 if __name__ == '__main__':
     main()
