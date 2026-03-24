@@ -14,12 +14,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Ne pas rediriger les functions vers index.html
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to   = "/.netlify/functions/:splat"
-  status = 200
-
 # SPA : toutes les autres URLs → index.html
 [[redirects]]
   from = "/*"
