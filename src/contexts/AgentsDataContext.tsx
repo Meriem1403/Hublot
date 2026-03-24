@@ -29,15 +29,32 @@ export function AgentsDataProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     setError(null);
 
-    fetch(DATA_URL)
+    const url = `${DATA_URL}${DATA_URL.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    fetch(url, { cache: 'no-store' })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
       .then((json: unknown) => {
         if (cancelled) return;
-        if (json && typeof json === 'object' && 'agents' in json && Array.isArray((json as StatDirmData).agents)) {
+        if (!json || typeof json !== 'object') return;
+
+        // Format standard : { agents: [...] }
+        if ('agents' in json && Array.isArray((json as StatDirmData).agents)) {
           setData(json as StatDirmData);
+          return;
+        }
+
+        // Format historique : { historique: [{ agents, metadonnees }, ...] }
+        if ('historique' in json && Array.isArray((json as StatDirmData).historique)) {
+          const h = (json as StatDirmData).historique || [];
+          const last = h.length > 0 ? h[h.length - 1] : undefined;
+          if (last && Array.isArray(last.agents)) {
+            setData({
+              ...(json as StatDirmData),
+              agents: last.agents
+            });
+          }
         }
       })
       .catch((err) => {

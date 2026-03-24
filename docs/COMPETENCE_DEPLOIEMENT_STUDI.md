@@ -24,7 +24,7 @@
   - se déclenche sur chaque push et pull request sur `main` ;
   - exécute `npm ci`, puis **`npm run test:run`** (tests unitaires), puis `npm run build`.
 - **Rédaction en YAML :** La pipeline CI est décrite en YAML (syntaxe et structure attendues dans le référentiel).
-- **Automatisation des tests en DevOps :** Les tests unitaires (Vitest) sont exécutés automatiquement dans le workflow CI. Fichiers de tests : **`src/services/dataService.test.ts`** (filtres, DIRM Méditerranée), **`src/utils/dataCalculations.test.ts`** (calcul d’âge, tranches d’âge). Commande : `npm run test:run`.
+- **Automatisation des tests en DevOps :** Batterie de **32 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
 
 ---
 
@@ -54,7 +54,8 @@
 | Documentation du processus de déploiement | `HOSTING.md`, `DEPLOIEMENT_SECURISE.md`, `README.md` |
 | Application sécurisée | Authentification, `.gitignore` pour les secrets, docs sécurité |
 | Scripts / automatisation | Scripts npm, Python (conversion), configuration Netlify |
-| Environnement de test | Instructions en local et Docker dans `README.md` et `HOSTING.md` |
+| Environnement de test | Instructions en local et Docker dans `README.md` et `HOSTING.md` ; voir **`ENVIRONNEMENT_TEST.md`** (DEV / TEST / PROD). |
+| Plan de test, scénarios, validation | **`PLAN_TEST.md`** : tableau Test / Objectif / Résultat attendu / Statut (auth, API, responsive, performance, tests automatisés CI, sécurité). |
 
 ---
 

@@ -1,6 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { CheckCircle, Lightbulb } from 'lucide-react';
 import { useResponsabiliteRepartition, useAgentsData } from '../hooks/useAgentsData';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function ResponsibilityPyramid() {
   const repartition = useResponsabiliteRepartition();
@@ -74,11 +75,34 @@ export function ResponsibilityPyramid() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Niveaux de responsabilité</h2>
-        <p className="text-gray-600">
-          Analyse de l'équilibre entre encadrement et agents opérationnels
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Niveaux de responsabilité</h2>
+          <p className="text-gray-600">
+            Analyse de l'équilibre entre encadrement et agents opérationnels
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Niveaux de responsabilité"
+          intro="Classement des agents par niveau de responsabilité."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Poste / fonction exercée (Excel).',
+                'Règles de catégorisation Direction / Encadrement / Opérationnel.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Comptage des agents par niveau.',
+                'Pourcentage par niveau sur le total filtré.',
+                'Ratios d’encadrement calculés depuis les effectifs réels.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

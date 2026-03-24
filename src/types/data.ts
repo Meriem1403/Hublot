@@ -40,7 +40,19 @@ export interface Agent {
   region: Region;
   service: string;
   mission: string;
+  missionCode?: string; // code Action brut issu de l'Excel (ex: 0205-04)
   metier: string;
+
+  // PASA / politiques publiques (si disponibles dans la source)
+  pasaCode?: string; // ex: "217-11-04"
+  pasaLibelle?: string; // ex: "Police en mer"
+  pasaSegment?: string; // ex: "Contrôle et surveillance maritime"
+  pasaSousSegment?: string; // ex: "0205-01-03" ou libellé
+
+  // Référentiels RH (si disponibles)
+  corps?: string; // ex: issu de "Grade"
+  fonctionExercee?: string; // ex: issu de "Poste" ou champ dédié
+  fonctionCategorie?: string; // ex: "Encadrement", "Contrôle/Surveillance", "Administratif", ...
   
   // Hiérarchie
   niveauResponsabilite: NiveauResponsabilite;
@@ -90,17 +102,19 @@ export interface RegionCapacite {
 // ============================================================================
 
 export interface OverviewStats {
+  /** Agents actifs (en poste) */
   effectifsTotaux: number;
-  postesPourvus: number;
-  postesVacants: number;
-  tauxPourvu: number;
-  tauxVacants: number; // Pourcentage de postes vacants
-  departsPrevu2025: number;
-  tauxPresence: number;
-  ratioEncadrement: string; // Format "1:8"
-  tensionRH: TensionRH;
+  /** Encadrants + direction (données source) */
   encadrantsTotal: number;
+  /** Opérationnels (données source) */
   operationnelsTotal: number;
+  /** Ratio encadrement calculé à partir des niveaux */
+  ratioEncadrement: string; // Format "1:8"
+  /** ETP total (somme des ETP réels/calculés) */
+  etpTotal: number;
+  /** Temps plein / temps partiel (données source) */
+  nbTempsPlein: number;
+  nbTempsPartiel: number;
 }
 
 export interface StatutRepartition {
@@ -254,6 +268,18 @@ export interface StatDirmData {
     dateExport: string;
     version: string;
   };
+  /**
+   * Historique d'exports (année/année ou multi-snapshots).
+   * Quand présent, `agents` doit représenter le snapshot courant (le plus récent).
+   */
+  historique?: Array<{
+    agents: Agent[];
+    metadonnees: {
+      dateExport: string;
+      version: string;
+      source?: string;
+    };
+  }>;
 }
 
 // ============================================================================

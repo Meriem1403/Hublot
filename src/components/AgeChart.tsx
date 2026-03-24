@@ -1,6 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend } from 'recharts';
 import { Calendar, Lightbulb, BarChart3, Check, AlertTriangle, ArrowRight } from 'lucide-react';
 import { useAgeRepartition, useAgeIndicateurs } from '../hooks/useAgentsData';
+import { MethodologyDialog } from './MethodologyDialog';
 
 export function AgeChart() {
   const data = useAgeRepartition();
@@ -23,11 +24,34 @@ export function AgeChart() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl mb-2">Répartition par âge</h2>
-        <p className="text-gray-600">
-          Analyse démographique pour anticiper les départs et planifier le renouvellement
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl mb-2">Répartition par âge</h2>
+          <p className="text-gray-600">
+            Analyse démographique pour anticiper les départs et planifier le renouvellement
+          </p>
+        </div>
+        <MethodologyDialog
+          title="Méthodologie — Répartition par âge"
+          intro="Âges calculés à partir des dates de naissance des agents."
+          sections={[
+            {
+              title: 'Sources',
+              bullets: [
+                'Date de naissance (Excel).',
+                'Découpage en tranches d’âge via règles de calcul internes.'
+              ]
+            },
+            {
+              title: 'Calculs affichés',
+              bullets: [
+                'Âge = année courante - année de naissance (ajusté selon date).',
+                'Comptage des agents par tranche.',
+                'Indicateurs jeunes/coeur/seniors dérivés des tranches réelles.'
+              ]
+            }
+          ]}
+        />
       </div>
 
       <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">

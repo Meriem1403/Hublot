@@ -53,16 +53,21 @@ make convert
 ## 📺 Voir les données sur Netlify
 
 **Tu déploies sur Netlify et tu ne vois pas les données ?**  
-→ Tout est expliqué pas à pas ici : **[COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md](./COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md)**  
+→ Tout est expliqué pas à pas ici : **[docs/COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md](./docs/COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md)**  
 (2 options : avec ou sans base de données Neon.)
 
 ## 📚 Documentation
 
-- [DOCKER.md](./DOCKER.md) - Guide complet Docker
-- [QUICK_START.md](./QUICK_START.md) - Démarrage rapide
-- [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) - Dépannage
-- [DATA_MODEL.md](./DATA_MODEL.md) - Modèle de données
-- [INTEGRATION_DONNEES.md](./INTEGRATION_DONNEES.md) - Intégration des données
+Toute la documentation est dans le dossier **[docs/](./docs/)** :
+
+- [docs/README.md](./docs/README.md) – Index de la documentation
+- [docs/QUICK_START.md](./docs/QUICK_START.md) – Démarrage rapide
+- [docs/HOSTING.md](./docs/HOSTING.md) – Hébergement
+- [docs/DOCKER.md](./docs/DOCKER.md) – Guide Docker
+- [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) – Dépannage
+- [docs/DATA_MODEL.md](./docs/DATA_MODEL.md) – Modèle de données
+- [docs/INTEGRATION_DONNEES.md](./docs/INTEGRATION_DONNEES.md) – Intégration des données
+- [docs/COMPETENCE_DEPLOIEMENT_STUDI.md](./docs/COMPETENCE_DEPLOIEMENT_STUDI.md) – Compétence Studi (déploiement, CI/CD)
 
 ## 🛠️ Commandes disponibles
 

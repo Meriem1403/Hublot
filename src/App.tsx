@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, TrendingUp, AlertTriangle, MapPin, LogOut, Filter } from 'lucide-react';
+import { Users, TrendingUp, AlertTriangle, MapPin, LogOut, Filter, ChevronDown, ChevronUp } from 'lucide-react';
 import { OverviewCards } from './components/OverviewCards';
 import { MissionChart } from './components/MissionChart';
 import { RegionMap } from './components/RegionMap';
@@ -156,56 +156,162 @@ export default function App() {
 
 function GlobalFilterBar() {
   const ctx = useGlobalFilterContext();
-  const { regions, services, statuts } = useFilterOptions();
+  const { regions, services, statuts, pasas, corps, fonctions } = useFilterOptions();
   if (!ctx) return null;
-  const { filters, setRegion, setService, setStatut, resetFilters } = ctx;
-  const hasFilter = filters.region !== 'all' || filters.service !== 'all' || filters.statut !== 'all';
+  const { filters, setRegion, setService, setStatut, setPasa, setCorps, setFonction, resetFilters } = ctx;
+  const advancedActive = filters.pasa !== 'all' || filters.corps !== 'all' || filters.fonction !== 'all';
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(advancedActive);
+  const hasFilter =
+    filters.region !== 'all' ||
+    filters.service !== 'all' ||
+    filters.statut !== 'all' ||
+    filters.pasa !== 'all' ||
+    filters.corps !== 'all' ||
+    filters.fonction !== 'all';
   return (
     <div className="bg-white/80 backdrop-blur border-b border-gray-200 sticky top-[52px] z-[9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex flex-wrap items-center gap-3">
-          <Filter className="w-4 h-4 text-gray-500" />
-          <span className="text-sm font-medium text-gray-700">Filtres :</span>
-          <select
-            value={filters.region}
-            onChange={(e) => setRegion(e.target.value)}
-            className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="all">Toutes les régions</option>
-            {regions.map((r) => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
-          <select
-            value={filters.service}
-            onChange={(e) => setService(e.target.value)}
-            className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[180px]"
-          >
-            <option value="all">Tous les services</option>
-            {services.map((s) => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
-          <select
-            value={filters.statut}
-            onChange={(e) => setStatut(e.target.value)}
-            className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="all">Tous les statuts</option>
-            {statuts.map((s) => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
-          {hasFilter && (
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Filter className="w-4 h-4 text-gray-500" />
+            <span className="text-sm font-medium text-gray-700">Filtres</span>
+          </div>
+          <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={resetFilters}
-              className="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+              onClick={() => setShowAdvanced((v) => !v)}
+              className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-sm text-gray-700 leading-none whitespace-nowrap transition-colors"
+              aria-expanded={showAdvanced}
             >
-              Réinitialiser
+              <span className="leading-none">Filtres avancés</span>
+              <span className="flex h-4 w-4 items-center justify-center">
+                {showAdvanced ? <ChevronUp className="h-4 w-4 shrink-0" /> : <ChevronDown className="h-4 w-4 shrink-0" />}
+              </span>
             </button>
-          )}
+            {hasFilter && (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+              >
+                Réinitialiser
+              </button>
+            )}
+          </div>
         </div>
+
+        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+            <select
+              value={filters.region}
+              onChange={(e) => setRegion(e.target.value)}
+              className="w-full px-3 py-2 text-sm bg-transparent border-0 outline-none"
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+            >
+              <option value="all">Toutes les régions</option>
+              {regions.map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+            <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
+              <ChevronDown className="h-4 w-4 shrink-0" />
+            </span>
+          </div>
+          <div className="flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+            <select
+              value={filters.service}
+              onChange={(e) => setService(e.target.value)}
+              className="w-full px-3 py-2 text-sm bg-transparent border-0 outline-none"
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+            >
+              <option value="all">Tous les services</option>
+              {services.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+            <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
+              <ChevronDown className="h-4 w-4 shrink-0" />
+            </span>
+          </div>
+          <div className="flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+            <select
+              value={filters.statut}
+              onChange={(e) => setStatut(e.target.value)}
+              className="w-full px-3 py-2 text-sm bg-transparent border-0 outline-none"
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+            >
+              <option value="all">Tous les statuts</option>
+              {statuts.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+            <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
+              <ChevronDown className="h-4 w-4 shrink-0" />
+            </span>
+          </div>
+        </div>
+
+        {showAdvanced && (
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+              <select
+                value={filters.pasa}
+                onChange={(e) => setPasa(e.target.value)}
+                className="w-full px-3 py-2 text-sm bg-transparent border-0 outline-none"
+                title="Politique publique (PASA)"
+                style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+              >
+                <option value="all">Toutes les politiques PASA</option>
+                {pasas.map((p) => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
+              <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
+                <ChevronDown className="h-4 w-4 shrink-0" />
+              </span>
+            </div>
+            <div className="flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+              <select
+                value={filters.corps}
+                onChange={(e) => setCorps(e.target.value)}
+                className="w-full px-3 py-2 text-sm bg-transparent border-0 outline-none"
+                title="Corps (Grade)"
+                style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+              >
+                <option value="all">Tous les corps</option>
+                {corps.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+              <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
+                <ChevronDown className="h-4 w-4 shrink-0" />
+              </span>
+            </div>
+            <div className="flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+              <select
+                value={filters.fonction}
+                onChange={(e) => setFonction(e.target.value)}
+                className="w-full px-3 py-2 text-sm bg-transparent border-0 outline-none"
+                title="Fonction exercée (Poste)"
+                style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+              >
+                <option value="all">Toutes les fonctions</option>
+                {fonctions.map((f) => (
+                  <option key={f} value={f}>{f}</option>
+                ))}
+              </select>
+              <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
+                <ChevronDown className="h-4 w-4 shrink-0" />
+              </span>
+            </div>
+          </div>
+        )}
+
+        {advancedActive && !showAdvanced && (
+          <p className="mt-2 text-xs text-gray-500">
+            Des filtres avancés sont actifs (PASA/Corps/Fonctions).
+          </p>
+        )}
       </div>
     </div>
   );
