@@ -51,6 +51,7 @@ export interface Agent {
 
   // Référentiels RH (si disponibles)
   corps?: string; // ex: issu de "Grade"
+  libelleNNE?: string; // libellé métier/emploi plus lisible (colonne Excel "Libellé NNE")
   fonctionExercee?: string; // ex: issu de "Poste" ou champ dédié
   fonctionCategorie?: string; // ex: "Encadrement", "Contrôle/Surveillance", "Administratif", ...
   
