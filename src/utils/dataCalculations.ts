@@ -363,6 +363,7 @@ export function calculerRepartitionGenre(agents: Agent[]): GenreRepartition[] {
   
   const hommes = agentsActifs.filter(a => a.genre === 'H').length;
   const femmes = agentsActifs.filter(a => a.genre === 'F').length;
+  const autres = total - hommes - femmes;
   
   return [
     {
@@ -374,6 +375,11 @@ export function calculerRepartitionGenre(agents: Agent[]): GenreRepartition[] {
       genre: 'Femmes',
       nombre: femmes,
       pourcentage: total > 0 ? (femmes / total) * 100 : 0
+    },
+    {
+      genre: 'Autres',
+      nombre: autres,
+      pourcentage: total > 0 ? (autres / total) * 100 : 0
     }
   ];
 }
@@ -391,6 +397,7 @@ export function calculerGenreParService(agents: Agent[]): GenreParService[] {
         service: agent.service,
         hommes: 0,
         femmes: 0,
+        autres: 0,
         totalService: 0
       };
     }
@@ -402,6 +409,8 @@ export function calculerGenreParService(agents: Agent[]): GenreParService[] {
       service.hommes++;
     } else if (agent.genre === 'F') {
       service.femmes++;
+    } else {
+      service.autres++;
     }
   });
   
@@ -462,7 +471,8 @@ export function calculerGenreParNiveau(agents: Agent[]): GenreParNiveau[] {
       niveaux[agent.niveauResponsabilite] = {
         niveau: agent.niveauResponsabilite,
         hommes: 0,
-        femmes: 0
+        femmes: 0,
+        autres: 0
       };
     }
     
@@ -472,6 +482,8 @@ export function calculerGenreParNiveau(agents: Agent[]): GenreParNiveau[] {
       niveau.hommes++;
     } else if (agent.genre === 'F') {
       niveau.femmes++;
+    } else {
+      niveau.autres++;
     }
   });
   

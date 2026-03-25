@@ -21,13 +21,22 @@ export function DynamicView() {
     service: selectedService !== 'all' ? selectedService : undefined,
     statut: selectedStatus !== 'all' ? selectedStatus : undefined
   });
+
+  // Le convertisseur met `dateNaissance = 1970-01-01` uniquement quand la date de naissance
+  // n'est pas disponible dans l'Excel. Pour rester "uniquement Excel", on exclut cette
+  // valeur des calculs d'âge (relevés, tranches, moyenne, etc.).
+  const isDateNaissanceFiable = (dateNaissance: string | undefined) =>
+    !!dateNaissance && dateNaissance !== '1970-01-01';
   
   // Calculer les statistiques filtrées
   const stats = useMemo(() => {
     const agentsActifs = filteredAgents.filter(a => a.actif);
+    const agentsActifsAvecNaissance = agentsActifs.filter((a) =>
+      isDateNaissanceFiable(a.dateNaissance)
+    );
     
     // Répartition par âge
-    const byAge = calculerRepartitionAge(agentsActifs);
+    const byAge = calculerRepartitionAge(agentsActifsAvecNaissance);
     
     // Répartition par service
     const services: Record<string, number> = {};
@@ -41,7 +50,7 @@ export function DynamicView() {
     // Totaux
     const hommes = agentsActifs.filter(a => a.genre === 'H').length;
     const femmes = agentsActifs.filter(a => a.genre === 'F').length;
-    const ages = agentsActifs.map(a => calculerAge(a.dateNaissance));
+    const ages = agentsActifsAvecNaissance.map(a => calculerAge(a.dateNaissance));
     const ageMoyen = ages.length > 0 
       ? ages.reduce((sum, age) => sum + age, 0) / ages.length 
       : 0;
@@ -56,7 +65,8 @@ export function DynamicView() {
         effectif: agentsActifs.length,
         hommes,
         femmes,
-        ageMoyen: Math.round(ageMoyen * 10) / 10
+        ageMoyen: Math.round(ageMoyen * 10) / 10,
+        effectifAgeCalcule: agentsActifsAvecNaissance.length
       }
     };
   }, [filteredAgents]);
@@ -109,7 +119,9 @@ export function DynamicView() {
     
     // Ajouter les données
     agentsActifs.forEach((agent, index) => {
-      const age = calculerAge(agent.dateNaissance);
+      const age = isDateNaissanceFiable(agent.dateNaissance)
+        ? calculerAge(agent.dateNaissance)
+        : '';
       const row = worksheet.addRow({
         id: agent.id || '',
         region: agent.region || '',
@@ -221,13 +233,15 @@ export function DynamicView() {
               title: 'Sources',
               bullets: [
                 'Données agents issues de la conversion Excel -> JSON.',
-                'Champs région, service, statut, âge, genre, PASA, corps et fonction.'
+                'Champs région, service, statut, âge, genre, PASA, corps et fonction.',
+                'Âge calculé à partir de `dateNaissance` (source: Excel).'
               ]
             },
             {
               title: 'Calculs affichés',
               bullets: [
                 'Filtrage initial puis agrégations (comptages, moyennes d’âge, répartitions).',
+                'Pour les calculs d’âge (tranches, moyenne, etc.), on exclut les dates de naissance par défaut `1970-01-01` utilisées en cas de valeur absente dans l’Excel.',
                 'Les tableaux exportables reprennent strictement les lignes filtrées.',
                 'Aucune donnée extrapolée n’est injectée.'
               ]
@@ -403,7 +417,9 @@ export function DynamicView() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {filteredAgents.filter(a => a.actif).slice(0, rowsToShow).map((agent) => {
-                const age = calculerAge(agent.dateNaissance);
+                const age = isDateNaissanceFiable(agent.dateNaissance)
+                  ? calculerAge(agent.dateNaissance)
+                  : null;
                 return (
                   <tr key={agent.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3 text-gray-600">{agent.id}</td>
@@ -419,7 +435,9 @@ export function DynamicView() {
                         {agent.statut}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-900">{age}</td>
+                    <td className="px-4 py-3 text-gray-900">
+                      {age === null ? 'Non renseigné' : age}
+                    </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded text-xs ${
                         agent.genre === 'H' ? 'bg-blue-100 text-blue-700' : 'bg-pink-100 text-pink-700'
@@ -455,7 +473,7 @@ export function DynamicView() {
 
       {/* Quick Insights */}
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-        <h3 className="text-lg mb-3 text-blue-900">💡 Analyses rapides de la sélection</h3>
+        <h3 className="text-lg mb-3 text-blue-900">Analyses rapides de la sélection</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div className="bg-white rounded-lg p-4">
             <p className="text-gray-600 mb-1">Service le plus représenté</p>
@@ -477,7 +495,8 @@ export function DynamicView() {
               {stats.byAge.length > 0 && stats.totals.effectif > 0
                 ? (() => {
                     const maxAge = stats.byAge.reduce((max, item) => item.count > max.count ? item : max, stats.byAge[0]);
-                    return `${maxAge.count} agents (${Math.round((maxAge.count / stats.totals.effectif) * 1000) / 10}%)`;
+                    const denom = stats.totals.effectifAgeCalcule || 1;
+                    return `${maxAge.count} agents (${Math.round((maxAge.count / denom) * 1000) / 10}%)`;
                   })()
                 : '0 agents'}
             </p>
