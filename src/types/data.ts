@@ -66,6 +66,7 @@ export interface Agent {
   
   // Temps de travail et disponibilité
   etp: number; // Équivalent Temps Plein (calculé si temps partiel)
+  tempsTravailRenseigne?: boolean; // true si la colonne Excel "Temps de travail" est renseignée
   enConges: boolean;
   enFormation: boolean;
   enArretMaladie: boolean;
@@ -174,7 +175,7 @@ export interface AgeIndicateurs {
 }
 
 export interface GenreRepartition {
-  genre: 'Hommes' | 'Femmes';
+  genre: 'Hommes' | 'Femmes' | 'Autres';
   nombre: number;
   pourcentage: number;
 }
@@ -183,6 +184,7 @@ export interface GenreParService {
   service: string;
   hommes: number;
   femmes: number;
+  autres: number;
   totalService: number;
 }
 
@@ -190,6 +192,7 @@ export interface GenreParNiveau {
   niveau: NiveauResponsabilite;
   hommes: number;
   femmes: number;
+  autres: number;
 }
 
 export interface TempsTravailStats {

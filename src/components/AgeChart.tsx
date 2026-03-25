@@ -1,5 +1,5 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend } from 'recharts';
-import { Calendar, Lightbulb, BarChart3, Check, AlertTriangle, ArrowRight } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { Lightbulb, BarChart3 } from 'lucide-react';
 import { useAgeRepartition, useAgeIndicateurs } from '../hooks/useAgentsData';
 import { MethodologyDialog } from './MethodologyDialog';
 
@@ -28,7 +28,7 @@ export function AgeChart() {
         <div>
           <h2 className="text-2xl mb-2">Répartition par âge</h2>
           <p className="text-gray-600">
-            Analyse démographique pour anticiper les départs et planifier le renouvellement
+            Répartition démographique observée à partir des données Excel
           </p>
         </div>
         <MethodologyDialog
@@ -38,16 +38,22 @@ export function AgeChart() {
             {
               title: 'Sources',
               bullets: [
-                'Date de naissance (Excel).',
-                'Découpage en tranches d’âge via règles de calcul internes.'
+                'Colonne Excel `Année de naissance` (source principale de `dateNaissance`).',
+                'Colonne Excel `Libellé NNE` utilisée en repli par le convertisseur si année de naissance absente.',
+                'Colonne Excel `Sexe` pour le détail Hommes/Femmes par tranche.',
+                'Champ `actif` : seuls les agents actifs sont inclus.'
               ]
             },
             {
               title: 'Calculs affichés',
               bullets: [
+                'Base commune: filtres globaux appliqués, puis agents `actif = true`.',
                 'Âge = année courante - année de naissance (ajusté selon date).',
                 'Comptage des agents par tranche.',
-                'Indicateurs jeunes/coeur/seniors dérivés des tranches réelles.'
+                'Tranches utilisées: <25, 25-29, 30-34, 35-39, 40-44, 45-49, 50-54, 55-59, 60-64, >=65.',
+                'Indicateurs: Jeunes (<35), Coeur (35-54), Seniors (>=55) calculés depuis les âges individuels.',
+                'Âge moyen = moyenne des âges ; âge médian = valeur centrale de la liste triée.',
+                'Aucune projection RH, aucune cible théorique et aucun benchmark externe.'
               ]
             }
           ]}
@@ -154,31 +160,23 @@ export function AgeChart() {
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
         <div className="flex items-center gap-2 mb-3">
           <BarChart3 className="w-5 h-5 text-blue-900" />
-          <h3 className="text-lg text-blue-900">Analyse de la pyramide des âges</h3>
+          <h3 className="text-lg text-blue-900">Lecture factuelle des tranches d'âge</h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-blue-900 mb-2">Points positifs</h4>
+            <h4 className="text-blue-900 mb-2">Répartition observée</h4>
             <ul className="text-sm text-blue-800 space-y-1">
-              <li className="flex items-center gap-1"><Check className="w-3 h-3" /> {pctJeunes}% de jeunes agents (&lt; 35 ans)</li>
-              <li className="flex items-center gap-1"><Check className="w-3 h-3" /> {pctCoeur}% d'agents 35-54 ans (cœur de compétences)</li>
-              <li className="flex items-center gap-1"><Check className="w-3 h-3" /> Renouvellement progressif possible</li>
+              <li>{pctJeunes}% de jeunes agents (&lt; 35 ans), soit {indicateurs.jeunesMoins35} agents.</li>
+              <li>{pctCoeur}% d'agents 35-54 ans, soit {indicateurs.coeur35_54} agents.</li>
+              <li>{pctSeniors}% de seniors (&ge; 55 ans), soit {indicateurs.seniorsPlus55} agents.</li>
             </ul>
           </div>
           <div>
-            <h4 className="text-blue-900 mb-2">Points de vigilance</h4>
+            <h4 className="text-blue-900 mb-2">Indicateurs calculés</h4>
             <ul className="text-sm text-blue-800 space-y-1">
-              <li className="flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> {pctSeniors}% de seniors (≥ 55 ans)</li>
-              <li className="flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> {indicateurs.seniorsPlus55} agents de 55 ans et plus</li>
-              <li className="flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Risque perte de compétences clés</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-blue-900 mb-2">Actions 2025</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
-              <li className="flex items-center gap-1"><ArrowRight className="w-3 h-3" /> Utiliser ces indicateurs pour dimensionner les recrutements et la transmission de compétences</li>
-              <li className="flex items-center gap-1"><ArrowRight className="w-3 h-3" /> Cibler en priorité les métiers / services où les seniors sont très nombreux</li>
-              <li className="flex items-center gap-1"><ArrowRight className="w-3 h-3" /> Suivre régulièrement l'évolution de la pyramide des âges</li>
+              <li>Âge moyen: {indicateurs.ageMoyen} ans.</li>
+              <li>Âge médian: {indicateurs.ageMedian} ans.</li>
+              <li>Ces valeurs sont descriptives et basées uniquement sur les âges calculés des agents actifs.</li>
             </ul>
           </div>
         </div>
