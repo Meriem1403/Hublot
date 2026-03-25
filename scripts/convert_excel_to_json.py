@@ -552,6 +552,7 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
     if col_contrat_type and col_contrat_type in row.index:
         valeur = row[col_contrat_type]
         if pd.notna(valeur):
+            agent['tempsTravailRenseigne'] = True
             try:
                 temps_travail = float(valeur)
                 if temps_travail == 100:
@@ -572,9 +573,11 @@ def convertir_agent(row: pd.Series, mapping: Dict[str, str]) -> Dict[str, Any]:
                     agent['contratType'] = 'Temps plein'
                     agent['tempsPartielPourcentage'] = None
         else:
+            agent['tempsTravailRenseigne'] = False
             agent['contratType'] = 'Temps plein'
             agent['tempsPartielPourcentage'] = None
     else:
+        agent['tempsTravailRenseigne'] = False
         agent['contratType'] = 'Temps plein'
         agent['tempsPartielPourcentage'] = None
     
