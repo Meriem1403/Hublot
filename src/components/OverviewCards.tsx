@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Users, BarChart3, BadgeCheck, Briefcase, Timer, X, HelpCircle } from 'lucide-react';
+import { useState } from 'react';
+import { Users, BarChart3, BadgeCheck, Briefcase, Timer, X } from 'lucide-react';
 import { useOverviewStats } from '../hooks/useAgentsData';
 import { useAgentsData } from '../hooks/useAgentsData';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
@@ -8,13 +8,6 @@ export function OverviewCards() {
   const overviewStats = useOverviewStats();
   const agents = useAgentsData();
   const [openInfo, setOpenInfo] = useState(false);
-
-  const sources = useMemo(() => {
-    const hasTempsTravail = agents.some((a) => typeof a.tempsPartielPourcentage === 'number' || typeof a.etp === 'number');
-    const hasNiveau = agents.some((a) => typeof a.niveauResponsabilite === 'string' && a.niveauResponsabilite.length > 0);
-    const hasPasa = agents.some((a) => typeof a.pasaCode === 'string' && a.pasaCode.length > 0);
-    return { hasTempsTravail, hasNiveau, hasPasa };
-  }, [agents]);
 
   const pasaData = (() => {
     const counts = new Map<string, number>();
@@ -125,7 +118,6 @@ export function OverviewCards() {
                 <h3 className="text-2xl text-gray-900">Méthodologie — Vue d’ensemble</h3>
                 <p className="text-sm text-gray-600 mt-1 leading-relaxed">
                   Cette fiche explique <strong>les calculs</strong> et <strong>les colonnes Excel</strong> utilisées.
-                  Aucun indicateur n’est estimé (pas de postes “théoriques”, pas d’absences inventées).
                 </p>
               </div>
               <button
@@ -184,19 +176,6 @@ export function OverviewCards() {
                 </ul>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                <div className="flex items-start gap-3">
-                  <HelpCircle className="w-5 h-5 text-blue-900 mt-0.5" />
-                  <div className="text-sm text-blue-900">
-                    <p className="font-semibold mb-1">Vérification rapide de la disponibilité des colonnes</p>
-                    <ul className="space-y-1">
-                      <li><strong>Temps de travail</strong> : {sources.hasTempsTravail ? 'détecté' : 'non détecté'}</li>
-                      <li><strong>Niveau / hiérarchie</strong> : {sources.hasNiveau ? 'détecté' : 'non détecté'}</li>
-                      <li><strong>PASA</strong> : {sources.hasPasa ? 'détecté' : 'non détecté'}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

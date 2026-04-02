@@ -129,8 +129,7 @@ export function WorkTimeGauge() {
               title: 'Sources',
               bullets: [
                 'Colonne Excel `Temps de travail` (quotité en %).',
-                'Champ `actif` : seuls les agents actifs sont considérés.',
-                'Aucune colonne d’absence n’est utilisée dans cet onglet.'
+                'Champ `actif` : seuls les agents actifs sont considérés.'
               ]
             },
             {
@@ -141,8 +140,7 @@ export function WorkTimeGauge() {
                 'Temps plein = quotité = 100 ; Temps partiel = quotité < 100.',
                 'Les lignes sans quotité sont comptabilisées dans "Temps de travail non renseigné".',
                 'ETP partiel = somme(quotité/100) ; ETP plein = nombre de temps plein.',
-                'Disponibilité ETP = (ETP total / effectif avec temps renseigné) x 100.',
-                'Aucune cible externe, aucune absence synthétique, aucune projection.'
+                'Disponibilité ETP = (ETP total / effectif avec temps renseigné) x 100.'
               ]
             }
           ]}

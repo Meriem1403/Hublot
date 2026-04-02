@@ -21,6 +21,8 @@ export function RegionMap() {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const agents = useAgentsData();
 
+  const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+
   // Diagnostic : comparer ce que l'Excel (agents) contient vs ce que la carte affiche.
   // Utile pour valider qu'on n'ajoute/supprime rien et que la correspondance coordonnées fonctionne.
   const excelDistinctRegions = useMemo(() => {
@@ -86,6 +88,86 @@ export function RegionMap() {
         displayOffsetPx: { x: dx, y: dy }
       };
     });
+  }, [agents]);
+
+  // Statistiques utiles par région (100% basées sur les champs issus de l’Excel)
+  const regionStats = useMemo(() => {
+    type MetierEntry = { label: string; count: number };
+    const labelMetier = (a: any) =>
+      String(a?.libelleNNE || a?.fonctionExercee || a?.corps || a?.metier || 'Non défini').trim() || 'Non défini';
+
+    const map = new Map<string, {
+      effectif: number;
+      hommes: number;
+      femmes: number;
+      autres: number;
+      tempsPlein: number;
+      tempsPartiel: number;
+      tempsNonRenseigne: number;
+      etpTotalRenseigne: number;
+      topMetiers: MetierEntry[];
+    }>();
+
+    const metiersMap = new Map<string, Map<string, number>>();
+
+    agents
+      .filter((a) => a.actif)
+      .forEach((a) => {
+        const regionName = (a.region || '').trim();
+        if (!regionName) return;
+
+        if (!map.has(regionName)) {
+          map.set(regionName, {
+            effectif: 0,
+            hommes: 0,
+            femmes: 0,
+            autres: 0,
+            tempsPlein: 0,
+            tempsPartiel: 0,
+            tempsNonRenseigne: 0,
+            etpTotalRenseigne: 0,
+            topMetiers: []
+          });
+          metiersMap.set(regionName, new Map<string, number>());
+        }
+
+        const s = map.get(regionName)!;
+        s.effectif += 1;
+
+        if (a.genre === 'H') s.hommes += 1;
+        else if (a.genre === 'F') s.femmes += 1;
+        else s.autres += 1;
+
+        // Temps de travail : on distingue explicitement les lignes sans quotité Excel.
+        if (a.tempsTravailRenseigne === false) {
+          s.tempsNonRenseigne += 1;
+        } else if (a.contratType === 'Temps partiel') {
+          s.tempsPartiel += 1;
+          // ETP partiel : basé sur quotité si dispo, sinon sur etp (toujours issu du convertisseur Excel).
+          if (typeof a.tempsPartielPourcentage === 'number') s.etpTotalRenseigne += a.tempsPartielPourcentage / 100;
+          else if (typeof a.etp === 'number') s.etpTotalRenseigne += a.etp;
+        } else {
+          // Temps plein
+          s.tempsPlein += 1;
+          s.etpTotalRenseigne += 1;
+        }
+
+        const m = metiersMap.get(regionName)!;
+        const lab = labelMetier(a);
+        m.set(lab, (m.get(lab) || 0) + 1);
+      });
+
+    // Finaliser top métiers
+    map.forEach((s, regionName) => {
+      const m = metiersMap.get(regionName) || new Map<string, number>();
+      const top = Array.from(m.entries())
+        .map(([label, count]) => ({ label, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 3);
+      s.topMetiers = top;
+    });
+
+    return map;
   }, [agents]);
 
   const regionsDetails = useMemo(() => {
@@ -169,15 +251,21 @@ export function RegionMap() {
               title: 'Sources',
               bullets: [
                 'Région administrative de l’agent (Excel).',
-                'Statut actif pour le comptage principal.',
-                'Coordonnées régionales provenant de la table de correspondance interne.'
+                'Champ `actif` pour le comptage principal.',
+                'Colonne Excel `Sexe` (H/F/Non précisé) pour la parité par région.',
+                'Colonne Excel `Temps de travail` (quotité) pour TP/TPP/non renseigné + ETP.',
+                'Colonnes Excel `Libellé NNE` / `Poste` / `Grade` (priorité) pour les métiers affichés.',
+                'Coordonnées régionales provenant de la table de correspondance interne (affichage uniquement).'
               ]
             },
             {
               title: 'Calculs affichés',
               bullets: [
                 'Effectif région = nombre d’agents actifs de la région.',
-                'Aucun taux/capacité n’est calculé : uniquement l’effectif réel issu de la colonne Excel "Région".'
+                'Parité région = comptage H/F/Autre sur les agents actifs de la région.',
+                'Temps de travail région = comptage Temps plein / Temps partiel / Non renseigné.',
+                'ETP région (renseigné) = somme des ETP dérivés de la quotité (100 → 1 ; 80 → 0.8, etc.).',
+                'Top métiers (région) = 3 libellés les plus fréquents (priorité Libellé NNE > Poste > Grade).',
               ]
             }
           ]}
@@ -188,7 +276,9 @@ export function RegionMap() {
         {/* Map Visual */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-md p-6 border border-gray-100">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Carte interactive - Zone DIRM Méditerranée</h3>
+            <h3 className="text-sm font-medium text-gray-700">
+              Survolez un marqueur pour afficher les détails
+            </h3>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleZoomIn}
@@ -403,40 +493,207 @@ export function RegionMap() {
                 const region = regions.find(r => r.id === hoveredRegion);
                 if (!region || tooltipPosition.region !== hoveredRegion) return null;
                 const markerColor = '#3b82f6';
+                const s = regionStats.get(region.name);
+
+                // Placement "responsive" : garder le tooltip dans le conteneur de carte.
+                // IMPORTANT: on doit tenir compte de la taille du tooltip selon qu'on ancre à gauche (translateX=0)
+                // ou à droite (translateX=-100%).
+                const container = mapContainerRef.current;
+                const containerW = container?.clientWidth || 0;
+                const containerH = container?.clientHeight || 0;
+                const x = tooltipPosition.x;
+                const y = tooltipPosition.y;
+
+                // Estimation raisonnable de la taille du tooltip (évite une mesure DOM complexe)
+                const tipW = 360;
+                const tipH = 320;
+                const pad = 12;
+
+                // Horizontal
+                const canPlaceRight = (x + pad + tipW) <= containerW;
+                const canPlaceLeft = (x - pad - tipW) >= 0;
+                const placeLeft = !canPlaceRight && canPlaceLeft;
+                const translateX = placeLeft ? '-100%' : '0%';
+                const anchorX = placeLeft
+                  // ancre côté droit (tooltip s'étend vers la gauche)
+                  ? clamp(x - pad, tipW + pad, containerW - pad)
+                  // ancre côté gauche (tooltip s'étend vers la droite)
+                  : clamp(x + pad, pad, containerW - tipW - pad);
+
+                // Vertical : par défaut au-dessus, sinon en dessous si trop proche du haut
+                const canPlaceAbove = (y - pad - tipH) >= 0;
+                const canPlaceBelow = (y + pad + tipH) <= containerH;
+                const placeAbove = canPlaceAbove || !canPlaceBelow;
+                const translateY = placeAbove ? '-100%' : '0%';
+                const anchorY = placeAbove
+                  // ancre en bas (tooltip s'étend vers le haut)
+                  ? clamp(y - pad, tipH + pad, containerH - pad)
+                  // ancre en haut (tooltip s'étend vers le bas)
+                  : clamp(y + pad, pad, containerH - tipH - pad);
                 
                 return (
                   <div
                     className="absolute pointer-events-none"
                     style={{
-                      left: `${tooltipPosition.x}px`,
-                      top: `${tooltipPosition.y - 130}px`, // Positionner bien au-dessus du curseur
-                      transform: 'translateX(-50%)',
+                      left: `${anchorX}px`,
+                      top: `${anchorY}px`,
+                      transform: `translate(${translateX}, ${translateY})`,
                       zIndex: 9999 // Z-index très élevé pour être au-dessus de tout
                     }}
                   >
-                    <div className="bg-white rounded-lg shadow-2xl border-2 p-3 min-w-[170px] relative" style={{ borderColor: markerColor }}>
-                      <div className="flex items-center justify-between mb-2 gap-3">
-                        <h4 className="font-bold text-gray-900 text-sm flex-1 pr-2">{region.name}</h4>
+                    <div
+                      className="relative min-w-[220px] max-w-[360px] rounded-xl shadow-2xl px-4 py-3"
+                      style={{
+                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                        border: '1px solid rgba(255,255,255,0.12)',
+                        boxShadow: '0 18px 45px rgba(0,0,0,0.35)',
+                        color: '#fff'
+                      }}
+                    >
+                      <div className="flex items-start gap-2">
+                        <span
+                          className="mt-1 h-2.5 w-2.5 rounded-full flex-none"
+                          style={{ backgroundColor: markerColor }}
+                          aria-hidden="true"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <h4 className="text-sm font-semibold text-white leading-tight truncate" title={region.name}>
+                            {region.name}
+                          </h4>
+                          <p className="text-xs text-white/70 mt-0.5">
+                            Effectif: <span className="text-white font-semibold">{region.effectif.toLocaleString('fr-FR')}</span>
+                          </p>
+                        </div>
                       </div>
-                      
-                      {/* Separator */}
-                      <div className="h-px bg-gray-200 mb-2"></div>
-                      
-                      {/* Effectif (réel depuis Excel) */}
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-gray-600 text-xs">Effectif:</span>
-                        <span className="text-gray-900 text-xs font-semibold">
-                          {region.effectif.toLocaleString('fr-FR')} agents
-                        </span>
-                      </div>
+
+                      {s && (
+                        <div className="mt-3 space-y-2">
+                          <div className="grid grid-cols-2 gap-2">
+                            <div
+                              className="rounded-lg px-3 py-2"
+                              style={{
+                                backgroundColor: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.12)'
+                              }}
+                            >
+                              <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.72)' }}>Parité</p>
+                              <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-white">
+                                <span
+                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5"
+                                  style={{
+                                    backgroundColor: 'rgba(59,130,246,0.16)',
+                                    border: '1px solid rgba(59,130,246,0.35)'
+                                  }}
+                                >
+                                  <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#60a5fa' }} aria-hidden="true" />
+                                  {s.hommes} H
+                                </span>
+                                <span
+                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5"
+                                  style={{
+                                    backgroundColor: 'rgba(236,72,153,0.16)',
+                                    border: '1px solid rgba(236,72,153,0.35)'
+                                  }}
+                                >
+                                  <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#f472b6' }} aria-hidden="true" />
+                                  {s.femmes} F
+                                </span>
+                                <span
+                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5"
+                                  style={{
+                                    backgroundColor: 'rgba(148,163,184,0.16)',
+                                    border: '1px solid rgba(148,163,184,0.35)'
+                                  }}
+                                >
+                                  <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#cbd5e1' }} aria-hidden="true" />
+                                  {s.autres} A
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              className="rounded-lg px-3 py-2"
+                              style={{
+                                backgroundColor: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.12)'
+                              }}
+                            >
+                              <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.72)' }}>Temps de travail</p>
+                              <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-white">
+                                <span
+                                  className="inline-flex items-center rounded-full px-2 py-0.5"
+                                  style={{
+                                    backgroundColor: 'rgba(16,185,129,0.16)',
+                                    border: '1px solid rgba(16,185,129,0.35)'
+                                  }}
+                                >
+                                  {s.tempsPlein} TP
+                                </span>
+                                <span
+                                  className="inline-flex items-center rounded-full px-2 py-0.5"
+                                  style={{
+                                    backgroundColor: 'rgba(20,184,166,0.16)',
+                                    border: '1px solid rgba(20,184,166,0.35)'
+                                  }}
+                                >
+                                  {s.tempsPartiel} TPP
+                                </span>
+                                <span
+                                  className="inline-flex items-center rounded-full px-2 py-0.5"
+                                  style={{
+                                    backgroundColor: 'rgba(148,163,184,0.16)',
+                                    border: '1px solid rgba(148,163,184,0.35)'
+                                  }}
+                                >
+                                  {s.tempsNonRenseigne} NR
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            className="rounded-lg px-3 py-2 flex items-center justify-between gap-3"
+                            style={{
+                              backgroundColor: 'rgba(255,255,255,0.06)',
+                              border: '1px solid rgba(255,255,255,0.12)'
+                            }}
+                          >
+                            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.72)' }}>ETP (renseigné)</p>
+                            <p className="text-sm font-semibold text-white tabular-nums">{s.etpTotalRenseigne.toFixed(1)}</p>
+                          </div>
+
+                          {s.topMetiers.length > 0 && (
+                            <div
+                              className="rounded-lg px-3 py-2"
+                              style={{
+                                backgroundColor: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.12)'
+                              }}
+                            >
+                              <p className="text-[11px] mb-1" style={{ color: 'rgba(255,255,255,0.72)' }}>Top métiers</p>
+                              <div className="space-y-1">
+                                {s.topMetiers.slice(0, 3).map((m) => (
+                                  <div key={m.label} className="flex items-center justify-between gap-3">
+                                    <span className="text-xs text-white/95 truncate" title={m.label}>
+                                      {m.label}
+                                    </span>
+                                    <span className="text-xs text-white font-semibold tabular-nums">{m.count}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
                       
                       {/* Flèche pointant vers le marqueur */}
                       <div 
-                        className="absolute left-1/2 -bottom-2 transform -translate-x-1/2 w-0 h-0"
+                        className={`absolute left-1/2 transform -translate-x-1/2 w-0 h-0 ${placeAbove ? '-bottom-2' : '-top-2'}`}
                         style={{
                           borderLeft: '8px solid transparent',
                           borderRight: '8px solid transparent',
-                            borderTop: `12px solid ${markerColor}`
+                          ...(placeAbove
+                            ? { borderTop: `12px solid rgba(15, 23, 42, 0.95)` }
+                            : { borderBottom: `12px solid rgba(15, 23, 42, 0.95)` })
                         }}
                       />
                     </div>
@@ -446,13 +703,13 @@ export function RegionMap() {
             </div>
 
             {/* Legend */}
-            <div className="mt-4 p-4 flex items-center gap-6 justify-center text-sm bg-white/80 backdrop-blur-sm">
+            <div className="mt-4 p-4 flex items-center gap-6 justify-center bg-white/80 backdrop-blur-sm">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow"></div>
-                <span className="text-gray-700">Effectifs</span>
+                <span className="text-sm font-medium text-gray-800">Effectifs</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-gray-600 text-xs">Taille = effectif</span>
+                <span className="text-sm font-medium text-gray-800">Taille = effectif</span>
               </div>
             </div>
 
@@ -461,11 +718,14 @@ export function RegionMap() {
               <div className="flex items-start gap-2">
                 <Info className="w-4 h-4 text-blue-900 mt-0.5" />
                 <div className="space-y-1">
-                  <p className="text-sm text-blue-900">
-                    <strong>Interaction:</strong> Survolez ou cliquez sur les marqueurs pour voir les détails. Utilisez les boutons de zoom ou la molette de la souris pour naviguer.
-                  </p>
                   <p className="text-xs text-blue-800">
                     <strong>Calcul :</strong> Effectif par région = nombre d’agents actifs dont la région (Excel) correspond.
+                  </p>
+                  <p className="text-xs text-blue-800">
+                    <strong>Détails :</strong> Survolez un marqueur pour afficher les détails.
+                  </p>
+                  <p className="text-xs text-blue-800">
+                    <strong>Navigation :</strong> zoom via molette ou boutons, puis déplacement en glisser-déposer.
                   </p>
                 </div>
               </div>
@@ -492,6 +752,10 @@ export function RegionMap() {
                   onMouseLeave={() => setHoveredRegion(null)}
                   onClick={() => setSelectedRegion(region.id === selectedRegion ? null : region.id)}
                 >
+                  {(() => {
+                    const s = regionStats.get(region.name);
+                    return (
+                      <>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-gray-900">{region.name}</span>
                   </div>
@@ -499,7 +763,38 @@ export function RegionMap() {
                     <p>
                       Effectif: <span className="font-semibold">{region.effectif.toLocaleString('fr-FR')} agents</span>
                     </p>
+                    {s && (
+                      <>
+                        <p className="mt-1">
+                          Parité: <span className="font-semibold">{s.hommes} H</span> • <span className="font-semibold">{s.femmes} F</span> • <span className="font-semibold">{s.autres} Autres</span>
+                        </p>
+                        <p className="mt-1">
+                          Temps de travail: <span className="font-semibold">{s.tempsPlein} TP</span> • <span className="font-semibold">{s.tempsPartiel} TPP</span> • <span className="font-semibold">{s.tempsNonRenseigne} Non renseigné</span>
+                        </p>
+                        <p className="mt-1">
+                          ETP (renseigné): <span className="font-semibold">{s.etpTotalRenseigne.toFixed(1)}</span>
+                        </p>
+                        {s.topMetiers.length > 0 && (
+                          <details className="mt-2">
+                            <summary className="cursor-pointer text-xs text-gray-700">
+                              Top métiers (3)
+                            </summary>
+                            <div className="mt-2 space-y-1 text-xs text-gray-700">
+                              {s.topMetiers.map((m) => (
+                                <div key={m.label} className="flex items-center justify-between gap-3">
+                                  <span className="truncate" title={m.label}>{m.label}</span>
+                                  <span className="font-semibold">{m.count}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </details>
+                        )}
+                      </>
+                    )}
                   </div>
+                      </>
+                    );
+                  })()}
                 </div>
               ))}
             </div>

@@ -53,7 +53,6 @@ export function AgeChart() {
                 'Tranches utilisées: <25, 25-29, 30-34, 35-39, 40-44, 45-49, 50-54, 55-59, 60-64, >=65.',
                 'Indicateurs: Jeunes (<35), Coeur (35-54), Seniors (>=55) calculés depuis les âges individuels.',
                 'Âge moyen = moyenne des âges ; âge médian = valeur centrale de la liste triée.',
-                'Aucune projection RH, aucune cible théorique et aucun benchmark externe.'
               ]
             }
           ]}

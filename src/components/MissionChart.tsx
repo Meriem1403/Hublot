@@ -19,7 +19,7 @@ export function MissionChart() {
           : 'Effectifs par sous-segment (PASA)';
   const subtitle =
     groupBy === 'mission'
-      ? 'Comptage des effectifs par mission (libellé Excel)'
+      ? 'Comptage des effectifs par mission'
       : 'Répartition des effectifs actifs selon la classification PASA';
   
   // Important : en mode "Mission", on affiche uniquement un comptage réel
@@ -143,9 +143,8 @@ export function MissionChart() {
                 <h4 className="text-gray-900 font-semibold mb-2">Mode “Mission”</h4>
                 <ul className="text-sm text-gray-700 space-y-1">
                   <li><strong>Source Excel :</strong> colonnes <strong>Action</strong>, <strong>Sous-Action</strong>, <strong>Thématique</strong>.</li>
-                  <li><strong>Ordonnée :</strong> libellé mission lisible uniquement (sans code).</li>
+                  <li><strong>Ordonnée :</strong> libellé mission lisible uniquement.</li>
                   <li><strong>Calcul :</strong> comptage du nombre d’agents par libellé mission.</li>
-                  <li><strong>Important :</strong> aucun taux/capacité/postes vacants n’est calculé dans ce mode.</li>
                 </ul>
               </div>
 
@@ -154,7 +153,7 @@ export function MissionChart() {
                 <ul className="text-sm text-gray-700 space-y-1">
                   <li><strong>Source Excel :</strong> colonnes <strong>Action</strong>, <strong>Sous-Action</strong>, <strong>Thématique</strong>.</li>
                   <li><strong>Calcul :</strong> comptage des agents par regroupement PASA sélectionné.</li>
-                  <li><strong>Affichage :</strong> barres d’effectifs uniquement (pas de capacité ni taux).</li>
+                  <li><strong>Affichage :</strong> barres d’effectifs.</li>
                 </ul>
               </div>
 
