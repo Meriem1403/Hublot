@@ -53,8 +53,6 @@ export function ContractChart() {
                 'Règle de priorité par agent pour la répartition affichée: Stagiaire > CDD > Temps partiel > Temps plein.',
                 'Comptage réel par service pour chaque catégorie selon cette priorité.',
                 'Pourcentages = (nombre catégorie / effectif filtré) x 100.',
-                'DIRM Méditerranée est une agrégation calculée à partir des services DIRM MED/DDTM/DML Corse présents dans les données.',
-                'Aucune capacité théorique ni taux inventé.'
               ]
             }
           ]}

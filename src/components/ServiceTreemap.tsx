@@ -93,7 +93,7 @@ export function ServiceTreemap() {
         <div>
           <h2 className="text-2xl mb-2">Effectifs par service</h2>
           <p className="text-gray-600">
-            Vue d'ensemble des effectifs réels par service (Excel)
+            Vue d'ensemble des effectifs réels par service
           </p>
         </div>
 
@@ -107,7 +107,6 @@ export function ServiceTreemap() {
                 'Service agent (Excel) : champ `service`.',
                 'Champ `actif` (Excel) : on compte uniquement les agents en poste.',
                 'Champ `Temps de travail` (Excel) : alimente `agent.etp` et `agent.contratType`.',
-                'Filtres globaux appliqués avant agrégation.'
               ]
             },
             {

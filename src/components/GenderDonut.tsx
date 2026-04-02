@@ -75,7 +75,6 @@ export function GenderDonut() {
                 'Pourcentage global = nombre genre / total filtré x 100.',
                 'Par service: pourcentage H/F = nombre genre / total du service x 100.',
                 'Par niveau: pourcentage H/F = nombre genre / total du niveau x 100.',
-                'Aucune cible théorique, aucun benchmark externe et aucune correction artificielle.'
               ]
             }
           ]}

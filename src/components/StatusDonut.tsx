@@ -105,7 +105,6 @@ export function StatusDonut() {
                 'Agents permanents = ((nombre "Titulaires" + nombre "Contractuels CDI") / total agents actifs filtrés) x 100.',
                 'Agents temporaires = ((nombre "Contractuels CDD" + nombre "Stagiaires") / total agents actifs filtrés) x 100.',
                 'Contrôle de cohérence: Agents permanents + Agents temporaires = 100% (hors arrondi au dixième).',
-                'Aucun indicateur théorique ajouté.'
               ]
             }
           ]}
@@ -262,8 +261,7 @@ export function StatusDonut() {
               <h3 className="text-lg text-blue-900">Traçabilité</h3>
             </div>
             <p className="text-sm text-blue-900">
-              Aucun objectif théorique ni recommandation RH n’est injecté dans ce
-              composant: l’onglet restitue la donnée observée.
+              L’onglet restitue la donnée observée.
             </p>
           </div>
         </div>
