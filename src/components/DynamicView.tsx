@@ -242,8 +242,7 @@ export function DynamicView() {
               bullets: [
                 'Filtrage initial puis agrégations (comptages, moyennes d’âge, répartitions).',
                 'Pour les calculs d’âge (tranches, moyenne, etc.), on exclut les dates de naissance par défaut `1970-01-01` utilisées en cas de valeur absente dans l’Excel.',
-                'Les tableaux exportables reprennent strictement les lignes filtrées.',
-                'Aucune donnée extrapolée n’est injectée.'
+                'Les tableaux exportables reprennent strictement les lignes filtrées.'
               ]
             }
           ]}

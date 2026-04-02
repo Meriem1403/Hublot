@@ -231,8 +231,7 @@ export function ResponsibilityPyramid() {
               <h3 className="text-lg text-blue-900">Traçabilité</h3>
             </div>
             <p className="text-sm text-blue-900">
-              Aucun scénario RH n’est injecté dans cet onglet. Les valeurs
-              présentées sont des comptages réels après filtres.
+              Les valeurs présentées sont des comptages réels après filtres.
             </p>
           </div>
         </div>

@@ -94,7 +94,6 @@ export function JobsChart() {
                 'Colonne Excel `Catégorie` -> utilisée indirectement pour déterminer `actif`/normalisation dans le pipeline.',
                 'Colonne Excel `Service` -> non utilisée pour l’agrégation principale de cet onglet, mais conservée dans les données agents.',
                 'Champ `actif` : seuls les agents actifs sont comptés.',
-                'Filtres globaux appliqués avant agrégation.'
               ]
             },
             {
@@ -113,7 +112,6 @@ export function JobsChart() {
                 'Ordonnée (labels): même libellé agrégé que le graphique, sans recodage supplémentaire.',
                 'Tooltip: ré-affiche l’effectif de la barre et la correspondance source majoritaire observée dans les champs `Libellé NNE` / `Poste` / `Grade`.',
                 'Tableau de correspondance: pour chaque libellé affiché (Top 20), sélection de la valeur majoritaire par champ source via comptage des occurrences.',
-                'Aucune estimation RH, aucun benchmark externe, aucune cible théorique n’est injectée dans cet onglet.'
               ]
             }
           ]}
