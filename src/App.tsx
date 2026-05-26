@@ -60,7 +60,7 @@ export default function App() {
               </div>
               <div>
                 <h1 className="text-2xl">Hublot</h1>
-                <p className="text-blue-200 mt-1">Direction générale des Affaires maritimes, de la Pêche et de l'Aquaculture – Tableau de bord des effectifs et statistiques RH</p>
+                <p className="text-blue-200 mt-1">DIRM Méditerranée — Ministère chargé de la Mer et de la Pêche · Tableau de bord des effectifs et statistiques RH</p>
               </div>
             </div>
             {/* Session : utilisateur + déconnexion */}
