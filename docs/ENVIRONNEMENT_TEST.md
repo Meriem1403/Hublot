@@ -1,146 +1,205 @@
-# 2️⃣ Environnement de test
+# 2️⃣ Les bases d'un environnement de test
 
-Définition des environnements **DEV**, **TEST** et **PROD** pour le projet Hublot.
+Document de référence **Studi** — séparation **DEV**, **TEST**, **STAGING** et **PROD** pour Hublot.
 
-**Annexe associée :** [Annexe 06](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md)
-
----
-
-## Vue d'ensemble
-
-| Environnement | Rôle | Où | Accès |
-|---------------|------|-----|--------|
-| **DEV** | Développement et debug local | Poste développeur | `http://localhost:5173` |
-| **TEST** | Validation automatisée (CI) | GitHub Actions | Onglet Actions (run vert) |
-| **PROD** | Utilisation réelle | Netlify (+ option NAS) | https://dirmhublot.netlify.app |
+**Annexe :** [Annexe 06](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) · **Staging :** [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md)
 
 ---
 
-## DEV — Développement
+## Principe
+
+Chaque environnement a un **rôle**, une **configuration** et des **données** distincts. On ne teste jamais directement en production : on progresse de la machine locale vers la CI, puis la préproduction, puis la prod.
+
+```mermaid
+flowchart LR
+  DEV[DEV\nposte local] --> TEST[TEST\nGitHub Actions]
+  TEST --> STG[STAGING\nbranche staging]
+  STG --> PROD[PROD\nmain + Netlify]
+```
+
+---
+
+## Tableau récapitulatif
+
+| Env. | Rôle | Où | URL / accès | Fichier config |
+|------|------|-----|-------------|----------------|
+| **DEV** | Coder, debug, tests manuels | Poste développeur | http://localhost:3000 | `.env.development` |
+| **TEST** | Qualité automatisée (reproductible) | GitHub Actions — workflow **CI** | github.com/Meriem1403/Hublot/actions | `.github/workflows/ci.yml` |
+| **TEST local** | QA manuelle « comme la prod » | Docker ou preview | http://localhost:4173 | `.env.test` + `docker-compose.test.yml` |
+| **STAGING** | Préproduction métier | Netlify — branche `staging` | `staging--dirmhublot.netlify.app` | `netlify.toml` + variables Netlify |
+| **PROD** | Utilisateurs habilités | Netlify — branche `main` | https://dirmhublot.netlify.app | Variables Netlify (secrets) |
+
+---
+
+## 1. DEV — Développement
 
 ### Objectif
 
-Coder, tester manuellement, itérer rapidement sans impacter la production.
+Environnement **isolé** : aucun impact sur les utilisateurs ni sur la production.
 
-### Configuration
+### Démarrage
 
 ```bash
+git clone https://github.com/Meriem1403/Hublot.git
+cd Hublot
 npm ci
+cp .env.example .env    # optionnel : surcharges perso
 npm run dev
 ```
 
-| Élément | Valeur |
+| Élément | Détail |
 |---------|--------|
-| URL | `http://localhost:5173` |
-| Build | Non (Vite HMR) |
-| Données | Référentiel local ou API de test (hors dépôt public) |
-| Secrets | Fichier `.env` local (non commité) |
-| Authentification | Variables `VITE_APP_USERNAME` / `VITE_APP_PASSWORD` |
+| Commande | `npm run dev` → Vite mode `development` |
+| URL | http://localhost:3000 |
+| Variables | `.env.development` (versionné, comptes **démo** locaux) |
+| Badge UI | Bandeau **« Développement (DEV) »** dans l'app |
+| Tests avant push | `npm run test:run` · `npm run lint` |
 
-### Commandes utiles
+### Fichier `.env.development`
 
-```bash
-npm run test:run    # tests avant commit
-npm run build       # vérifier le build localement
+```env
+VITE_APP_ENV=development
+VITE_APP_USERNAME=admin
+VITE_APP_PASSWORD=demo
 ```
 
 ---
 
-## TEST — Intégration continue
+## 2. TEST — Intégration continue (CI)
 
 ### Objectif
 
-Vérifier automatiquement que chaque modification sur `main` (ou PR) respecte la qualité minimale avant / pendant le déploiement.
+Même chaîne pour **tous les développeurs** : impossible de merger du code qui ne compile pas, ne passe pas les tests ou ne respecte pas l'audit sécurité.
 
-### Configuration
+### Où
 
-| Élément | Détail |
-|---------|--------|
-| Plateforme | GitHub Actions |
-| Workflow | **CI** (`.github/workflows/ci.yml`) — lint, tests, audit, build, E2E |
-| Déclencheurs | `push` et `pull_request` sur `main`, `workflow_dispatch` |
-| Runner | `ubuntu-latest`, Node.js 20 |
+- **Plateforme :** GitHub Actions
+- **Workflow :** **CI** (`.github/workflows/ci.yml`)
+- **Déclencheurs :** push / PR sur `main` et `staging`
 
-### Étapes exécutées
+### Pipeline (environnement TEST)
 
-1. `npm ci`
-2. `npm run test:run` (32 tests)
-3. `npm run build`
-4. Vérification du dossier `build/`
-5. `npm audit --audit-level=high` (informatif)
+| Étape | Commande / action |
+|-------|-------------------|
+| ESLint | `npm run lint` |
+| Tests unitaires | `npm run test:run` (33 tests) |
+| Audit npm prod | `npm run audit:prod` |
+| Build | `npm run build` |
+| E2E | `npm run test:e2e` (Playwright) |
 
 ### Critère de succès
 
-- Job **Tests et build** en statut **success** (coche verte)
-- Aucune régression sur les tests unitaires
-- Build reproductible
+- Tous les jobs **verts** sur l'onglet Actions
+- Netlify (PROD) : **Deploy only when required checks pass** → check **CI**
 
-### Où consulter
+### Ce n'est pas un serveur
 
-- GitHub → **Actions** → workflow **CI**
-- Exemple : https://github.com/Meriem1403/Hublot/actions
+L'environnement TEST est **éphémère** : une VM Ubuntu est créée, exécute la chaîne, puis est détruite. Pas de base de données partagée — données mockées / JSON de test dans les tests unitaires.
 
 ---
 
-## PROD — Production
+## 3. TEST local — QA manuelle (complément)
 
 ### Objectif
 
-Servir l'application aux utilisateurs habilités en conditions sécurisées.
+Tester le **build de production** (fichiers statiques) sans déployer sur Netlify.
 
-### Configuration cloud (Netlify)
+### Option A — Preview Vite
 
-| Paramètre | Valeur |
-|-----------|--------|
+```bash
+npm run build:test
+npm run preview:test
+# → http://localhost:4173  (identifiants e2e-user / e2e-pass)
+```
+
+### Option B — Docker (comme le NAS)
+
+```bash
+npm run test:preview:docker
+# build:test + nginx sur le port 4173
+```
+
+Fichiers : `.env.test`, `docker-compose.test.yml`
+
+### Vérification complète (checklist machine)
+
+```bash
+npm run check:env
+```
+
+Exécute : présence des `.env`, `npm ci`, lint, tests, audit, `build:test`.
+
+---
+
+## 4. STAGING — Préproduction
+
+Branche Git **`staging`** → déploiement Netlify séparé de `main`.
+
+Voir [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md).
+
+| Élément | Valeur |
+|---------|--------|
+| Branche | `staging` |
+| Variable | `VITE_APP_ENV=staging` (netlify.toml) |
+| Badge UI | **« Préproduction (STAGING) »** |
+| Promotion | Merge `staging` → `main` après validation |
+
+---
+
+## 5. PROD — Production
+
+| Élément | Valeur |
+|---------|--------|
+| Branche | `main` |
 | URL | https://dirmhublot.netlify.app |
-| Branche déployée | `main` |
-| Build command | `npm run build` |
-| Publish directory | `build` |
-| HTTPS | Fourni par Netlify |
-| Headers sécurité | `netlify.toml` |
-| Variables d'env | Interface Netlify (auth, `NETLIFY_DATABASE_URL`) |
-
-### Configuration locale (NAS — optionnelle)
-
-| Paramètre | Valeur |
-|-----------|--------|
-| URL | `http://IP_DU_NAS:8080` |
-| Stack | Docker + Nginx (`docker-compose.yml`) |
-| Données | Même référentiel que la prod ou jeu interne |
-| HTTPS | Reverse Proxy DSM (optionnel) |
-
-Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md).
+| Secrets | Uniquement dans Netlify (jamais dans Git) |
+| Badge UI | **aucun** (environnement production) |
 
 ---
 
-## Environnement de préproduction (Deploy Preview)
+## Matrice : quel test où ?
 
-Netlify peut générer des **Deploy Previews** sur les pull requests (si activé dans les paramètres du site).
-
-| Usage | Bénéfice |
-|-------|----------|
-| Valider une PR avant merge | URL temporaire par branche |
-| Démonstration jury | Montrer une version sans toucher la PROD |
-
----
-
-## Matrice des tests par environnement
-
-| Type de test | DEV | TEST (CI) | PROD |
-|--------------|-----|-----------|------|
-| Tests unitaires Vitest | `npm run test:run` | Automatique | — |
-| Build production | `npm run build` | Automatique | Automatique (Netlify) |
-| Tests manuels (UI, filtres) | Navigateur local | — | Navigateur production |
-| Headers sécurité | — | — | `curl -I` sur URL prod |
-| npm audit | Local | CI (informatif) | Recommandé avant release |
+| Type | DEV | TEST (CI) | TEST local | STAGING | PROD |
+|------|-----|-----------|------------|---------|------|
+| Unitaires Vitest | `npm run test:run` | Auto | `check:env` | — | — |
+| ESLint | `npm run lint` | Auto | `check:env` | — | — |
+| E2E Playwright | `npm run test:e2e` | Auto | `build:test` + preview | Manuel | — |
+| Build | `npm run build` | Auto | `build:test` | Auto Netlify | Auto Netlify |
+| Audit npm prod | `npm run audit:prod` | Auto | `check:env` | — | — |
+| Tests manuels UI | Navigateur | — | :4173 | URL staging | URL prod |
+| Headers sécurité | — | — | — | curl -I | curl -I |
 
 Plan détaillé : [PLAN_TEST.md](./PLAN_TEST.md)
 
 ---
 
+## Variables d'environnement (résumé)
+
+| Fichier | Commité | Usage |
+|---------|---------|--------|
+| `.env.example` | Oui | Modèle documentation |
+| `.env.development` | Oui | DEV — démo locale |
+| `.env.test` | Oui | TEST local + E2E |
+| `.env.staging.example` | Oui | Modèle STAGING |
+| `.env` / `.env.staging` | **Non** | Secrets réels |
+
+Code : `src/config/environment.ts` — libellé et badge selon `VITE_APP_ENV`.
+
+---
+
+## Parcours jury (5 minutes)
+
+1. Montrer **DEV** : `npm run dev` → badge « Développement » + login démo.
+2. Montrer **TEST** : GitHub Actions → workflow **CI** → jobs verts.
+3. Montrer **TEST local** : `npm run check:env` ou preview :4173.
+4. Montrer **STAGING** : branche `staging` + URL Netlify (si activée).
+5. Montrer **PROD** : https://dirmhublot.netlify.app — pas de badge.
+
+---
+
 ## Bonnes pratiques
 
-1. Toujours lancer `npm run test:run` avant un push important.
-2. Ne jamais committer `.env`, données RH ou secrets.
-3. Vérifier le run CI vert avant de considérer une livraison terminée.
-4. En cas de bug en PROD : rollback Netlify + analyse des logs (Actions + Netlify Deploys).
+1. Développer sur **DEV**, valider avec `npm run check:env` avant push.
+2. Pousser sur **`staging`** pour une démo métier ; merger vers **`main`** seulement si CI verte.
+3. Ne jamais committer `.env` avec mots de passe réels.
+4. Conserver des identifiants **différents** entre STAGING et PROD.

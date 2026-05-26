@@ -39,7 +39,7 @@
   - **`DEPLOIEMENT_SECURISE.md`** : étapes pour un déploiement sécurisé (HTTPS, Docker, firewall, etc.).
   - **`CHECKLIST_SECURITE.md`** : checklist avant mise en production (authentification, HTTPS, headers, Docker, sauvegardes).
   - **`SECURITE.md`** : mesures de sécurité implémentées dans l’application.
-- **Environnement de test :** Possibilité de lancer l’application en local (`npm run dev`) ou avec Docker (`make dev` / `docker-compose`) pour tester avant déploiement.
+- **Environnement de test :** séparation **DEV**, **TEST** (CI), **TEST local** (`check:env`, Docker :4173), **STAGING**, **PROD** — voir **`ENVIRONNEMENT_TEST.md`**, fichiers `.env.development` / `.env.test`, badge UI hors production.
 - **Scripts dans la démarche DevOps :**
   - Script de conversion des données : **`scripts/convert_excel_to_json.py`** (préparation des données pour l’app).
   - Scripts npm : `npm run build`, `npm run dev` ; possibilité d’utiliser `make` pour Docker et conversion (voir **`README.md`**).
@@ -57,7 +57,7 @@
 | Documentation du processus de déploiement | `DEVOPS.md`, `DOCUMENTATION_DEPLOIEMENT.md`, `HOSTING.md`, `README.md` (racine) |
 | Application sécurisée | Authentification, `.gitignore` pour les secrets, docs sécurité |
 | Scripts / automatisation | Scripts npm, Python (conversion), configuration Netlify |
-| Environnement de test | Instructions en local et Docker dans `README.md` et `HOSTING.md` ; voir **`ENVIRONNEMENT_TEST.md`** (DEV / TEST / PROD). |
+| Environnement de test | **`ENVIRONNEMENT_TEST.md`** — DEV, TEST (CI), TEST local, STAGING, PROD ; `npm run check:env` |
 | Plan de test, scénarios, validation | **`PLAN_TEST.md`** : tableau Test / Objectif / Résultat attendu / Statut (auth, API, responsive, performance, tests automatisés CI, sécurité). |
 
 ---

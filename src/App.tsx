@@ -13,6 +13,8 @@ import { GenderDonut } from './components/GenderDonut';
 import { WorkTimeGauge } from './components/WorkTimeGauge';
 import { DynamicView } from './components/DynamicView';
 import { LoginPage } from './components/LoginPage';
+import { EnvironmentBadge } from './components/EnvironmentBadge';
+import { shouldShowEnvironmentBadge } from './config/environment';
 import { isAuthenticated, clearSession, getUsername } from './utils/security';
 import { GlobalFilterProvider, useGlobalFilterContext } from './contexts/GlobalFilterContext';
 import { useFilterOptions } from './hooks/useAgentsData';
@@ -64,8 +66,10 @@ export default function App() {
               </div>
             </div>
             {/* Session : utilisateur + déconnexion */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {shouldShowEnvironmentBadge() && <EnvironmentBadge />}
             {username && (
-              <div className="flex items-center gap-2 sm:gap-3">
+              <>
                 <span className="text-sm text-white/90 truncate max-w-[120px] sm:max-w-[180px]" title={username}>
                   {username}
                 </span>
@@ -77,8 +81,9 @@ export default function App() {
                   <LogOut className="w-4 h-4" />
                   <span className="hidden sm:inline">Déconnexion</span>
                 </button>
-              </div>
+              </>
             )}
+            </div>
           </div>
         </div>
       </header>

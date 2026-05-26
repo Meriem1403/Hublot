@@ -72,10 +72,16 @@
             "vitest": "^2.1.0"
       },
       "scripts": {
-            "dev": "vite",
+            "dev": "vite --mode development",
+            "dev:test": "vite --mode test",
             "build": "vite build",
+            "build:test": "vite build --mode test",
+            "build:staging": "vite build --mode staging",
             "build:e2e": "VITE_APP_USERNAME=e2e-user VITE_APP_PASSWORD=e2e-pass vite build",
             "preview": "vite preview",
+            "preview:test": "vite preview --port 4173 --host 127.0.0.1",
+            "test:preview:docker": "npm run build:test && docker compose -f docker-compose.test.yml up",
+            "check:env": "bash scripts/check-test-environment.sh",
             "lint": "eslint . --max-warnings 30",
             "lint:fix": "eslint . --fix",
             "test": "vitest",
