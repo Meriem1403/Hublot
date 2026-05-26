@@ -1,0 +1,24 @@
+{
+  "allow": [
+    {
+      "package": "react-simple-maps",
+      "reason": "Carte régions — chaîne d3 ; correctif = downgrade breaking ; risque ReDoS côté client sur données internes."
+    },
+    {
+      "package": "d3-color",
+      "reason": "Transitive react-simple-maps."
+    },
+    {
+      "package": "d3-interpolate",
+      "reason": "Transitive react-simple-maps."
+    },
+    {
+      "package": "d3-transition",
+      "reason": "Transitive react-simple-maps."
+    },
+    {
+      "package": "d3-zoom",
+      "reason": "Transitive react-simple-maps."
+    }
+  ]
+}

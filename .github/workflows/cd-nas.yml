@@ -1,0 +1,83 @@
+# CD NAS — déploiement semi-automatisé (SSH + rsync)
+# Secrets : NAS_HOST, NAS_USER, NAS_PATH, NAS_SSH_KEY
+# Optionnel : NAS_SSH_RESTART_CMD (ex. docker restart statdirm-static)
+
+name: CD NAS Synology
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_tests:
+        description: "Ignorer lint/tests (déconseillé)"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  deploy:
+    name: Build et rsync NAS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier secrets NAS
+        id: nas
+        run: |
+          if [ -z "${{ secrets.NAS_HOST }}" ] || [ -z "${{ secrets.NAS_SSH_KEY }}" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Secrets NAS absents — utiliser ./scripts/deploy-nas.sh en local."
+            exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        if: steps.nas.outputs.ready == 'true'
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+        if: steps.nas.outputs.ready == 'true'
+
+      - name: Qualité (lint + tests)
+        if: steps.nas.outputs.ready == 'true' && inputs.skip_tests != true
+        run: |
+          npm run lint
+          npm run test:run
+
+      - run: npm run build
+        if: steps.nas.outputs.ready == 'true'
+
+      - name: Préparer dist/ pour compose NAS
+        if: steps.nas.outputs.ready == 'true'
+        run: |
+          mkdir -p dist
+          rsync -a --delete build/ dist/
+
+      - name: Configurer SSH
+        if: steps.nas.outputs.ready == 'true'
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.NAS_SSH_KEY }}" > ~/.ssh/nas_key
+          chmod 600 ~/.ssh/nas_key
+          ssh-keyscan -H "${{ secrets.NAS_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Rsync vers NAS
+        if: steps.nas.outputs.ready == 'true'
+        env:
+          NAS_HOST: ${{ secrets.NAS_HOST }}
+          NAS_USER: ${{ secrets.NAS_USER }}
+          NAS_PATH: ${{ secrets.NAS_PATH }}
+        run: |
+          RSYNC_RSH="ssh -i ~/.ssh/nas_key -o StrictHostKeyChecking=accept-new"
+          export RSYNC_RSH
+          rsync -avz --delete build/ "${NAS_USER}@${NAS_HOST}:${NAS_PATH}/build/"
+          rsync -avz --delete dist/ "${NAS_USER}@${NAS_HOST}:${NAS_PATH}/dist/"
+          rsync -avz docker-compose.yml nginx.conf "${NAS_USER}@${NAS_HOST}:${NAS_PATH}/"
+
+      - name: Redémarrer conteneur
+        if: steps.nas.outputs.ready == 'true' && secrets.NAS_SSH_RESTART_CMD != ''
+        run: |
+          ssh -i ~/.ssh/nas_key -o StrictHostKeyChecking=accept-new \
+            "${{ secrets.NAS_USER }}@${{ secrets.NAS_HOST }}" \
+            "${{ secrets.NAS_SSH_RESTART_CMD }}"

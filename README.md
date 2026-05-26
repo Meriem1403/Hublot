@@ -280,10 +280,14 @@ Hublot/
 | Document | Contenu |
 |----------|---------|
 | [**docs/README.md**](./docs/README.md) | Index de toute la documentation |
+| [DEVOPS.md](./docs/DEVOPS.md) | Synthèse DevOps (CI/CD, périmètre, évolutions) |
 | [DOCUMENTATION_DEPLOIEMENT.md](./docs/DOCUMENTATION_DEPLOIEMENT.md) | Installation, rollback, CI, logs |
 | [ARCHITECTURE_DEPLOIEMENT.md](./docs/ARCHITECTURE_DEPLOIEMENT.md) | Git, YAML, build, déploiement |
+| [ENVIRONNEMENT_TEST.md](./docs/ENVIRONNEMENT_TEST.md) | Environnements DEV, TEST, PROD |
+| [SECURITE_4_DEPLOIEMENT.md](./docs/SECURITE_4_DEPLOIEMENT.md) | HTTPS, secrets, headers, npm audit |
 | [PLAN_TEST.md](./docs/PLAN_TEST.md) | Plan de test (32 tests + scénarios) |
 | [COMPETENCE_DEPLOIEMENT_STUDI.md](./docs/COMPETENCE_DEPLOIEMENT_STUDI.md) | Synthèse compétence déploiement sécurisé |
+| [DEPLOIEMENT_NAS_SYNOLOGY.md](./docs/DEPLOIEMENT_NAS_SYNOLOGY.md) | Déploiement sur NAS Synology |
 | [DATA_MODEL.md](./docs/DATA_MODEL.md) | Modèle de données agents |
 | [TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) | Dépannage |
 
@@ -297,6 +301,9 @@ Hublot/
 | `npm run build` | Build production → `build/` |
 | `npm run test` | Vitest en mode watch |
 | `npm run test:run` | Vitest une fois (CI) |
+| `npm run lint` | ESLint |
+| `npm run test:e2e` | Tests E2E Playwright |
+| `npm run audit:prod` | Audit npm dépendances production |
 | `npm run docker:dev` | Docker développement |
 | `npm run docker:prod` | Docker production |
 | `make convert` | Préparation des données via Docker (usage interne) |
