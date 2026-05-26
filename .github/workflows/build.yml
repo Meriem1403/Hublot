@@ -1,23 +1,29 @@
-# Intégration continue : build de l'application Hublot
-# Déclenché à chaque push et pull request sur main.
-# Valide que l'application compile (prérequis au déploiement Netlify).
+# Pipeline CI/CD Hublot — alignée sur Netlify (netlify.toml)
+# CI  : GitHub Actions (tests + build)
+# CD  : Netlify (déploiement automatique après push sur main)
 
-name: CI Build
+name: CI/CD Pipeline
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  quality-and-build:
+    name: Tests et build (même config que Netlify)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -26,8 +32,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Tests
+      - name: Tests unitaires
         run: npm run test:run
 
-      - name: Build
+      - name: Build production
         run: npm run build
+
+      - name: Vérifier le dossier publish Netlify
+        run: |
+          test -f build/index.html
+          test -d build/assets
+          echo "build/ OK — publish directory identique à Netlify (netlify.toml)"
+
+      - name: Audit sécurité npm (informatif)
+        continue-on-error: true
+        run: npm audit --audit-level=high
