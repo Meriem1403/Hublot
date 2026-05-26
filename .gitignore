@@ -16,15 +16,18 @@ dist
 .next
 out
 
-# Environnement (ne jamais commiter de vrais identifiants)
+# Environnement (ne jamais commiter de vrais identifiants prod)
 .env
-.env.*
-!.env.example
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
 .env.production
+.env.production.local
+.env.*.local
+.env.staging
+# Fichiers de modes versionnés (sans secrets prod) :
+!.env.example
+!.env.development
+!.env.test
+!.env.staging.example
 
 # IDE
 .vscode
