@@ -156,7 +156,7 @@ Le pipeline CI est défini dans **Annexe 01** (`.github/workflows/build.yml`) et
 
 1. Ouvrir le dépôt sur GitHub : [github.com/Meriem1403/Hublot](https://github.com/Meriem1403/Hublot).
 2. Onglet **Actions**.
-3. Cliquer sur un **workflow run** (ex. *CI Build*) pour voir le détail des jobs et des étapes.
+3. Cliquer sur un **workflow run** (ex. *CI/CD Pipeline*) pour voir le détail des jobs et des étapes.
 
 ### Étapes du pipeline (à capturer / décrire)
 
@@ -172,11 +172,11 @@ Le pipeline CI est défini dans **Annexe 01** (`.github/workflows/build.yml`) et
 
 - **Capture d’écran :** dans l’onglet *Actions*, ouvrir un run réussi et faire une capture de la liste des étapes (job *build* avec les coches vertes).
 - **Export texte :** copier la sortie des logs d’une étape (bouton *View job summary* ou *Download log archive*).
-- **Référence document :** indiquer dans un rapport ou un livrable : « Pipeline CI : dépôt GitHub Meriem1403/Hublot, onglet Actions, workflow *CI Build* ; étapes : Checkout → Setup Node.js → npm ci → Tests → Build. »
+- **Référence document :** indiquer dans un rapport ou un livrable : « Pipeline CI/CD : dépôt GitHub Meriem1403/Hublot, onglet Actions, workflow *CI/CD Pipeline* ; étapes : Checkout → Node 20 → npm ci → Tests → Build → Vérification build/ → Audit npm (informatif). Déploiement CD : Netlify (`npm run build`, publish `build/`). »
 
 Contenu type à inclure dans une capture ou une description :
 
-- Nom du workflow : **CI Build**
+- Nom du workflow : **CI/CD Pipeline**
 - Déclencheur : **push** et **pull_request** sur **main**
 - Environnement : **ubuntu-latest**
 - Liste des 5 étapes ci-dessus avec statut (succès / échec)

@@ -9,17 +9,17 @@ services:
       target: development
     container_name: statdirm-dev
     ports:
-      - "3000:3000"
+      - "5173:5173"
     volumes:
       # Montage du code source pour le hot-reload
       - .:/app
       # Exclusion de node_modules pour éviter les conflits
       - /app/node_modules
-      - /app/build
+      - /app/dist
     environment:
       - NODE_ENV=development
       - VITE_HOST=0.0.0.0
-    command: npm run dev -- --host 0.0.0.0 --port 3000
+    command: npm run dev -- --host 0.0.0.0 --port 5173
     stdin_open: true
     tty: true
     networks:
