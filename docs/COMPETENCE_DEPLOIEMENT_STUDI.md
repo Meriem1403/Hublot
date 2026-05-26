@@ -1,6 +1,6 @@
 # Validation compétence Studi : Préparer le déploiement d'une application sécurisée
 
-**Application :** Hublot – Tableau de bord DIRM (Direction générale des Affaires maritimes, de la Pêche et de l'Aquaculture)  
+**Application :** Hublot – Tableau de bord DIRM Méditerranée ([dirm.mediterranee.developpement-durable.gouv.fr](https://www.dirm.mediterranee.developpement-durable.gouv.fr), Ministère chargé de la Mer et de la Pêche)  
 **Déploiement en ligne :** https://dirmhublot.netlify.app  
 **Référentiel :** Programme en vigueur le 21/02/2024 – Déploiement, DevOps, CI/CD, tests, sécurité.
 
