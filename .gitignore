@@ -1,3 +1,9 @@
+# Tests E2E
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
 # Dépendances
 node_modules
 npm-debug.log
@@ -40,7 +46,7 @@ Thumbs.db
 *.md
 !README.md
 !docs/
-!docs/*.md
+!docs/**/*.md
 
 # Scripts Python (gardés séparément)
 __pycache__

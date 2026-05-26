@@ -2,15 +2,20 @@
 
 Documentation du projet Hublot – Tableau de bord des effectifs et statistiques RH ([DIRM Méditerranée](https://www.dirm.mediterranee.developpement-durable.gouv.fr)).
 
-## Architecture de déploiement
+## Architecture de déploiement et DevOps
 
 | Document | Description |
 |----------|-------------|
+| [DEVOPS.md](./DEVOPS.md) | **Synthèse DevOps** — État des pratiques (CI, CD, lint, E2E, monitoring) |
+| [CD_PIPELINES.md](./CD_PIPELINES.md) | **CI / CD séparés** — GitHub Actions vs Netlify vs NAS |
+| [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md) | Branche `staging` + deploy previews Netlify |
+| [MONITORING.md](./MONITORING.md) | Health check, Sentry, uptime |
+| [SECURITE_AUDIT.md](./SECURITE_AUDIT.md) | Politique `npm audit` + allowlist |
 | [ARCHITECTURE_DEPLOIEMENT.md](./ARCHITECTURE_DEPLOIEMENT.md) | **1️⃣ Architecture de déploiement** — Dépôt Git, workflow YAML, build automatique, déploiement automatique (CI/CD) |
 | [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) | **2️⃣ Environnement de test** — Environnements DEV, TEST et PROD |
 | [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md) | **4️⃣ Sécurité** — HTTPS, variables d’env, secrets, headers, npm audit (très important pour DIRM ⚓) |
 | [PLAN_TEST.md](./PLAN_TEST.md) | **5️⃣ Plan de test** — Tableau type : Test / Objectif / Résultat attendu / Statut (auth, API, responsive, performance) |
-| [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) | Procédure d’exécution des tests (commandes pour reproduire les résultats du plan de test) |
+| [DEMO.md](./DEMO.md) / [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) | Procédure d’exécution des tests (commandes ; version épreuve avec ordre oral) |
 | [**DOCUMENTATION_DEPLOIEMENT.md**](./DOCUMENTATION_DEPLOIEMENT.md) | **Documentation du déploiement** — Procédure d’installation, rollback, architecture, capture du pipeline CI, logs de build |
 | [**Annexes/**](./Annexes/README.md) | **Annexes** — Fichiers mentionnés dans la doc, numérotés (Annexe 01 à 12) : workflow CI, netlify.toml, plan de test, sécurité, tests unitaires, etc. |
 
@@ -20,6 +25,7 @@ Documentation du projet Hublot – Tableau de bord des effectifs et statistiques
 |----------|-------------|
 | [QUICK_START.md](./QUICK_START.md) | Démarrage rapide |
 | [HOSTING.md](./HOSTING.md) | Hébergement (Docker, Nginx, Netlify/Vercel) |
+| [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md) | Déploiement sur NAS Synology (Container Manager) |
 | [COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md](./COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md) | Voir les données sur Netlify (avec ou sans Neon) |
 | [DOCKER.md](./DOCKER.md) | Guide Docker |
 | [README.DOCKER.md](./README.DOCKER.md) | Compléments Docker |

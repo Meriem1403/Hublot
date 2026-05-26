@@ -1,6 +1,3 @@
-# Annexe 01 — Workflow CI (GitHub Actions)
-# Fichier original : .github/workflows/ci.yml
-
 # CI — qualité et build (sans déploiement)
 # CD cloud : Netlify (voir cd-netlify.yml + netlify.toml)
 # CD NAS   : scripts/deploy-nas.sh + cd-nas.yml (manuel / secrets)
