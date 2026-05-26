@@ -1,6 +1,6 @@
 # Documentation Hublot
 
-Documentation du projet Hublot – Tableau de bord des effectifs et statistiques RH (DIRM).
+Documentation du projet Hublot – Tableau de bord des effectifs et statistiques RH ([DIRM Méditerranée](https://www.dirm.mediterranee.developpement-durable.gouv.fr)).
 
 ## Architecture de déploiement
 
