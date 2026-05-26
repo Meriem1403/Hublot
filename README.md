@@ -297,7 +297,11 @@ Hublot/
 
 | Commande | Description |
 |----------|-------------|
-| `npm run dev` | Serveur de développement Vite |
+| `npm run dev` | DEV — serveur local (mode development, port 3000) |
+| `npm run dev:test` | Serveur local en mode test (`.env.test`) |
+| `npm run check:env` | Vérifie DEV + chaîne TEST (lint, tests, audit, build) |
+| `npm run build:test` | Build pour QA locale / Docker test |
+| `npm run test:preview:docker` | Preview TEST sur http://localhost:4173 |
 | `npm run build` | Build production → `build/` |
 | `npm run test` | Vitest en mode watch |
 | `npm run test:run` | Vitest une fois (CI) |

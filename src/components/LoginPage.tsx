@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { setAuthenticated } from "../utils/security";
+import { EnvironmentBadge } from "./EnvironmentBadge";
+import { shouldShowEnvironmentBadge } from "../config/environment";
 
 interface LoginPageProps {
   onLoginSuccess: () => void;
@@ -246,6 +248,11 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
       {/* Panneau droit - Formulaire */}
       <div className="login-right-panel" style={styles.rightPanel}>
         <div className="login-anim-card" style={styles.card}>
+          {shouldShowEnvironmentBadge() && (
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+              <EnvironmentBadge />
+            </div>
+          )}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0891b2" strokeWidth="2"><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><circle cx="12" cy="5" r="3"/></svg>
             <div style={{ textAlign: "center" }}>
