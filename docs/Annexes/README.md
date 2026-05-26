@@ -6,7 +6,7 @@ Les fichiers mentionnés dans la documentation du déploiement sont regroupés i
 
 | Annexe | Fichier | Description |
 |--------|---------|-------------|
-| **Annexe 01** | [Annexe_01_build.yml](./Annexe_01_build.yml) | Workflow CI (GitHub Actions) — fichier original : `.github/workflows/build.yml` |
+| **Annexe 01** | [Annexe_01_build.yml](./Annexe_01_build.yml) | Workflow **CI** (GitHub Actions) — fichier original : `.github/workflows/ci.yml` |
 | **Annexe 02** | [Annexe_02_netlify.toml](./Annexe_02_netlify.toml) | Configuration Netlify (build, headers, redirects) — fichier original : `netlify.toml` |
 | **Annexe 03** | [Annexe_03_package.json](./Annexe_03_package.json) | Scripts et dépendances (extrait) — fichier original : `package.json` |
 | **Annexe 04** | [Annexe_04_gitignore](./Annexe_04_gitignore) | Fichiers exclus du dépôt — fichier original : `.gitignore` |

@@ -1,0 +1,44 @@
+# CD Netlify — orchestration après CI verte sur main
+# Netlify déploie aussi via webhook Git natif ; ce workflow documente la chaîne
+# « CI OK → déclenchement explicite » (éviter double build : désactiver auto-build Netlify
+# ou ne pas configurer NETLIFY_BUILD_HOOK — voir docs/CD_PIPELINES.md).
+
+name: CD Netlify
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  trigger-netlify:
+    name: Déclencher build Netlify
+    runs-on: ubuntu-latest
+    if: >
+      (github.event_name == 'workflow_dispatch') ||
+      (github.event.workflow_run.conclusion == 'success')
+    steps:
+      - name: Vérifier secret build hook
+        id: check
+        run: |
+          if [ -z "${{ secrets.NETLIFY_BUILD_HOOK }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "NETLIFY_BUILD_HOOK non défini — CD via webhook Git Netlify uniquement."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: POST build hook Netlify
+        if: steps.check.outputs.configured == 'true'
+        run: |
+          curl -fsS -X POST -d {} "${{ secrets.NETLIFY_BUILD_HOOK }}"
+          echo "Build Netlify déclenché."
+
+      - name: Rappel configuration gate CI
+        if: steps.check.outputs.configured == 'false'
+        run: |
+          echo "Pour exiger une CI verte avant deploy Netlify :"
+          echo "Site settings → Build & deploy → Deploy contexts → Production branch"
+          echo "→ Deploy only when required checks pass → sélectionner le workflow CI."

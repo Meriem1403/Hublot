@@ -20,9 +20,12 @@
 
 ## 2. Intégration continue (CI) et YAML
 
-- **Workflow d’intégration continue :** Le dépôt contient un workflow GitHub Actions (fichier **`.github/workflows/build.yml`**) qui :
-  - se déclenche sur chaque push et pull request sur `main` ;
-  - exécute `npm ci`, puis **`npm run test:run`** (tests unitaires), puis `npm run build`.
+- **Workflow d’intégration continue :** workflow GitHub Actions **« CI »** (fichier **`.github/workflows/ci.yml`**, **Annexe 01**) :
+  - déclenchement sur `main`, `staging` et pull requests ;
+  - **ESLint**, **`npm run test:run`** (32 tests), **`npm run audit:prod`**, **`npm run build`**, **Playwright E2E** ;
+  - CD cloud : Netlify (fichier **`cd-netlify.yml`** + gate required checks) ;
+  - CD NAS : **`cd-nas.yml`** + **`scripts/deploy-nas.sh`** (semi-automatisé).
+- **Synthèse :** **`DEVOPS.md`**, **`CD_PIPELINES.md`**, **`MONITORING.md`**, **`ENVIRONNEMENT_STAGING.md`**.
 - **Rédaction en YAML :** La pipeline CI est décrite en YAML (syntaxe et structure attendues dans le référentiel).
 - **Automatisation des tests en DevOps :** Batterie de **32 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
 
@@ -50,8 +53,8 @@
 | Déploiement d’une application | Application en ligne : https://dirmhublot.netlify.app |
 | Déploiement continu (CD) | Netlify : build + déploiement automatique à chaque push |
 | Intégration continue (CI) | Workflow GitHub Actions – tests automatiques puis build |
-| YAML | `netlify.toml`, `.github/workflows/build.yml` |
-| Documentation du processus de déploiement | `HOSTING.md`, `DEPLOIEMENT_SECURISE.md`, `README.md` |
+| YAML | `netlify.toml`, `.github/workflows/ci.yml`, `cd-netlify.yml`, `cd-nas.yml` |
+| Documentation du processus de déploiement | `DEVOPS.md`, `DOCUMENTATION_DEPLOIEMENT.md`, `HOSTING.md`, `README.md` (racine) |
 | Application sécurisée | Authentification, `.gitignore` pour les secrets, docs sécurité |
 | Scripts / automatisation | Scripts npm, Python (conversion), configuration Netlify |
 | Environnement de test | Instructions en local et Docker dans `README.md` et `HOSTING.md` ; voir **`ENVIRONNEMENT_TEST.md`** (DEV / TEST / PROD). |

@@ -140,7 +140,7 @@ L’architecture de déploiement repose sur **Git** (source), **GitHub Actions**
 
 | Annexe | Fichier | Rôle |
 |--------|---------|------|
-| **Annexe 01** | .github/workflows/build.yml | Pipeline CI : déclenchement sur push/PR vers `main`, exécution des tests et du build. |
+| **Annexe 01** | .github/workflows/ci.yml | Pipeline CI : lint, tests, audit, build, E2E (push/PR `main` et `staging`). |
 | **Annexe 02** | netlify.toml | Commande de build, dossier à publier, redirections SPA, headers de sécurité. |
 | **Annexe 03** | package.json | Scripts `build`, `test:run`, dépendances du projet. |
 
@@ -150,13 +150,13 @@ Pour une description détaillée (dépôt, workflow YAML, build et déploiement 
 
 ## 4. Capture du pipeline CI
 
-Le pipeline CI est défini dans **Annexe 01** (`.github/workflows/build.yml`) et s’exécute sur **GitHub Actions**.
+Le pipeline CI est défini dans **Annexe 01** (`.github/workflows/ci.yml`) et s’exécute sur **GitHub Actions**. Le CD Netlify est décrit dans [CD_PIPELINES.md](./CD_PIPELINES.md).
 
 ### Où voir le pipeline
 
 1. Ouvrir le dépôt sur GitHub : [github.com/Meriem1403/Hublot](https://github.com/Meriem1403/Hublot).
 2. Onglet **Actions**.
-3. Cliquer sur un **workflow run** (ex. *CI/CD Pipeline*) pour voir le détail des jobs et des étapes.
+3. Cliquer sur un **workflow run** (workflow **CI**) pour voir le détail des jobs et des étapes.
 
 ### Étapes du pipeline (à capturer / décrire)
 
@@ -165,18 +165,21 @@ Le pipeline CI est défini dans **Annexe 01** (`.github/workflows/build.yml`) et
 | 1 | Checkout | Récupération du code du dépôt |
 | 2 | Setup Node.js | Installation de Node.js 20, cache npm |
 | 3 | Install dependencies | `npm ci` |
-| 4 | Tests | `npm run test:run` (32 tests Vitest) |
-| 5 | Build | `npm run build` |
+| 4 | ESLint | `npm run lint` |
+| 5 | Tests | `npm run test:run` (32 tests Vitest) |
+| 6 | Audit prod | `npm run audit:prod` |
+| 7 | Build | `npm run build` |
+| 8 | E2E | `npm run test:e2e` (Playwright) |
 
 ### Comment capturer une « capture » du pipeline
 
 - **Capture d’écran :** dans l’onglet *Actions*, ouvrir un run réussi et faire une capture de la liste des étapes (job *build* avec les coches vertes).
 - **Export texte :** copier la sortie des logs d’une étape (bouton *View job summary* ou *Download log archive*).
-- **Référence document :** indiquer dans un rapport ou un livrable : « Pipeline CI/CD : dépôt GitHub Meriem1403/Hublot, onglet Actions, workflow *CI/CD Pipeline* ; étapes : Checkout → Node 20 → npm ci → Tests → Build → Vérification build/ → Audit npm (informatif). Déploiement CD : Netlify (`npm run build`, publish `build/`). »
+- **Référence document :** « CI : workflow *CI* (lint, 32 tests, audit prod, build, E2E). CD : Netlify après required checks (`netlify.toml`, publish `build/`). Voir [CD_PIPELINES.md](./CD_PIPELINES.md). »
 
 Contenu type à inclure dans une capture ou une description :
 
-- Nom du workflow : **CI/CD Pipeline**
+- Nom du workflow : **CI** (jobs : ESLint, Tests unitaires, Audit npm, Build, E2E)
 - Déclencheur : **push** et **pull_request** sur **main**
 - Environnement : **ubuntu-latest**
 - Liste des 5 étapes ci-dessus avec statut (succès / échec)
@@ -203,7 +206,7 @@ Les logs de build sont disponibles à deux endroits selon l’environnement.
 
 | Source | URL / accès | Usage |
 |--------|-------------|--------|
-| **GitHub Actions** | Dépôt → Actions → *CI Build* → run → job *build* | Vérifier les tests et le build en CI. |
+| **GitHub Actions** | Dépôt → Actions → workflow **CI** | Lint, tests, audit, build, E2E. |
 | **Netlify** | Netlify Dashboard → Deploys → déploiement | Vérifier le build et le déploiement en production. |
 
 Pour un rapport ou une démonstration, on peut joindre un extrait des logs (ex. fin de l’étape *Build* avec `✓ built in …`) ou une capture d’écran des deux interfaces.

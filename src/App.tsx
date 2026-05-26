@@ -157,10 +157,14 @@ export default function App() {
 function GlobalFilterBar() {
   const ctx = useGlobalFilterContext();
   const { regions, services, statuts, pasas, corps, fonctions } = useFilterOptions();
-  if (!ctx) return null;
-  const { filters, setRegion, setService, setStatut, setPasa, setCorps, setFonction, resetFilters } = ctx;
-  const advancedActive = filters.pasa !== 'all' || filters.corps !== 'all' || filters.fonction !== 'all';
+  const filters = ctx?.filters;
+  const advancedActive =
+    (filters?.pasa ?? 'all') !== 'all' ||
+    (filters?.corps ?? 'all') !== 'all' ||
+    (filters?.fonction ?? 'all') !== 'all';
   const [showAdvanced, setShowAdvanced] = useState<boolean>(advancedActive);
+  if (!ctx || !filters) return null;
+  const { setRegion, setService, setStatut, setPasa, setCorps, setFonction, resetFilters } = ctx;
   const hasFilter =
     filters.region !== 'all' ||
     filters.service !== 'all' ||

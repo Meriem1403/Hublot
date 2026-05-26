@@ -304,7 +304,12 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
               </label>
               <button type="button" style={{ background: "none", border: "none", fontSize: "0.875rem", color: "#0891b2", cursor: "pointer", fontWeight: 500 }}>Mot de passe oublié ?</button>
             </div>
-            <button type="submit" disabled={loading} style={{ ...styles.button, opacity: loading ? 0.7 : 1, cursor: loading ? "wait" : "pointer" }}>
+            <button
+              type="submit"
+              data-testid="login-submit"
+              disabled={loading}
+              style={{ ...styles.button, opacity: loading ? 0.7 : 1, cursor: loading ? "wait" : "pointer" }}
+            >
               {loading ? "Connexion…" : "Se connecter"}
             </button>
           </form>

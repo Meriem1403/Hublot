@@ -1,0 +1,98 @@
+# Déploiement local sur NAS Synology (Container Manager)
+
+Guide pour déployer **Hublot** en réseau interne, sans passer par Netlify.
+
+**Annexe associée :** [Annexe 10](./Annexes/Annexe_10_DEPLOIEMENT_NAS_SYNOLOGY.md)
+
+---
+
+## Option recommandée (build sur Mac, service statique sur NAS)
+
+Si Container Manager reste bloqué sur `RUN npm ci`, utiliser un déploiement **sans build Docker sur le NAS** :
+
+1. Sur le poste de développement :
+   ```bash
+   npm ci
+   npm run build
+   ```
+2. Vérifier le dossier **`build/`** (sortie Vite ; alias possible `dist/` selon copie).
+3. Copier tout le projet vers le NAS (avec `build/` ou montage équivalent).
+4. **Container Manager** → **Projet** → **Créer** :
+   - Dossier : `/volume1/docker/statdirm` (exemple)
+   - Fichier compose : `docker-compose.yml`
+5. Démarrer le projet.
+
+**Accès :** `http://IP_DU_NAS:8080`
+
+Cette méthode n'exécute **aucun** `npm ci` sur le NAS.
+
+---
+
+## Fichiers Docker du projet
+
+| Fichier | Rôle |
+|---------|------|
+| `docker-compose.yml` | Nginx Alpine, port `8080:80`, montage statique |
+| `nginx.conf` | SPA React, headers de base |
+| `Dockerfile` | Build multi-étapes (si build sur NAS possible) |
+| `docker-compose.prod.yml` | Variante build sur NAS |
+
+---
+
+## Préparer le dossier sur le NAS
+
+1. DSM → **File Station**
+2. Créer `docker/statdirm`
+3. Copier le projet (zip ou synchronisation)
+
+---
+
+## Déploiement via Container Manager
+
+1. **Container Manager** → **Projet** → **Créer**
+2. Nom : `statdirm`
+3. Chemin : dossier du projet sur le NAS
+4. Compose : `docker-compose.yml` (statique) ou `docker-compose.prod.yml` (build)
+5. Lancer
+
+### Ports
+
+| Compose | Mapping | URL |
+|---------|---------|-----|
+| `docker-compose.yml` | `8080:80` | `http://IP_NAS:8080` |
+| `docker-compose.prod.yml` | `80:80` (modifiable) | `http://IP_NAS/` |
+
+Si le port 80 est occupé : remplacer par `8080:80` dans le compose.
+
+---
+
+## Mise à jour sans Git
+
+1. Rebuild local : `npm run build`
+2. Remplacer les fichiers sur le NAS
+3. **Container Manager** → Projet `statdirm` → **Arrêter** → **Reconstruire** (si image) ou **Redémarrer** (si volume statique)
+
+---
+
+## Vérifications
+
+- [ ] Conteneur en état **Running**
+- [ ] Logs Nginx sans erreur
+- [ ] Page d'accueil charge dans le navigateur
+- [ ] Refresh sur une route interne (SPA → `index.html`)
+
+---
+
+## HTTPS local (optionnel)
+
+**Panneau de configuration** → **Portail de connexion** → **Reverse Proxy**
+
+- Source : `https://hublot.local`
+- Destination : `http://127.0.0.1:8080`
+- Certificat DSM associé
+
+---
+
+## Lien avec la doc racine
+
+Une copie de ce guide existe aussi à la racine : `DEPLOY_SYNOLOGY_LOCAL.md` (même contenu ; préférer ce fichier dans `docs/` pour l'index documentation).
