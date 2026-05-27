@@ -1,15 +1,39 @@
 # 5️⃣ Plan de test
 
-Chaque test est décrit avec un **objectif**, un **résultat attendu** et le **statut** constaté après exécution. La colonne **Type** indique si le test est **automatisé** (lancé en ligne de commande) ou **manuel** (à exécuter dans le navigateur). Les tests automatiques listés ci-dessous ont été exécutés ; les tests manuels sont à réaliser selon les scénarios détaillés, puis à marquer Passé ou Échec.
+Chaque test est décrit avec un **objectif**, un **résultat attendu** et le **statut** constaté après exécution. La colonne **Type** indique si le test est **automatisé** ou **manuel**.
 
-### Batterie de tests automatisés (32 tests)
+**Enjeux (référentiel Studi) :** voir [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) — pourquoi planifier, risques RH, automatisation vs manuel, traçabilité.
 
-| Fichier | Nombre de tests | Couverture |
-|---------|-----------------|------------|
-| **dataService.test.ts** | 12 | Filtres (région, service, DIRM Méditerranée, statut, mission), normalisation des agents (mapping région/service), chargement depuis `StatDirmData`. Voir **Annexe 11**. |
-| **dataCalculations.test.ts** | 20 | Âge et tranches d’âge, ETP (temps plein / partiel), répartition par statut, par contrat, par genre, par responsabilité, par âge ; statistiques de vue d’ensemble ; statistiques par service (effectif, statut normal/fragile/critique). Voir **Annexe 12**. |
+**Annexes :** [08](./Annexes/Annexe_08_PLAN_TEST.md) (plan synthétique) · [13](./Annexes/Annexe_13_SCENARIOS_TEST.md) (scénarios détaillés) · **Exécution :** [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) · **Rapport :** [RAPPORT_EXECUTION_TESTS.md](./RAPPORT_EXECUTION_TESTS.md)
 
-Commande : `npm run test:run` (exécution en local et en CI). Workflow CI : **Annexe 01**.
+Document maître scénarios : [SCENARIOS_TEST.md](./SCENARIOS_TEST.md).
+
+---
+
+## Enjeux en résumé
+
+| Enjeu | Comment le plan y répond |
+|-------|---------------------------|
+| **Données RH fiables** | 20 tests calculs + 12 tests filtres / normalisation |
+| **Pas de régression en CI/CD** | Workflow **CI** à chaque push (`main`, `staging`) |
+| **Sécurité** | Auth, headers, audit npm, E2E login |
+| **Traçabilité jury** | Tableau Objectif / Résultat / **Statut** + logs Actions |
+| **Coût maîtrisé** | Pyramide : beaucoup d'unitaires, peu d'E2E ciblés |
+
+---
+
+## Batterie automatisée (36 exécutions)
+
+| Fichier / outil | Nombre | Couverture |
+|-----------------|--------|------------|
+| **dataService.test.ts** | 12 | Filtres, normalisation, chargement — **Annexe 11** |
+| **dataCalculations.test.ts** | 20 | Âge, ETP, répartitions, stats service — **Annexe 12** |
+| **environment.test.ts** | 1 | Libellé environnement (DEV / staging…) |
+| **e2e/smoke.spec.ts** | 3 | Login, dashboard, `/health.json` — Playwright en CI |
+| **ESLint** | — | Qualité code (`npm run lint`) |
+| **audit prod** | — | `npm run audit:prod` — **SECURITE_AUDIT.md** |
+
+Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **Annexe 01** (`ci.yml`).
 
 ---
 
@@ -17,78 +41,65 @@ Commande : `npm run test:run` (exécution en local et en CI). Workflow CI : **An
 
 | Test | Type | Objectif | Résultat attendu | Statut |
 |------|------|----------|------------------|--------|
-| **Tests unitaires automatisés (CI)** | Automatisé | Valider que les tests automatisés s’exécutent en intégration continue (DevOps). | `npm run test:run` réussit en local (32 tests, 2 fichiers). Le workflow GitHub Actions exécute les tests à chaque push/PR sur `main` ; job vert = tous les tests passent. | Passé |
-| **Test build et déploiement** | Automatisé | Vérifier que le build et le déploiement automatiques fonctionnent. | `npm run build` réussit en local. CI (GitHub Actions) et déploiement Netlify réussissent après un push sur `main`. Site accessible à l’URL de production. | Passé |
-| **Test vulnérabilités (npm audit)** | Automatisé | Vérifier l’état des vulnérabilités dans les dépendances. | `npm audit` exécuté à la racine ; rapport consulté. Vulnérabilités restantes documentées (dépendances de dev, plan de correction si besoin). | Passé |
-| **Test authentification** | Manuel | Vérifier que l’accès au tableau de bord est protégé et que la connexion fonctionne. | Sans identifiants : redirection vers la page de connexion. Avec identifiants valides (variables d’env) : accès au tableau de bord. Déconnexion possible. | À exécuter |
-| **Test API / chargement des données** | Manuel | Vérifier que les données (effectifs, statistiques) sont correctement chargées et affichées. | Les données sont récupérées (JSON ou Netlify Function). Les onglets affichent des chiffres cohérents, pas d’erreur en console. | À exécuter |
-| **Test responsive** | Manuel | Vérifier que l’application est utilisable sur mobile, tablette et desktop. | Mise en page adaptée ; pas de débordement horizontal ; navigation et filtres utilisables sur petit écran. | À exécuter |
-| **Test performance** | Manuel | Vérifier que le site se charge et répond dans un temps acceptable. | Premier chargement raisonnable. Navigation entre onglets fluide. | À exécuter |
-| **Test des filtres** | Manuel | Vérifier que les filtres (région, service, statut) mettent à jour correctement les vues. | Sélection d’un filtre : tableaux et graphiques se mettent à jour. Filtre « DIRM Méditerranée » et autres options cohérents. | À exécuter |
-| **Test sécurité (headers)** | Automatisé | Vérifier que les headers de sécurité sont envoyés en production. | `curl -I https://dirmhublot.netlify.app` : HTTPS, HSTS ; X-Frame-Options et X-Content-Type-Options si configurés (voir **Annexe 02**). | À vérifier |
+| **Lint (ESLint)** | Automatisé | Détecter erreurs et mauvaises pratiques avant merge. | `npm run lint` sans erreur en local et en CI. | Passé |
+| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques). | `npm run test:run` : 33 tests passés (3 fichiers). CI verte. | Passé |
+| **Tests E2E** | Automatisé | Valider le parcours critique (connexion, accès app). | `npm run test:e2e` : 3 scénarios Playwright passés en CI. | Passé |
+| **Build production** | Automatisé | Vérifier que l'app compile pour Netlify/NAS. | `npm run build` → `build/index.html` + `assets/`. CI + Netlify OK. | Passé |
+| **Audit npm (production)** | Automatisé | Limiter les vulnérabilités des dépendances runtime. | `npm run audit:prod` : critical bloquant ; high hors allowlist documentée. | Passé |
+| **Test authentification** | Manuel | Accès protégé ; login / logout. | Page login sans session ; identifiants invalides refusés ; accès dashboard si valides. | **Passé** — ST-F01 ([rapport](./RAPPORT_EXECUTION_TESTS.md)) |
+| **Test chargement des données** | Manuel | Données cohérentes sur tous les onglets. | Graphiques et tableaux alimentés ; pas d'erreur bloquante en console. | **Passé** — ST-F02 |
+| **Test responsive** | Manuel | Usage mobile / tablette / desktop. | Pas de débordement ; filtres et onglets utilisables (≈ 375 px). | **Passé** — ST-F04 |
+| **Test performance** | Manuel | Temps de chargement acceptable. | Page interactive en quelques secondes ; navigation fluide. | **Passé** — ST-F05 |
+| **Test des filtres** | Manuel | Filtres globaux (région, service, statut, PASA…). | Sélection met à jour vues ; « DIRM Méditerranée » cohérent. | **Passé** — ST-F03 |
+| **Test badge environnement** | Manuel | Distinguer DEV / staging de la PROD. | Badge visible hors production ; absent sur dirmhublot.netlify.app. | **Passé** — ST-F06 |
+| **Test sécurité (headers)** | Automatisé | Headers durcis en production. | `curl -I https://dirmhublot.netlify.app` : HTTPS, `X-Frame-Options`, `X-Content-Type-Options`. | **Passé** — ST-SEC01 |
 
 ---
 
-## Détail des scénarios (optionnel)
+## Détail des scénarios manuels
 
-### Test authentification
+Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quand / Alors*, traçabilité **ST-F***) sont dans **[SCENARIOS_TEST.md](./SCENARIOS_TEST.md)** — **Annexe 13**.
 
-1. Ouvrir [https://dirmhublot.netlify.app](https://dirmhublot.netlify.app).
-2. Sans se connecter : on doit être redirigé vers la page de connexion.
-3. Saisir des identifiants invalides : message d’erreur, pas d’accès.
-4. Saisir les identifiants configurés (variables d’environnement Netlify) : accès au tableau de bord.
-5. Se déconnecter : retour à l’écran de connexion.
+### Rappels exécution rapide
 
-### Test API / chargement des données
-
-1. Une fois connecté, parcourir chaque onglet (Vue d’ensemble, Vue dynamique, Effectifs par service, Par mission, Contrats, etc.).
-2. Vérifier que des données s’affichent (nombres, graphiques, tableaux).
-3. Ouvrir la console développeur (F12) : pas d’erreur réseau ou JavaScript bloquante.
-
-### Test responsive
-
-1. Ouvrir le site sur desktop, puis redimensionner la fenêtre (ou utiliser les outils de développement « mode appareil »).
-2. Vérifier la lisibilité et l’utilisation des menus, filtres, tableaux et graphiques sur une largeur type mobile (ex. 375 px).
-
-### Test performance
-
-1. Charger la page en production (éventuellement avec « throttling » réseau).
-2. Vérifier que la page devient interactive en quelques secondes.
-3. Optionnel : `npm run build` et regarder la taille du bundle (ex. rapport Vite).
+- **Auth** → ST-F01 · **Données** → ST-F02 · **Filtres** → ST-F03 · **Responsive** → ST-F04 · **Perf** → ST-F05 · **Badge** → ST-F06 · **Headers** → ST-SEC01
 
 ---
 
-## Statut
+## Statuts
 
-Le statut indique le résultat de l’exécution du test :
-
-- **Passé** : test exécuté, résultat conforme au résultat attendu.
-- **Échec** : test exécuté, résultat non conforme (à corriger).
-- **À exécuter** : test manuel à réaliser selon le scénario décrit (puis passer à Passé ou Échec).
-- **À vérifier** : test dont le résultat doit être contrôlé (ex. headers après déploiement).
-
----
-
-## Alignement avec le référentiel (compétence licence)
-
-| Attendu du référentiel | Ce que ce plan couvre |
-|------------------------|------------------------|
-| **Enjeux des plans de test** | Tableau structuré (objectif, résultat attendu, statut) pour planifier et tracer les validations. |
-| **Élaborer un scénario de test** | Scénarios détaillés pour authentification, API, responsive, performance (section « Détail des scénarios »). |
-| **Environnement de test** | Tests en local (DEV), en CI (TEST) et en production (PROD) — voir **Annexe 06**. |
-| **Tests de sécurité** | Test des headers, test des vulnérabilités (npm audit), authentification. |
-| **Valider les résultats des tests** | Colonne **Statut** (Passé / Échec) ; CI exécute les tests unitaires automatiquement. |
-| **Automatiser les tests en DevOps** | Ligne « Tests unitaires automatisés (CI) » ; workflow **Annexe 01** exécute `npm run test:run`. |
+| Statut | Signification |
+|--------|----------------|
+| **Passé** | Exécuté, conforme au résultat attendu |
+| **Échec** | Exécuté, non conforme — à corriger |
+| **À exécuter** | Manuel à faire (puis Passé / Échec) |
+| **À vérifier** | À contrôler après deploy (ex. headers) |
 
 ---
 
-## Fichiers et annexes liés
+## Alignement référentiel Studi
 
-| Annexe | Document | Description |
-|--------|----------|-------------|
-| **Annexe 09** | [Annexes/Annexe_09_DEMO.md](./Annexes/Annexe_09_DEMO.md) | Procédure d’exécution des tests (commandes) |
-| **Annexe 06** | [Annexes/Annexe_06_ENVIRONNEMENT_TEST.md](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) | Où exécuter les tests (DEV, TEST, PROD) |
-| **Annexe 07** | [Annexes/Annexe_07_SECURITE_4_DEPLOIEMENT.md](./Annexes/Annexe_07_SECURITE_4_DEPLOIEMENT.md) | Contexte sécurité (HTTPS, headers, variables d’env) |
-| **Annexe 01** | [Annexes/Annexe_01_build.yml](./Annexes/Annexe_01_build.yml) | CI : exécution automatique des tests unitaires et du build |
+| Attendu | Couverture |
+|---------|------------|
+| **Enjeux des plans de test** | [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) |
+| **Élaborer un scénario** | [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) — Annexe 13 |
+| **Environnement de test** | [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) — Annexe 06 |
+| **Tests de sécurité** | Auth, headers, audit — Annexe 07 |
+| **Valider les résultats** | Colonne **Statut** + CI |
+| **Automatiser (DevOps)** | CI : lint, Vitest, E2E, audit, build |
 
-Index de toutes les annexes : [Annexes/README.md](./Annexes/README.md).
+---
+
+## Annexes
+
+| Annexe | Document |
+|--------|----------|
+| **08** | [Annexe_08_PLAN_TEST.md](./Annexes/Annexe_08_PLAN_TEST.md) |
+| **13** | [Annexe_13_SCENARIOS_TEST.md](./Annexes/Annexe_13_SCENARIOS_TEST.md) |
+| **09** | [Annexe_09_DEMO.md](./Annexes/Annexe_09_DEMO.md) |
+| **06** | [Annexe_06_ENVIRONNEMENT_TEST.md](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) |
+| **07** | [Annexe_07_SECURITE_4_DEPLOIEMENT.md](./Annexes/Annexe_07_SECURITE_4_DEPLOIEMENT.md) |
+| **01** | [Annexe_01_build.yml](./Annexes/Annexe_01_build.yml) (CI) |
+| **11–12** | Tests unitaires sources |
+
+Index : [Annexes/README.md](./Annexes/README.md).

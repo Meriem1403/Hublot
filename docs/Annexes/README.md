@@ -2,7 +2,7 @@
 
 Les fichiers mentionnés dans la documentation du déploiement sont regroupés ici et numérotés. Chaque document principal y fait référence par **Annexe XX**.
 
-**Document unique :** [TOUTES_LES_ANNEXES.md](./TOUTES_LES_ANNEXES.md) — toutes les annexes (01 à 12) à la suite dans un seul fichier Markdown.
+**Document unique :** [TOUTES_LES_ANNEXES.md](./TOUTES_LES_ANNEXES.md) — toutes les annexes (01 à 13) à la suite dans un seul fichier Markdown.
 
 | Annexe | Fichier | Description |
 |--------|---------|-------------|
@@ -18,6 +18,7 @@ Les fichiers mentionnés dans la documentation du déploiement sont regroupés i
 | **Annexe 10** | [Annexe_10_COMPETENCE_DEPLOIEMENT_STUDI.md](./Annexe_10_COMPETENCE_DEPLOIEMENT_STUDI.md) | Validation compétence Studi (déploiement, CI/CD, tests) |
 | **Annexe 11** | [Annexe_11_dataService.test.ts](./Annexe_11_dataService.test.ts) | Tests unitaires dataService (12 tests) — fichier original : `src/services/dataService.test.ts` |
 | **Annexe 12** | [Annexe_12_dataCalculations.test.ts](./Annexe_12_dataCalculations.test.ts) | Tests unitaires dataCalculations (20 tests) — fichier original : `src/utils/dataCalculations.test.ts` |
+| **Annexe 13** | [Annexe_13_SCENARIOS_TEST.md](./Annexe_13_SCENARIOS_TEST.md) | **Scénarios de test** (Given/When/Then, ST-F*, ST-SEC*, ST-AUTO*) |
 
 ---
 
