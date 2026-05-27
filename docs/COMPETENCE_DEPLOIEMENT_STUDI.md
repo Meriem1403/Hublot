@@ -58,7 +58,9 @@
 | Application sécurisée | Authentification, `.gitignore` pour les secrets, docs sécurité |
 | Scripts / automatisation | Scripts npm, Python (conversion), configuration Netlify |
 | Environnement de test | **`ENVIRONNEMENT_TEST.md`** — DEV, TEST (CI), TEST local, STAGING, PROD ; `npm run check:env` |
-| Plan de test, scénarios, validation | **`PLAN_TEST.md`** : tableau Test / Objectif / Résultat attendu / Statut (auth, API, responsive, performance, tests automatisés CI, sécurité). |
+| Enjeux des plans de test | **`ENJEUX_PLAN_TEST.md`** — risques, stratégie, pyramide, traçabilité |
+| Élaborer un scénario de test | **`SCENARIOS_TEST.md`** (+ Annexe **13**) ; synthèse jury **`Rendus/SCENARIOS_TEST.md`** |
+| Plan de test, scénarios, validation | **`PLAN_TEST.md`** ; identifiants **ST-F*** dans **`SCENARIOS_TEST.md`** ; 33 tests Vitest + E2E + lint en CI |
 
 ---
 

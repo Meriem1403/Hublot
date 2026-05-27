@@ -169,7 +169,7 @@ Voir [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md).
 | Tests manuels UI | Navigateur | — | :4173 | URL staging | URL prod |
 | Headers sécurité | — | — | — | curl -I | curl -I |
 
-Plan détaillé : [PLAN_TEST.md](./PLAN_TEST.md)
+Procédure jury : [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) · Fiches **ST-F** : [SCENARIOS_TEST.md](./SCENARIOS_TEST.md)
 
 ---
 

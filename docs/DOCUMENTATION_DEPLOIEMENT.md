@@ -231,3 +231,4 @@ Tous les fichiers mentionnés dans cette documentation sont regroupés et numér
 | **Annexe 10** | [Annexe_10_COMPETENCE_DEPLOIEMENT_STUDI.md](./Annexes/Annexe_10_COMPETENCE_DEPLOIEMENT_STUDI.md) | Validation compétence Studi |
 | **Annexe 11** | [Annexe_11_dataService.test.ts](./Annexes/Annexe_11_dataService.test.ts) | Tests unitaires dataService (12 tests) |
 | **Annexe 12** | [Annexe_12_dataCalculations.test.ts](./Annexes/Annexe_12_dataCalculations.test.ts) | Tests unitaires dataCalculations (20 tests) |
+| **Annexe 13** | [Annexe_13_SCENARIOS_TEST.md](./Annexes/Annexe_13_SCENARIOS_TEST.md) | Scénarios de test formalisés (ST-F*, ST-SEC*, ST-AUTO*) |
