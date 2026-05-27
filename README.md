@@ -285,7 +285,9 @@ Hublot/
 | [ARCHITECTURE_DEPLOIEMENT.md](./docs/ARCHITECTURE_DEPLOIEMENT.md) | Git, YAML, build, déploiement |
 | [ENVIRONNEMENT_TEST.md](./docs/ENVIRONNEMENT_TEST.md) | Environnements DEV, TEST, PROD |
 | [SECURITE_4_DEPLOIEMENT.md](./docs/SECURITE_4_DEPLOIEMENT.md) | HTTPS, secrets, headers, npm audit |
-| [PLAN_TEST.md](./docs/PLAN_TEST.md) | Plan de test (32 tests + scénarios) |
+| [ENJEUX_PLAN_TEST.md](./docs/ENJEUX_PLAN_TEST.md) | Enjeux des plans de test (référentiel Studi) |
+| [PLAN_TEST.md](./docs/PLAN_TEST.md) | Plan de test (tableau synthétique + statuts) |
+| [SCENARIOS_TEST.md](./docs/SCENARIOS_TEST.md) | Scénarios formalisés (Étant donné / Quand / Alors, Annexe 13) |
 | [COMPETENCE_DEPLOIEMENT_STUDI.md](./docs/COMPETENCE_DEPLOIEMENT_STUDI.md) | Synthèse compétence déploiement sécurisé |
 | [DEPLOIEMENT_NAS_SYNOLOGY.md](./docs/DEPLOIEMENT_NAS_SYNOLOGY.md) | Déploiement sur NAS Synology |
 | [DATA_MODEL.md](./docs/DATA_MODEL.md) | Modèle de données agents |

@@ -22,9 +22,9 @@ npm ci
 npm run test:run
 ```
 
-**Résultat attendu :** 32 tests passés, 0 échec.
+**Résultat attendu :** 33 tests passés, 0 échec.
 
-**Capture jury :** terminal avec la ligne `Tests  32 passed` (ou équivalent Vitest).
+**Capture jury :** terminal avec `Tests  33 passed` (ou équivalent Vitest).
 
 ---
 

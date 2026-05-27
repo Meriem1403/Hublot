@@ -14,10 +14,12 @@ Documentation du projet Hublot – Tableau de bord des effectifs et statistiques
 | [ARCHITECTURE_DEPLOIEMENT.md](./ARCHITECTURE_DEPLOIEMENT.md) | **1️⃣ Architecture de déploiement** — Dépôt Git, workflow YAML, build automatique, déploiement automatique (CI/CD) |
 | [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) | **2️⃣ Environnement de test** — Environnements DEV, TEST et PROD |
 | [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md) | **4️⃣ Sécurité** — HTTPS, variables d’env, secrets, headers, npm audit (très important pour DIRM ⚓) |
-| [PLAN_TEST.md](./PLAN_TEST.md) | **5️⃣ Plan de test** — Tableau type : Test / Objectif / Résultat attendu / Statut (auth, API, responsive, performance) |
+| [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) | **Enjeux des plans de test** — Risques RH, pyramide, stratégie, lien Agile/DevOps |
+| [PLAN_TEST.md](./PLAN_TEST.md) | **5️⃣ Plan de test** — Tableau Test / Objectif / Résultat / Statut + scénarios manuels |
+| [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) | **Élaborer des scénarios** — Étant donné / Quand / Alors (ST-F01…), sécurité, automatisés |
 | [DEMO.md](./DEMO.md) / [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) | Procédure d’exécution des tests (commandes ; version épreuve avec ordre oral) |
 | [**DOCUMENTATION_DEPLOIEMENT.md**](./DOCUMENTATION_DEPLOIEMENT.md) | **Documentation du déploiement** — Procédure d’installation, rollback, architecture, capture du pipeline CI, logs de build |
-| [**Annexes/**](./Annexes/README.md) | **Annexes** — Fichiers mentionnés dans la doc, numérotés (Annexe 01 à 12) : workflow CI, netlify.toml, plan de test, sécurité, tests unitaires, etc. |
+| [**Annexes/**](./Annexes/README.md) | **Annexes** — Fichiers pièces jointes (Annexe 01 à 13) : CI, Netlify, plan et scénarios de test, sécurité, tests unitaires, etc. |
 
 ## Démarrage et déploiement
 
