@@ -4,11 +4,11 @@
 
 Chaque test est décrit avec un **objectif**, un **résultat attendu** et le **statut** constaté après exécution. La colonne **Type** indique si le test est **automatisé** ou **manuel**.
 
-**Enjeux (référentiel Studi) :** voir [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) — pourquoi planifier, risques RH, automatisation vs manuel, traçabilité.
+**Enjeux (référentiel Studi) :** voir [ENJEUX_PLAN_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md) — pourquoi planifier, risques RH, automatisation vs manuel, traçabilité.
 
-**Annexes :** [08](./Annexes/Annexe_08_PLAN_TEST.md) (plan synthétique) · [13](./Annexes/Annexe_13_SCENARIOS_TEST.md) (scénarios détaillés) · **Exécution :** [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) · **Rapport :** [RAPPORT_EXECUTION_TESTS.md](./RAPPORT_EXECUTION_TESTS.md)
+**Annexes :** [08](./Annexes/Annexe_08_PLAN_TEST.md) (plan synthétique) · [13](./Annexes/Annexe_13_SCENARIOS_TEST.md) (scénarios détaillés) · **Exécution :** [DEMO_EPREUVE.md](./1.2 Préparer le déploiement d'une application/1.2.8 Procédure d'exécution des tests (épreuve).md) · **Rapport :** [RAPPORT_EXECUTION_TESTS.md](./1.2 Préparer le déploiement d'une application/1.2.9 Rapport d'exécution des tests.md)
 
-Document maître scénarios : [SCENARIOS_TEST.md](./SCENARIOS_TEST.md).
+Document maître scénarios : [SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md).
 
 ---
 
@@ -44,11 +44,11 @@ Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **An
 | Test | Type | Objectif | Résultat attendu | Statut |
 |------|------|----------|------------------|--------|
 | **Lint (ESLint)** | Automatisé | Détecter erreurs et mauvaises pratiques avant merge. | `npm run lint` sans erreur en local et en CI. | Passé |
-| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques). | `npm run test:run` : 33 tests passés (3 fichiers). CI verte. | Passé |
+| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques). | `npm run test:run` : 48 tests passés (4 fichiers). CI verte. | Passé |
 | **Tests E2E** | Automatisé | Valider le parcours critique (connexion, accès app). | `npm run test:e2e` : 3 scénarios Playwright passés en CI. | Passé |
 | **Build production** | Automatisé | Vérifier que l'app compile pour Netlify/NAS. | `npm run build` → `build/index.html` + `assets/`. CI + Netlify OK. | Passé |
 | **Audit npm (production)** | Automatisé | Limiter les vulnérabilités des dépendances runtime. | `npm run audit:prod` : critical bloquant ; high hors allowlist documentée. | Passé |
-| **Test authentification** | Manuel | Accès protégé ; login / logout. | Page login sans session ; identifiants invalides refusés ; accès dashboard si valides. | **Passé** — ST-F01 ([rapport](./RAPPORT_EXECUTION_TESTS.md)) |
+| **Test authentification** | Manuel | Accès protégé ; login / logout. | Page login sans session ; identifiants invalides refusés ; accès dashboard si valides. | **Passé** — ST-F01 ([rapport](./1.2 Préparer le déploiement d'une application/1.2.9 Rapport d'exécution des tests.md)) |
 | **Test chargement des données** | Manuel | Données cohérentes sur tous les onglets. | Graphiques et tableaux alimentés ; pas d'erreur bloquante en console. | **Passé** — ST-F02 |
 | **Test responsive** | Manuel | Usage mobile / tablette / desktop. | Pas de débordement ; filtres et onglets utilisables (≈ 375 px). | **Passé** — ST-F04 |
 | **Test performance** | Manuel | Temps de chargement acceptable. | Page interactive en quelques secondes ; navigation fluide. | **Passé** — ST-F05 |
@@ -60,7 +60,7 @@ Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **An
 
 ## Détail des scénarios manuels
 
-Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quand / Alors*, traçabilité **ST-F***) sont dans **[SCENARIOS_TEST.md](./SCENARIOS_TEST.md)** — **Annexe 13**.
+Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quand / Alors*, traçabilité **ST-F***) sont dans **[SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md)** — **Annexe 13**.
 
 ### Rappels exécution rapide
 
@@ -83,9 +83,9 @@ Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quan
 
 | Attendu | Couverture |
 |---------|------------|
-| **Enjeux des plans de test** | [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) |
-| **Élaborer un scénario** | [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) — Annexe 13 |
-| **Environnement de test** | [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) — Annexe 06 |
+| **Enjeux des plans de test** | [ENJEUX_PLAN_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md) |
+| **Élaborer un scénario** | [SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md) — Annexe 13 |
+| **Environnement de test** | [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md) — Annexe 06 |
 | **Tests de sécurité** | Auth, headers, audit — Annexe 07 |
 | **Valider les résultats** | Colonne **Statut** + CI |
 | **Automatiser (DevOps)** | CI : lint, Vitest, E2E, audit, build |
@@ -98,7 +98,7 @@ Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quan
 |--------|----------|
 | **08** | [Annexe_08_PLAN_TEST.md](./Annexes/Annexe_08_PLAN_TEST.md) |
 | **13** | [Annexe_13_SCENARIOS_TEST.md](./Annexes/Annexe_13_SCENARIOS_TEST.md) |
-| **09** | [Annexe_09_DEMO.md](./Annexes/Annexe_09_DEMO.md) |
+| **09** | [Annexe_09_DEMO_EPREUVE.md](./Annexes/Annexe_09_DEMO_EPREUVE.md) |
 | **06** | [Annexe_06_ENVIRONNEMENT_TEST.md](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) |
 | **07** | [Annexe_07_SECURITE_4_DEPLOIEMENT.md](./Annexes/Annexe_07_SECURITE_4_DEPLOIEMENT.md) |
 | **01** | [Annexe_01_build.yml](./Annexes/Annexe_01_build.yml) (CI) |

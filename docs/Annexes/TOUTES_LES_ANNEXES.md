@@ -267,7 +267,7 @@ secrets/
 ```
 # Annexe 05 — Architecture de déploiement
 
-> Copie pour livrable — document principal : `../ARCHITECTURE_DEPLOIEMENT.md`
+> Copie pour livrable — document principal : `../1.1 Les bases de la démarche DevOps/1.1.4 La mise en place de l'intégration continue (CI).md`
 
 ---
 
@@ -344,7 +344,7 @@ flowchart TB
 2. **GitHub Actions** (CI) :
    - Checkout du code
    - Node.js 20 + `npm ci`
-   - `npm run test:run` (32 tests Vitest)
+   - `npm run test:run` (48 tests Vitest)
    - `npm run build` → dossier `build/`
    - Vérification : `build/index.html` et `build/assets/` présents
    - `npm audit` (informatif)
@@ -390,7 +390,7 @@ Le NAS n'est **pas** dans la chaîne CD automatique Git :
 3. Lancement via **Container Manager** + `docker-compose.yml`
 4. Accès : `http://IP_DU_NAS:8080`
 
-Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md).
+Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.2 Rédiger et utiliser un script de déploiement.md).
 
 ---
 
@@ -402,16 +402,16 @@ Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md).
 | **Git** | Revert du commit + nouveau push |
 | **NAS** | Remplacer les fichiers + redémarrer le conteneur |
 
-Détail : [DOCUMENTATION_DEPLOIEMENT.md](./DOCUMENTATION_DEPLOIEMENT.md#2-procédure-de-rollback).
+Détail : [DOCUMENTATION_DEPLOIEMENT.md](../1.2 Préparer le déploiement d'une application/1.2.7 Documenter le processus de déploiement.md#2-procédure-de-rollback).
 
 ---
 
 ## Documents liés
 
-- [DEVOPS.md](./DEVOPS.md) — Synthèse démarche DevOps complète
-- [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) — DEV / TEST / PROD
-- [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md) — Sécurité du déploiement
-- [DOCUMENTATION_DEPLOIEMENT.md](./DOCUMENTATION_DEPLOIEMENT.md) — Installation, logs, captures CI
+- [DEVOPS.md](../1.1 Les bases de la démarche DevOps/1.1.2 La démarche DevOps.md) — Synthèse démarche DevOps complète
+- [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md) — DEV / TEST / PROD
+- [SECURITE_4_DEPLOIEMENT.md](./1.2 Préparer le déploiement d'une application/1.2.4.2 Sécurité du déploiement.md) — Sécurité du déploiement
+- [DOCUMENTATION_DEPLOIEMENT.md](../1.2 Préparer le déploiement d'une application/1.2.7 Documenter le processus de déploiement.md) — Installation, logs, captures CI
 ```
 
 ---
@@ -421,7 +421,7 @@ Détail : [DOCUMENTATION_DEPLOIEMENT.md](./DOCUMENTATION_DEPLOIEMENT.md#2-procé
 ```
 # Annexe 06 — Environnements DEV, TEST, STAGING, PROD
 
-> Copie pour livrable — document principal : `../ENVIRONNEMENT_TEST.md`
+> Copie pour livrable — document principal : `../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md`
 
 ---
 
@@ -429,7 +429,7 @@ Détail : [DOCUMENTATION_DEPLOIEMENT.md](./DOCUMENTATION_DEPLOIEMENT.md#2-procé
 
 Document de référence **Studi** — séparation **DEV**, **TEST**, **STAGING** et **PROD** pour Hublot.
 
-**Annexe :** [Annexe 06](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) · **Staging :** [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md)
+**Annexe :** [Annexe 06](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) · **Staging :** [ENVIRONNEMENT_STAGING.md](./1.2 Préparer le déploiement d'une application/1.2.3 Mettre en place un environnement de test.md)
 
 ---
 
@@ -509,7 +509,7 @@ Même chaîne pour **tous les développeurs** : impossible de merger du code qui
 | Étape | Commande / action |
 |-------|-------------------|
 | ESLint | `npm run lint` |
-| Tests unitaires | `npm run test:run` (33 tests) |
+| Tests unitaires | `npm run test:run` (48 tests) |
 | Audit npm prod | `npm run audit:prod` |
 | Build | `npm run build` |
 | E2E | `npm run test:e2e` (Playwright) |
@@ -562,7 +562,7 @@ Exécute : présence des `.env`, `npm ci`, lint, tests, audit, `build:test`.
 
 Branche Git **`staging`** → déploiement Netlify séparé de `main`.
 
-Voir [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md).
+Voir [ENVIRONNEMENT_STAGING.md](./1.2 Préparer le déploiement d'une application/1.2.3 Mettre en place un environnement de test.md).
 
 | Élément | Valeur |
 |---------|--------|
@@ -596,7 +596,7 @@ Voir [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md).
 | Tests manuels UI | Navigateur | — | :4173 | URL staging | URL prod |
 | Headers sécurité | — | — | — | curl -I | curl -I |
 
-Plan détaillé : [PLAN_TEST.md](./PLAN_TEST.md)
+Plan détaillé : [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md)
 
 ---
 
@@ -639,7 +639,7 @@ Code : `src/config/environment.ts` — libellé et badge selon `VITE_APP_ENV`.
 ```
 # Annexe 07 — Sécurité du déploiement
 
-> Copie pour livrable — document principal : `../SECURITE_4_DEPLOIEMENT.md`
+> Copie pour livrable — document principal : `../1.2 Préparer le déploiement d'une application/1.2.4.2 Sécurité du déploiement.md`
 
 ---
 
@@ -747,13 +747,13 @@ Configuration Nginx (NAS) : voir `nginx.conf` (CSP, X-Frame-Options en commentai
 - Identifiants injectés au build via variables d'environnement (`import.meta.env`).
 - Session côté navigateur (`sessionStorage`) — à renforcer (JWT / SSO) en évolution future.
 
-Test manuel : voir [PLAN_TEST.md](./PLAN_TEST.md) — scénario authentification.
+Test manuel : voir [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) — scénario authentification.
 
 ---
 
 ## 8. Checklist avant mise en production
 
-Utiliser [CHECKLIST_SECURITE.md](./CHECKLIST_SECURITE.md) :
+Utiliser [CHECKLIST_SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.4 Checklist sécurité.md) :
 
 - [ ] Mots de passe forts configurés sur Netlify
 - [ ] `.env` absent du dépôt
@@ -761,7 +761,7 @@ Utiliser [CHECKLIST_SECURITE.md](./CHECKLIST_SECURITE.md) :
 - [ ] Headers vérifiés en production
 - [ ] Rollback testé (au moins une fois)
 
-Compléments : [SECURITE.md](./SECURITE.md), [DEPLOIEMENT_SECURISE.md](./DEPLOIEMENT_SECURISE.md)
+Compléments : [SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.1 Mesures de sécurité applicative.md), [DEPLOIEMENT_SECURISE.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.1 Les bases du déploiement automatique.md)
 
 ---
 
@@ -777,7 +777,7 @@ Compléments : [SECURITE.md](./SECURITE.md), [DEPLOIEMENT_SECURISE.md](./DEPLOIE
 ```
 # Annexe 08 — Plan de test
 
-> Copie pour livrable — document principal : `../PLAN_TEST.md`
+> Copie pour livrable — document principal : `../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md`
 
 ---
 
@@ -785,11 +785,11 @@ Compléments : [SECURITE.md](./SECURITE.md), [DEPLOIEMENT_SECURISE.md](./DEPLOIE
 
 Chaque test est décrit avec un **objectif**, un **résultat attendu** et le **statut** constaté après exécution. La colonne **Type** indique si le test est **automatisé** ou **manuel**.
 
-**Enjeux (référentiel Studi) :** voir [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) — pourquoi planifier, risques RH, automatisation vs manuel, traçabilité.
+**Enjeux (référentiel Studi) :** voir [ENJEUX_PLAN_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md) — pourquoi planifier, risques RH, automatisation vs manuel, traçabilité.
 
-**Annexes :** [08](./Annexes/Annexe_08_PLAN_TEST.md) (plan synthétique) · [13](./Annexes/Annexe_13_SCENARIOS_TEST.md) (scénarios détaillés) · **Exécution :** [DEMO_EPREUVE.md](./DEMO_EPREUVE.md)
+**Annexes :** [08](./Annexes/Annexe_08_PLAN_TEST.md) (plan synthétique) · [13](./Annexes/Annexe_13_SCENARIOS_TEST.md) (scénarios détaillés) · **Exécution :** [DEMO_EPREUVE.md](./1.2 Préparer le déploiement d'une application/1.2.8 Procédure d'exécution des tests (épreuve).md)
 
-Document maître scénarios : [SCENARIOS_TEST.md](./SCENARIOS_TEST.md).
+Document maître scénarios : [SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md).
 
 ---
 
@@ -825,7 +825,7 @@ Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **An
 | Test | Type | Objectif | Résultat attendu | Statut |
 |------|------|----------|------------------|--------|
 | **Lint (ESLint)** | Automatisé | Détecter erreurs et mauvaises pratiques avant merge. | `npm run lint` sans erreur en local et en CI. | Passé |
-| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques). | `npm run test:run` : 33 tests passés (3 fichiers). CI verte. | Passé |
+| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques). | `npm run test:run` : 48 tests passés (4 fichiers). CI verte. | Passé |
 | **Tests E2E** | Automatisé | Valider le parcours critique (connexion, accès app). | `npm run test:e2e` : 3 scénarios Playwright passés en CI. | Passé |
 | **Build production** | Automatisé | Vérifier que l'app compile pour Netlify/NAS. | `npm run build` → `build/index.html` + `assets/`. CI + Netlify OK. | Passé |
 | **Audit npm (production)** | Automatisé | Limiter les vulnérabilités des dépendances runtime. | `npm run audit:prod` : critical bloquant ; high hors allowlist documentée. | Passé |
@@ -841,7 +841,7 @@ Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **An
 
 ## Détail des scénarios manuels
 
-Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quand / Alors*, traçabilité **ST-F***) sont dans **[SCENARIOS_TEST.md](./SCENARIOS_TEST.md)** — **Annexe 13**.
+Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quand / Alors*, traçabilité **ST-F***) sont dans **[SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md)** — **Annexe 13**.
 
 ### Rappels exécution rapide
 
@@ -864,9 +864,9 @@ Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quan
 
 | Attendu | Couverture |
 |---------|------------|
-| **Enjeux des plans de test** | [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) |
-| **Élaborer un scénario** | [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) — Annexe 13 |
-| **Environnement de test** | [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) — Annexe 06 |
+| **Enjeux des plans de test** | [ENJEUX_PLAN_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md) |
+| **Élaborer un scénario** | [SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md) — Annexe 13 |
+| **Environnement de test** | [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md) — Annexe 06 |
 | **Tests de sécurité** | Auth, headers, audit — Annexe 07 |
 | **Valider les résultats** | Colonne **Statut** + CI |
 | **Automatiser (DevOps)** | CI : lint, Vitest, E2E, audit, build |
@@ -879,7 +879,7 @@ Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quan
 |--------|----------|
 | **08** | [Annexe_08_PLAN_TEST.md](./Annexes/Annexe_08_PLAN_TEST.md) |
 | **13** | [Annexe_13_SCENARIOS_TEST.md](./Annexes/Annexe_13_SCENARIOS_TEST.md) |
-| **09** | [Annexe_09_DEMO.md](./Annexes/Annexe_09_DEMO.md) |
+| **09** | [Annexe_09_DEMO_EPREUVE.md](./Annexes/Annexe_09_DEMO_EPREUVE.md) |
 | **06** | [Annexe_06_ENVIRONNEMENT_TEST.md](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) |
 | **07** | [Annexe_07_SECURITE_4_DEPLOIEMENT.md](./Annexes/Annexe_07_SECURITE_4_DEPLOIEMENT.md) |
 | **01** | [Annexe_01_build.yml](./Annexes/Annexe_01_build.yml) (CI) |
@@ -890,7 +890,7 @@ Index : [Annexes/README.md](./Annexes/README.md).
 
 ---
 
-## Annexe_09_DEMO.md
+## Annexe_09_DEMO_EPREUVE.md
 
 ```
 # Annexe 09 — Procédure d'exécution des tests
@@ -994,7 +994,7 @@ curl -I https://dirmhublot.netlify.app
 
 ## Résultats constatés
 
-- **Tests :** 2 fichiers, 32 tests (Vitest) — tous passent.  
+- **Tests :** 2 fichiers, 48 tests (Vitest) — tous passent.  
 - **Build :** réussi ; sortie dans `build/`.  
 - **Audit :** des vulnérabilités restent sur des dépendances de dev ; aucune donnée sensible exposée ; pas de secret dans le dépôt.
 ```
@@ -1006,7 +1006,7 @@ curl -I https://dirmhublot.netlify.app
 ```
 # Annexe 10 — Validation compétence Studi
 
-> Copie pour livrable — document principal : `../COMPETENCE_DEPLOIEMENT_STUDI.md`
+> Copie pour livrable — document principal : `../1.1 Les bases de la démarche DevOps/1.1.6 Introduction au YAML.md`
 
 ---
 
@@ -1034,11 +1034,11 @@ curl -I https://dirmhublot.netlify.app
 
 - **Workflow d’intégration continue :** Le dépôt contient un workflow GitHub Actions nommé **« CI/CD Pipeline »** (fichier **`.github/workflows/build.yml`**, **Annexe 01**) qui :
   - se déclenche sur chaque push et pull request sur `main` (et manuellement via `workflow_dispatch`) ;
-  - exécute `npm ci`, puis **`npm run test:run`** (32 tests Vitest), puis `npm run build` ;
+  - exécute `npm ci`, puis **`npm run test:run`** (48 tests Vitest), puis `npm run build` ;
   - vérifie le dossier `build/` (aligné sur Netlify) et exécute `npm audit` (informatif).
 - **Synthèse DevOps :** voir **`DEVOPS.md`**, **`ARCHITECTURE_DEPLOIEMENT.md`**, **`DOCUMENTATION_DEPLOIEMENT.md`**.
 - **Rédaction en YAML :** La pipeline CI est décrite en YAML (syntaxe et structure attendues dans le référentiel).
-- **Automatisation des tests en DevOps :** Batterie de **32 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
+- **Automatisation des tests en DevOps :** Batterie de **48 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
 
 ---
 
@@ -1517,13 +1517,13 @@ describe('calculerRepartitionAge', () => {
 ```
 # Annexe 13 — Scénarios de test
 
-> Copie pour livrable — document principal : `../SCENARIOS_TEST.md`
+> Copie pour livrable — document principal : `../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md`
 
 ---
 
 # Scénarios de test — Hublot
 
-Document **opérationnel** pour **élaborer et exécuter** des scénarios de test, en complément du [PLAN_TEST.md](./PLAN_TEST.md) et des [enjeux](./ENJEUX_PLAN_TEST.md).
+Document **opérationnel** pour **élaborer et exécuter** des scénarios de test, en complément du [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) et des [enjeux](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md).
 
 **Annexe livrable :** [Annexe 13](./Annexes/Annexe_13_SCENARIOS_TEST.md)
 
@@ -1546,7 +1546,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 
 ## 2. Correspondance avec le plan de test
 
-| ID scénario | Ligne du tableau [PLAN_TEST.md](./PLAN_TEST.md) |
+| ID scénario | Ligne du tableau [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) |
 |-------------|--------------------------------------------------|
 | ST-F01 | Test authentification |
 | ST-F02 | Test chargement des données |
@@ -1566,7 +1566,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 3. **Formuler une intention** en une phrase (ex. « un utilisateur non authentifié ne voit pas le tableau de bord »).
 4. **Découper en étapes atomiques** (une action par étape lorsque possible).
 5. **Rendre observable le succès** : texte visible, code HTTP, absence d'erreur console.
-6. **Choisir l'environnement** : préférer **STAGING** pour les tests manuels hors DEV — voir [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md).
+6. **Choisir l'environnement** : préférer **STAGING** pour les tests manuels hors DEV — voir [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md).
 
 ---
 
@@ -1716,7 +1716,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 | **Priorité** | Haute |
 | **Type** | Semi-automatisable (CLI) |
 | **Plan** | Test sécurité (headers) |
-| **Trace** | [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md), Annexe 02 |
+| **Trace** | [SECURITE_4_DEPLOIEMENT.md](./1.2 Préparer le déploiement d'une application/1.2.4.2 Sécurité du déploiement.md), Annexe 02 |
 
 **Étant donné** le site déployé en HTTPS sur Netlify,
 
@@ -1746,7 +1746,7 @@ Ces comportements correspondent à une **suite automatisée** ; le scénario « 
 | ST-AUTO-04 | Artefact déployable | `npm run build` + vérif dossier dans CI |
 | ST-AUTO-05 | Risque dépendances prod maîtrisé | `npm run audit:prod` dans la CI |
 
-Détail d'exécution : [DEMO_EPREUVE.md](./DEMO_EPREUVE.md).
+Détail d'exécution : [DEMO_EPREUVE.md](./1.2 Préparer le déploiement d'une application/1.2.8 Procédure d'exécution des tests (épreuve).md).
 
 ---
 

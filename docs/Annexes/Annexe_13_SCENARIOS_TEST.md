@@ -2,7 +2,7 @@
 
 # Scénarios de test — Hublot
 
-Document **opérationnel** pour **élaborer et exécuter** des scénarios de test, en complément du [PLAN_TEST.md](./PLAN_TEST.md) et des [enjeux](./ENJEUX_PLAN_TEST.md).
+Document **opérationnel** pour **élaborer et exécuter** des scénarios de test, en complément du [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) et des [enjeux](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md).
 
 **Annexe livrable :** [Annexe 13](./Annexes/Annexe_13_SCENARIOS_TEST.md)
 
@@ -25,7 +25,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 
 ## 2. Correspondance avec le plan de test
 
-| ID scénario | Ligne du tableau [PLAN_TEST.md](./PLAN_TEST.md) |
+| ID scénario | Ligne du tableau [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) |
 |-------------|--------------------------------------------------|
 | ST-F01 | Test authentification |
 | ST-F02 | Test chargement des données |
@@ -45,7 +45,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 3. **Formuler une intention** en une phrase (ex. « un utilisateur non authentifié ne voit pas le tableau de bord »).
 4. **Découper en étapes atomiques** (une action par étape lorsque possible).
 5. **Rendre observable le succès** : texte visible, code HTTP, absence d'erreur console.
-6. **Choisir l'environnement** : préférer **STAGING** pour les tests manuels hors DEV — voir [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md).
+6. **Choisir l'environnement** : préférer **STAGING** pour les tests manuels hors DEV — voir [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md).
 
 ---
 
@@ -195,7 +195,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 | **Priorité** | Haute |
 | **Type** | Semi-automatisable (CLI) |
 | **Plan** | Test sécurité (headers) |
-| **Trace** | [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md), Annexe 02 |
+| **Trace** | [SECURITE_4_DEPLOIEMENT.md](./1.2 Préparer le déploiement d'une application/1.2.4.2 Sécurité du déploiement.md), Annexe 02 |
 
 **Étant donné** le site déployé en HTTPS sur Netlify,
 
@@ -225,7 +225,7 @@ Ces comportements correspondent à une **suite automatisée** ; le scénario « 
 | ST-AUTO-04 | Artefact déployable | `npm run build` + vérif dossier dans CI |
 | ST-AUTO-05 | Risque dépendances prod maîtrisé | `npm run audit:prod` dans la CI |
 
-Détail d'exécution : [DEMO_EPREUVE.md](./DEMO_EPREUVE.md).
+Détail d'exécution : [DEMO_EPREUVE.md](./1.2 Préparer le déploiement d'une application/1.2.8 Procédure d'exécution des tests (épreuve).md).
 
 ---
 
@@ -267,7 +267,7 @@ Copier-colier et renseigner :
 | ST-F06 | Badge environnement | Playwright | 2026-05-27 | QA local + PROD | **Passé** |
 | ST-SEC01 | Headers | `curl` + Playwright | 2026-05-27 | PROD | **Passé** |
 
-**Rapport détaillé :** [RAPPORT_EXECUTION_TESTS.md](./RAPPORT_EXECUTION_TESTS.md)  
+**Rapport détaillé :** [RAPPORT_EXECUTION_TESTS.md](./1.2 Préparer le déploiement d'une application/1.2.9 Rapport d'exécution des tests.md)  
 **Commande de reproduction :** `npm run test:campaign`
 
 > **Note staging :** l’URL `staging--dirmhublot.netlify.app` renvoie 404 (branch deploy à activer). Campagne validée en QA local + contrôles PROD en lecture seule.
