@@ -119,6 +119,7 @@ export function getAllAgents(): Agent[] {
 export type AgentsFilters = {
   region?: string;
   service?: string;
+  unite?: string;
   statut?: string;
   mission?: string;
   pasa?: string;
@@ -137,6 +138,7 @@ export function filterAgentsFrom(agents: Agent[], filters: AgentsFilters): Agent
       result = result.filter((a) => a.service === filters.service);
     }
   }
+  if (filters.unite && filters.unite !== 'all') result = result.filter((a) => a.uniteService === filters.unite);
   if (filters.statut && filters.statut !== 'all') result = result.filter((a) => a.statut === filters.statut);
   if (filters.mission && filters.mission !== 'all') result = result.filter((a) => a.mission === filters.mission);
   if (filters.pasa && filters.pasa !== 'all') result = result.filter((a) => a.pasaCode === filters.pasa);

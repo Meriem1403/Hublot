@@ -161,7 +161,7 @@ export default function App() {
 
 function GlobalFilterBar() {
   const ctx = useGlobalFilterContext();
-  const { regions, services, statuts, pasas, corps, fonctions } = useFilterOptions();
+  const { regions, services, statuts, pasas, corps, fonctions, unites } = useFilterOptions();
   const filters = ctx?.filters;
   const advancedActive =
     (filters?.pasa ?? 'all') !== 'all' ||
@@ -169,10 +169,11 @@ function GlobalFilterBar() {
     (filters?.fonction ?? 'all') !== 'all';
   const [showAdvanced, setShowAdvanced] = useState<boolean>(advancedActive);
   if (!ctx || !filters) return null;
-  const { setRegion, setService, setStatut, setPasa, setCorps, setFonction, resetFilters } = ctx;
+  const { setRegion, setService, setUnite, setStatut, setPasa, setCorps, setFonction, resetFilters } = ctx;
   const hasFilter =
     filters.region !== 'all' ||
     filters.service !== 'all' ||
+    filters.unite !== 'all' ||
     filters.statut !== 'all' ||
     filters.pasa !== 'all' ||
     filters.corps !== 'all' ||
@@ -209,7 +210,7 @@ function GlobalFilterBar() {
           </div>
         </div>
 
-        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div className="flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
             <select
               value={filters.region}
@@ -236,6 +237,26 @@ function GlobalFilterBar() {
               <option value="all">Tous les services</option>
               {services.map((s) => (
                 <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+            <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
+              <ChevronDown className="h-4 w-4 shrink-0" />
+            </span>
+          </div>
+          <div className={`flex items-center pr-3 rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 ${filters.service === 'all' ? 'opacity-60' : ''}`}>
+            <select
+              value={filters.unite}
+              onChange={(e) => setUnite(e.target.value)}
+              disabled={filters.service === 'all'}
+              title={filters.service === 'all' ? 'Choisissez d’abord un service' : 'Unité / sous-service'}
+              className="w-full px-3 py-2 text-sm bg-transparent border-0 outline-none disabled:cursor-not-allowed"
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+            >
+              <option value="all">
+                {filters.service === 'all' ? 'Unité (choisir un service)' : 'Toutes les unités'}
+              </option>
+              {unites.map((u) => (
+                <option key={u} value={u}>{u}</option>
               ))}
             </select>
             <span className="pointer-events-none flex h-4 w-6 items-center justify-center text-gray-500">
