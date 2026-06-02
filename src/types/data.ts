@@ -39,6 +39,7 @@ export interface Agent {
   // Affectation
   region: Region;
   service: string;
+  uniteService?: string; // sous-unité du service (Niveau 06), ex: "SPBM", "PAM GYPTIS"
   mission: string;
   missionCode?: string; // code Action brut issu de l'Excel (ex: 0205-04)
   metier: string;
