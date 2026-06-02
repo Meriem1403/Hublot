@@ -1,0 +1,41 @@
+# Dependabot — veille automatisée des dépendances (SCA préventif).
+# Ouvre des PR de mise à jour ; combiné à l'audit npm bloquant (audit:prod)
+# et au scan Trivy, il maîtrise la chaîne d'approvisionnement logicielle.
+# Doc : docs/OUTILS_STRATEGIES_TESTS_SECURITE.md
+version: 2
+updates:
+  # Dépendances npm de l'application
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+    commit-message:
+      prefix: "deps"
+    # Regroupe les mises à jour mineures/patch pour limiter le bruit
+    groups:
+      dev-minor-patch:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Versions des actions GitHub utilisées dans les workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    labels:
+      - "ci"
+      - "security"
+    commit-message:
+      prefix: "ci"

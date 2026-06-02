@@ -1,0 +1,33 @@
+# Configuration Gitleaks — détection de secrets dans le code source.
+# Étend le jeu de règles par défaut de gitleaks et ajoute une allowlist pour
+# les FAUX POSITIFS connus et assumés de ce dépôt (identifiants de démo / test).
+#
+# Doc : docs/OUTILS_STRATEGIES_TESTS_SECURITE.md
+
+title = "Hublot - gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Faux positifs assumés : identifiants de démo et de test (non sensibles)"
+
+# Fichiers d'exemple et d'environnement non sensibles (DEV/TEST uniquement).
+# Les vrais secrets (PROD) sont injectés via les variables Netlify / GitHub,
+# jamais commités (voir .gitignore : .env, *.xlsx, secrets/, certificats).
+paths = [
+  '''\.env\.example$''',
+  '''\.env\.development$''',
+  '''\.env\.test$''',
+  '''\.env\.staging\.example$''',
+  '''env\.docker\.example$''',
+  '''package-lock\.json$''',
+]
+
+# Valeurs de démo explicitement non sensibles utilisées dans la doc et les tests.
+regexes = [
+  '''admin''',
+  '''demo''',
+  '''e2e-user''',
+  '''e2e-pass''',
+]
