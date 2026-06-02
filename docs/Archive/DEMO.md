@@ -13,7 +13,7 @@ npm run test:run
 ```
 
 **Résultat attendu :**  
-- Message du type : `Test Files  2 passed (2)` et `Tests  32 passed (32)`  
+- Message du type : `Test Files  4 passed (4)` et `Tests  48 passed (48)`  
 - Pas d’erreur rouge
 
 Les tests unitaires (Vitest) passent en local ; la même commande est exécutée en CI à chaque push sur `main`.
@@ -93,6 +93,6 @@ curl -I https://dirmhublot.netlify.app
 
 ## Résultats constatés
 
-- **Tests :** 2 fichiers, 32 tests (Vitest) — tous passent.  
+- **Tests :** 4 fichiers, 48 tests (Vitest) — tous passent.  
 - **Build :** réussi ; sortie dans `build/`.  
 - **Audit :** des vulnérabilités restent sur des dépendances de dev ; aucune donnée sensible exposée ; pas de secret dans le dépôt.

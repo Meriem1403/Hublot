@@ -26,14 +26,14 @@ Méthode recommandée : **Étant donné — Quand — Alors**.
 | **Alors** | Message d’erreur ; pas d’accès au tableau de bord. |
 | **Et** après identifiants valides | Accès au tableau de bord ; déconnexion possible. |
 
-Scénarios complets avec identifiants stables : **[SCENARIOS_TEST.md](../SCENARIOS_TEST.md)**
+Scénarios complets avec identifiants stables : **[SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md)**
 
 ---
 
 ## Lien avec le plan de test
 
-- **Plan** : lignes générales **[PLAN_TEST.md](../PLAN_TEST.md)**  
-- **Scénarios** : fiches détaillées **[SCENARIOS_TEST.md](../SCENARIOS_TEST.md)** (Annexe 13)
+- **Plan** : lignes générales **[PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md)**  
+- **Scénarios** : fiches détaillées **[SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md)** (Annexe 13)
 
 ---
 

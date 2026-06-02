@@ -1,63 +1,55 @@
 # Documentation Hublot
 
-Documentation du projet Hublot – Tableau de bord des effectifs et statistiques RH ([DIRM Méditerranée](https://www.dirm.mediterranee.developpement-durable.gouv.fr)).
+Documentation du projet Hublot organisee selon le plan du referentiel.
 
-## Architecture de déploiement et DevOps
+## Parcours numerote (referentiel)
 
-| Document | Description |
-|----------|-------------|
-| [DEVOPS.md](./DEVOPS.md) | **Synthèse DevOps** — État des pratiques (CI, CD, lint, E2E, monitoring) |
-| [CD_PIPELINES.md](./CD_PIPELINES.md) | **CI / CD séparés** — GitHub Actions vs Netlify vs NAS |
-| [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md) | Branche `staging` + deploy previews Netlify |
-| [MONITORING.md](./MONITORING.md) | Health check, Sentry, uptime |
-| [SECURITE_AUDIT.md](./SECURITE_AUDIT.md) | Politique `npm audit` + allowlist |
-| [ARCHITECTURE_DEPLOIEMENT.md](./ARCHITECTURE_DEPLOIEMENT.md) | **1️⃣ Architecture de déploiement** — Dépôt Git, workflow YAML, build automatique, déploiement automatique (CI/CD) |
-| [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) | **2️⃣ Environnement de test** — Environnements DEV, TEST et PROD |
-| [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md) | **4️⃣ Sécurité** — HTTPS, variables d’env, secrets, headers, npm audit (très important pour DIRM ⚓) |
-| [OUTILS_STRATEGIES_TESTS_SECURITE.md](./OUTILS_STRATEGIES_TESTS_SECURITE.md) | **Outils & stratégies des tests de sécurité** — SCA, SAST, secrets, tests unitaires sécurité, headers (CI) |
-| [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) | **Enjeux des plans de test** — Risques RH, pyramide, stratégie, lien Agile/DevOps |
-| [PLANIFIER_EFFICACEMENT_LES_TESTS.md](./PLANIFIER_EFFICACEMENT_LES_TESTS.md) | **Planifier efficacement les tests** — méthode 6 étapes, risques, pyramide, auto vs manuel, démo |
-| [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md) | **Valider les résultats des tests** — statuts, preuves, procédure, DoD, commandes démo |
-| [PLAN_TEST.md](./PLAN_TEST.md) | **5️⃣ Plan de test** — Tableau Test / Objectif / Résultat / Statut + scénarios manuels |
-| [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) | **Élaborer des scénarios** — Étant donné / Quand / Alors (ST-F01…), sécurité, automatisés |
-| [DEMO.md](./DEMO.md) / [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) | Procédure d’exécution des tests (commandes ; version épreuve avec ordre oral) |
-| [**PLAYWRIGHT_DEMO.md**](./PLAYWRIGHT_DEMO.md) | **Guide Playwright** — démo jury (headed, ralenti, UI, dépannage) |
-| [**DOCUMENTATION_DEPLOIEMENT.md**](./DOCUMENTATION_DEPLOIEMENT.md) | **Documentation du déploiement** — Procédure d’installation, rollback, architecture, capture du pipeline CI, logs de build |
-| [**Annexes/**](./Annexes/README.md) | **Annexes** — Fichiers pièces jointes (Annexe 01 à 13) : CI, Netlify, plan et scénarios de test, sécurité, tests unitaires, etc. |
+### 1.1 Les bases de la demarche DevOps
 
-## Démarrage et déploiement
+- [1.1.1 Les methodes Agile pour le developpement logiciel](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.1%20Les%20m%C3%A9thodes%20Agile%20pour%20le%20d%C3%A9veloppement%20logiciel.md)
+- [1.1.2 La demarche DevOps](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.2%20La%20d%C3%A9marche%20DevOps.md)
+- [1.1.2.1 Monitoring et supervision](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.2.1%20Monitoring%20et%20supervision.md)
+- [1.1.3 Les bases d'un environnement de test](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.3%20Les%20bases%20d%27un%20environnement%20de%20test.md)
+- [1.1.3.1 Guide Docker](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.3.1%20Guide%20Docker.md)
+- [1.1.3.2 Complements Docker](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.3.2%20Compl%C3%A9ments%20Docker.md)
+- [1.1.4 La mise en place de l'integration continue (CI)](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.4%20La%20mise%20en%20place%20de%20l%27int%C3%A9gration%20continue%20(CI).md)
+- [1.1.5 La mise en place de la livraison ou deploiement continu (CD)](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.5%20La%20mise%20en%20place%20de%20la%20livraison%20ou%20d%C3%A9ploiement%20continu%20(CD).md)
+- [1.1.5.1 Hebergement de l'application](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.5.1%20H%C3%A9bergement%20de%20l%27application.md)
+- [1.1.6 Introduction au YAML](./1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.6%20Introduction%20au%20YAML.md)
 
-| Document | Description |
-|----------|-------------|
-| [QUICK_START.md](./QUICK_START.md) | Démarrage rapide |
-| [HOSTING.md](./HOSTING.md) | Hébergement (Docker, Nginx, Netlify/Vercel) |
-| [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md) | Déploiement sur NAS Synology (Container Manager) |
-| [COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md](./COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md) | Voir les données sur Netlify (avec ou sans Neon) |
-| [DOCKER.md](./DOCKER.md) | Guide Docker |
-| [README.DOCKER.md](./README.DOCKER.md) | Compléments Docker |
+### 1.2 Preparer le deploiement d'une application
 
-## Sécurité et déploiement sécurisé
+- [1.2.1 Les enjeux des plans de test](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.1%20Les%20enjeux%20des%20plans%20de%20test.md)
+- [1.2.2 Elaborer un scenario de test](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.2%20Elaborer%20un%20sc%C3%A9nario%20de%20test.md)
+- [1.2.3 Mettre en place un environnement de test](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.3%20Mettre%20en%20place%20un%20environnement%20de%20test.md)
+- [1.2.4 Les outils et les strategies des tests de securite](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4%20Les%20outils%20et%20les%20strat%C3%A9gies%20des%20tests%20de%20s%C3%A9curit%C3%A9.md)
+- [1.2.4.1 Mesures de securite applicative](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.1%20Mesures%20de%20s%C3%A9curit%C3%A9%20applicative.md)
+- [1.2.4.2 Securite du deploiement](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.2%20S%C3%A9curit%C3%A9%20du%20d%C3%A9ploiement.md)
+- [1.2.4.3 Audit des dependances](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.3%20Audit%20des%20d%C3%A9pendances.md)
+- [1.2.4.4 Checklist securite](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.4%20Checklist%20s%C3%A9curit%C3%A9.md)
+- [1.2.5 Planifier efficacement les tests](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.5%20Planifier%20efficacement%20les%20tests.md)
+- [1.2.6 Valider les resultats des tests](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.6%20Valider%20les%20r%C3%A9sultats%20des%20tests.md)
+- [1.2.7 Documenter le processus de deploiement](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.7%20Documenter%20le%20processus%20de%20d%C3%A9ploiement.md)
+- [1.2.8 Procedure d'execution des tests (epreuve)](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.8%20Proc%C3%A9dure%20d%27ex%C3%A9cution%20des%20tests%20(%C3%A9preuve).md)
+- [1.2.9 Rapport d'execution des tests](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.9%20Rapport%20d%27ex%C3%A9cution%20des%20tests.md)
+- [1.2.10 Guide Playwright](./1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.10%20Guide%20Playwright.md)
 
-| Document | Description |
-|----------|-------------|
-| [DEPLOIEMENT_SECURISE.md](./DEPLOIEMENT_SECURISE.md) | Guide de déploiement sécurisé |
-| [CHECKLIST_SECURITE.md](./CHECKLIST_SECURITE.md) | Checklist sécurité avant mise en production |
-| [SECURITE.md](./SECURITE.md) | Mesures de sécurité de l’application |
+### 1.3 Rediger des scriptes dans la demarche DevOps
 
-## Données et modèle
+- [1.3.1 Les bases du deploiement automatique](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.1%20Les%20bases%20du%20d%C3%A9ploiement%20automatique.md)
+- [1.3.2 Rediger et utiliser un script de deploiement](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.2%20R%C3%A9diger%20et%20utiliser%20un%20script%20de%20d%C3%A9ploiement.md)
+- [1.3.3 Les bases des scripts d'evolution](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.3%20Les%20bases%20des%20scripts%20d%27%C3%A9volution.md)
+- [1.3.3.1 Modele de donnees cible](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.3.1%20Mod%C3%A8le%20de%20donn%C3%A9es%20cible.md)
+- [1.3.4 Rediger des scripts d'evolution](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.4%20R%C3%A9diger%20des%20scripts%20d%27%C3%A9volution.md)
+- [1.3.4.1 Publier et verifier les donnees sur Netlify](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.4.1%20Publier%20et%20v%C3%A9rifier%20les%20donn%C3%A9es%20sur%20Netlify.md)
+- [1.3.5 Optimiser les scripts d'evolution](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.5%20Optimiser%20les%20scripts%20d%27%C3%A9volution.md)
+- [1.3.6 Ecrire un script YAML d’Integration Continue](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.6%20Ecrire%20un%20script%20YAML%20d%E2%80%99Int%C3%A9gration%20Continue.md)
+- [1.3.7 Automatiser les tests en DevOps](./1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.7%20Automatiser%20les%20tests%20en%20DevOps.md)
 
-| Document | Description |
-|----------|-------------|
-| [DATA_MODEL.md](./DATA_MODEL.md) | Modèle de données |
-| [INTEGRATION_DONNEES.md](./INTEGRATION_DONNEES.md) | Intégration des données |
-| [ANALYSE_DONNEES.md](./ANALYSE_DONNEES.md) | Analyse des données |
+---
 
-## Compétence et dépannage
+## Dossiers complementaires
 
-| Document | Description |
-|----------|-------------|
-| [COMPETENCE_DEPLOIEMENT_STUDI.md](./COMPETENCE_DEPLOIEMENT_STUDI.md) | Validation compétence Studi (déploiement, CI/CD, tests) |
-| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Dépannage |
-| [PLAN_TRAVAIL.md](./PLAN_TRAVAIL.md) | Plan de travail |
-| [VERIFICATION_COMPLETE.md](./VERIFICATION_COMPLETE.md) | Vérification complète |
-| [VERIFICATION_ONGLETS.md](./VERIFICATION_ONGLETS.md) | Vérification des onglets |
+- [Annexes](./Annexes/README.md) : pieces jointes numérotées.
+- [Rendus](./Rendus/) : versions de rendu.
+- [Archive](./Archive/) : documents utiles mais hors parcours principal.

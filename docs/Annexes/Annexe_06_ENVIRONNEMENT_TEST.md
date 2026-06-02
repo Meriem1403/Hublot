@@ -1,6 +1,6 @@
 # Annexe 06 — Environnements DEV, TEST, STAGING, PROD
 
-> Copie pour livrable — document principal : `../ENVIRONNEMENT_TEST.md`
+> Copie pour livrable — document principal : `../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md`
 
 ---
 
@@ -8,7 +8,7 @@
 
 Document de référence **Studi** — séparation **DEV**, **TEST**, **STAGING** et **PROD** pour Hublot.
 
-**Annexe :** [Annexe 06](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) · **Staging :** [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md)
+**Annexe :** [Annexe 06](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) · **Staging :** [ENVIRONNEMENT_STAGING.md](./1.2 Préparer le déploiement d'une application/1.2.3 Mettre en place un environnement de test.md)
 
 ---
 
@@ -88,7 +88,7 @@ Même chaîne pour **tous les développeurs** : impossible de merger du code qui
 | Étape | Commande / action |
 |-------|-------------------|
 | ESLint | `npm run lint` |
-| Tests unitaires | `npm run test:run` (33 tests) |
+| Tests unitaires | `npm run test:run` (48 tests) |
 | Audit npm prod | `npm run audit:prod` |
 | Build | `npm run build` |
 | E2E | `npm run test:e2e` (Playwright) |
@@ -141,7 +141,7 @@ Exécute : présence des `.env`, `npm ci`, lint, tests, audit, `build:test`.
 
 Branche Git **`staging`** → déploiement Netlify séparé de `main`.
 
-Voir [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md).
+Voir [ENVIRONNEMENT_STAGING.md](./1.2 Préparer le déploiement d'une application/1.2.3 Mettre en place un environnement de test.md).
 
 | Élément | Valeur |
 |---------|--------|
@@ -175,7 +175,7 @@ Voir [ENVIRONNEMENT_STAGING.md](./ENVIRONNEMENT_STAGING.md).
 | Tests manuels UI | Navigateur | — | :4173 | URL staging | URL prod |
 | Headers sécurité | — | — | — | curl -I | curl -I |
 
-Plan détaillé : [PLAN_TEST.md](./PLAN_TEST.md)
+Plan détaillé : [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md)
 
 ---
 

@@ -25,9 +25,9 @@ Un plan de test garantit qu'on ne met pas en production une application qui affi
 
 | Attendu | Réponse dans le projet |
 |---------|------------------------|
-| Comprendre les enjeux des plans de test | Ce document + section dédiée dans [PLAN_TEST.md](../PLAN_TEST.md) |
+| Comprendre les enjeux des plans de test | Ce document + section dédiée dans [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) |
 | Élaborer des scénarios | Scénarios auth, données, responsive, perf |
 | Valider les résultats | Colonne Statut + runs CI |
 | Automatiser (DevOps) | Vitest, Playwright, lint, audit dans workflow **CI** |
 
-Document détaillé : [ENJEUX_PLAN_TEST.md](../ENJEUX_PLAN_TEST.md)
+Document détaillé : [ENJEUX_PLAN_TEST.md](.../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md)

@@ -62,4 +62,4 @@ npm run test:preview:docker
 | Hébergeur | Netlify | Netlify |
 | Variable | `VITE_APP_ENV=staging` | `production` |
 
-Documentation complète : [ENVIRONNEMENT_TEST.md](../ENVIRONNEMENT_TEST.md)
+Documentation complète : [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md)

@@ -104,6 +104,7 @@
             "docker:convert": "docker-compose run --rm converter python3 scripts/convert_excel_to_json.py",
             "push-agents-to-neon": "node scripts/push-agents-to-neon.js",
             "reset-neon-agents": "node scripts/reset-neon-agents.js",
-            "check-neon-agents": "node scripts/check-neon-agents.js"
+            "check-neon-agents": "node scripts/check-neon-agents.js",
+            "data:evolution": "bash scripts/run-evolution-pipeline.sh"
       }
 }

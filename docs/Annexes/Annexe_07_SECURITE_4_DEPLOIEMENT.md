@@ -1,6 +1,6 @@
 # Annexe 07 — Sécurité du déploiement
 
-> Copie pour livrable — document principal : `../SECURITE_4_DEPLOIEMENT.md`
+> Copie pour livrable — document principal : `../1.2 Préparer le déploiement d'une application/1.2.4.2 Sécurité du déploiement.md`
 
 ---
 
@@ -108,13 +108,13 @@ Configuration Nginx (NAS) : voir `nginx.conf` (CSP, X-Frame-Options en commentai
 - Identifiants injectés au build via variables d'environnement (`import.meta.env`).
 - Session côté navigateur (`sessionStorage`) — à renforcer (JWT / SSO) en évolution future.
 
-Test manuel : voir [PLAN_TEST.md](./PLAN_TEST.md) — scénario authentification.
+Test manuel : voir [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) — scénario authentification.
 
 ---
 
 ## 8. Checklist avant mise en production
 
-Utiliser [CHECKLIST_SECURITE.md](./CHECKLIST_SECURITE.md) :
+Utiliser [CHECKLIST_SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.4 Checklist sécurité.md) :
 
 - [ ] Mots de passe forts configurés sur Netlify
 - [ ] `.env` absent du dépôt
@@ -122,7 +122,7 @@ Utiliser [CHECKLIST_SECURITE.md](./CHECKLIST_SECURITE.md) :
 - [ ] Headers vérifiés en production
 - [ ] Rollback testé (au moins une fois)
 
-Compléments : [SECURITE.md](./SECURITE.md), [DEPLOIEMENT_SECURISE.md](./DEPLOIEMENT_SECURISE.md)
+Compléments : [SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.1 Mesures de sécurité applicative.md), [DEPLOIEMENT_SECURISE.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.1 Les bases du déploiement automatique.md)
 
 ---
 

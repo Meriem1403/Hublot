@@ -1,6 +1,6 @@
 # Annexe 10 — Validation compétence Studi
 
-> Copie pour livrable — document principal : `../COMPETENCE_DEPLOIEMENT_STUDI.md`
+> Copie pour livrable — document principal : `../1.1 Les bases de la démarche DevOps/1.1.6 Introduction au YAML.md`
 
 ---
 
@@ -28,11 +28,11 @@
 
 - **Workflow d’intégration continue :** Le dépôt contient un workflow GitHub Actions nommé **« CI/CD Pipeline »** (fichier **`.github/workflows/build.yml`**, **Annexe 01**) qui :
   - se déclenche sur chaque push et pull request sur `main` (et manuellement via `workflow_dispatch`) ;
-  - exécute `npm ci`, puis **`npm run test:run`** (32 tests Vitest), puis `npm run build` ;
+  - exécute `npm ci`, puis **`npm run test:run`** (48 tests Vitest), puis `npm run build` ;
   - vérifie le dossier `build/` (aligné sur Netlify) et exécute `npm audit` (informatif).
 - **Synthèse DevOps :** voir **`DEVOPS.md`**, **`ARCHITECTURE_DEPLOIEMENT.md`**, **`DOCUMENTATION_DEPLOIEMENT.md`**.
 - **Rédaction en YAML :** La pipeline CI est décrite en YAML (syntaxe et structure attendues dans le référentiel).
-- **Automatisation des tests en DevOps :** Batterie de **32 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
+- **Automatisation des tests en DevOps :** Batterie de **48 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
 
 ---
 

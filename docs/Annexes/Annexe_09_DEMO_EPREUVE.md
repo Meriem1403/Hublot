@@ -99,6 +99,6 @@ curl -I https://dirmhublot.netlify.app
 
 ## Résultats constatés
 
-- **Tests :** 2 fichiers, 32 tests (Vitest) — tous passent.  
+- **Tests :** 2 fichiers, 48 tests (Vitest) — tous passent.  
 - **Build :** réussi ; sortie dans `build/`.  
 - **Audit :** des vulnérabilités restent sur des dépendances de dev ; aucune donnée sensible exposée ; pas de secret dans le dépôt.
