@@ -2,6 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 
 const port = 4173;
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
+/** Ralentit chaque action (ms). Démo : PLAYWRIGHT_SLOW_MS=400 npm run test:e2e:headed */
+const slowMo = Number.parseInt(process.env.PLAYWRIGHT_SLOW_MS ?? '0', 10) || 0;
 
 export default defineConfig({
   testDir: './e2e',
@@ -13,6 +15,7 @@ export default defineConfig({
   use: {
     baseURL,
     trace: 'on-first-retry',
+    ...(slowMo > 0 ? { launchOptions: { slowMo } } : {}),
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: process.env.PLAYWRIGHT_BASE_URL
