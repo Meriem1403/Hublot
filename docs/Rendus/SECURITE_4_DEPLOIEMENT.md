@@ -139,4 +139,4 @@ Cela démontre au jury que les vulnérabilités des dépendances sont prises en 
 | [netlify.toml](../netlify.toml) | Configuration du build et **headers de sécurité** |
 | [.github/workflows/build.yml](../.github/workflows/build.yml) | CI ; peut inclure une étape `npm audit` pour les vulnérabilités |
 
-Pour aller plus loin : [DEPLOIEMENT_SECURISE.md](./DEPLOIEMENT_SECURISE.md), [CHECKLIST_SECURITE.md](./CHECKLIST_SECURITE.md), [SECURITE.md](./SECURITE.md).
+Pour aller plus loin : [DEPLOIEMENT_SECURISE.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.1 Les bases du déploiement automatique.md), [CHECKLIST_SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.4 Checklist sécurité.md), [SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.1 Mesures de sécurité applicative.md).

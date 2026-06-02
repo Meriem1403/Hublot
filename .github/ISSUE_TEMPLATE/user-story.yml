@@ -1,0 +1,44 @@
+name: User Story
+description: Décrire un besoin métier avec critères d'acceptation testables.
+title: "[Story] "
+labels: ["story"]
+body:
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte
+      description: Pourquoi ce besoin est important pour le métier ?
+      placeholder: Exemple : Les responsables RH n'arrivent pas à filtrer par unité...
+    validations:
+      required: true
+
+  - type: textarea
+    id: story
+    attributes:
+      label: User Story
+      description: Formulation "En tant que / Je veux / Afin de"
+      placeholder: En tant que ..., je veux ..., afin de ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critères d'acceptation (Given / When / Then)
+      description: Critères testables, qui pourront devenir des scénarios ST-*.
+      placeholder: |
+        Étant donné ...
+        Quand ...
+        Alors ...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: definition_of_done
+    attributes:
+      label: Definition of Done
+      options:
+        - label: Tests unitaires mis à jour/ajoutés
+        - label: Scénarios ST-* mis à jour si besoin
+        - label: Documentation mise à jour
+        - label: CI verte (lint/tests/audit/build/e2e)

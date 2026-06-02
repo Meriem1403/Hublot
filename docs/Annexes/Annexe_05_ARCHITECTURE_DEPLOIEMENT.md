@@ -1,6 +1,6 @@
 # Annexe 05 — Architecture de déploiement
 
-> Copie pour livrable — document principal : `../ARCHITECTURE_DEPLOIEMENT.md`
+> Copie pour livrable — document principal : `../1.1 Les bases de la démarche DevOps/1.1.4 La mise en place de l'intégration continue (CI).md`
 
 ---
 
@@ -77,7 +77,7 @@ flowchart TB
 2. **GitHub Actions** (CI) :
    - Checkout du code
    - Node.js 20 + `npm ci`
-   - `npm run test:run` (32 tests Vitest)
+   - `npm run test:run` (48 tests Vitest)
    - `npm run build` → dossier `build/`
    - Vérification : `build/index.html` et `build/assets/` présents
    - `npm audit` (informatif)
@@ -123,7 +123,7 @@ Le NAS n'est **pas** dans la chaîne CD automatique Git :
 3. Lancement via **Container Manager** + `docker-compose.yml`
 4. Accès : `http://IP_DU_NAS:8080`
 
-Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md).
+Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.2 Rédiger et utiliser un script de déploiement.md).
 
 ---
 
@@ -135,13 +135,13 @@ Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md).
 | **Git** | Revert du commit + nouveau push |
 | **NAS** | Remplacer les fichiers + redémarrer le conteneur |
 
-Détail : [DOCUMENTATION_DEPLOIEMENT.md](./DOCUMENTATION_DEPLOIEMENT.md#2-procédure-de-rollback).
+Détail : [DOCUMENTATION_DEPLOIEMENT.md](../1.2 Préparer le déploiement d'une application/1.2.7 Documenter le processus de déploiement.md#2-procédure-de-rollback).
 
 ---
 
 ## Documents liés
 
-- [DEVOPS.md](./DEVOPS.md) — Synthèse démarche DevOps complète
-- [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) — DEV / TEST / PROD
-- [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md) — Sécurité du déploiement
-- [DOCUMENTATION_DEPLOIEMENT.md](./DOCUMENTATION_DEPLOIEMENT.md) — Installation, logs, captures CI
+- [DEVOPS.md](../1.1 Les bases de la démarche DevOps/1.1.2 La démarche DevOps.md) — Synthèse démarche DevOps complète
+- [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md) — DEV / TEST / PROD
+- [SECURITE_4_DEPLOIEMENT.md](./1.2 Préparer le déploiement d'une application/1.2.4.2 Sécurité du déploiement.md) — Sécurité du déploiement
+- [DOCUMENTATION_DEPLOIEMENT.md](../1.2 Préparer le déploiement d'une application/1.2.7 Documenter le processus de déploiement.md) — Installation, logs, captures CI
