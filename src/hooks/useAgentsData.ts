@@ -40,6 +40,7 @@ export function useAgentsData(): Agent[] {
       !globalFilter ||
       (globalFilter.filters.region === 'all' &&
         globalFilter.filters.service === 'all' &&
+        globalFilter.filters.unite === 'all' &&
         globalFilter.filters.statut === 'all' &&
         globalFilter.filters.pasa === 'all' &&
         globalFilter.filters.corps === 'all' &&
@@ -50,6 +51,7 @@ export function useAgentsData(): Agent[] {
     return filterAgentsFrom(rawAgents, {
       region: globalFilter.filters.region !== 'all' ? globalFilter.filters.region : undefined,
       service: globalFilter.filters.service !== 'all' ? globalFilter.filters.service : undefined,
+      unite: globalFilter.filters.unite !== 'all' ? globalFilter.filters.unite : undefined,
       statut: globalFilter.filters.statut !== 'all' ? globalFilter.filters.statut : undefined,
       pasa: globalFilter.filters.pasa !== 'all' ? globalFilter.filters.pasa : undefined,
       corps: globalFilter.filters.corps !== 'all' ? globalFilter.filters.corps : undefined,
@@ -90,6 +92,8 @@ export function useUniqueValues() {
 /** Options pour la barre de filtres globale (basées sur les agents bruts, avec DIRM Méditerranée dans Service). */
 export function useFilterOptions() {
   const rawAgents = useAgentsDataRaw();
+  const globalFilter = useGlobalFilterContext();
+  const selectedService = globalFilter?.filters.service ?? 'all';
   return useMemo(
     () => {
       const regions = Array.from(new Set(rawAgents.map((a) => a.region))).sort();
@@ -100,9 +104,23 @@ export function useFilterOptions() {
       const pasas = Array.from(new Set(rawAgents.map((a) => a.pasaCode).filter(Boolean) as string[])).sort();
       const corps = Array.from(new Set(rawAgents.map((a) => (a.corps || a.metier)).filter(Boolean) as string[])).sort((a, b) => a.localeCompare(b, 'fr'));
       const fonctions = Array.from(new Set(rawAgents.map((a) => a.fonctionCategorie).filter(Boolean) as string[])).sort((a, b) => a.localeCompare(b, 'fr'));
-      return { regions, services, statuts, pasas, corps, fonctions };
+
+      // Unités contextuelles : on ne propose que les unités du service sélectionné
+      // (304 unités au total => liste plate inexploitable sans contexte).
+      let unites: string[] = [];
+      if (selectedService !== 'all') {
+        const agentsDuService =
+          selectedService === DIRM_MEDITERANEE_LABEL
+            ? rawAgents.filter((a) => isDirmMediterraneeAgent(a))
+            : rawAgents.filter((a) => a.service === selectedService);
+        unites = Array.from(
+          new Set(agentsDuService.map((a) => a.uniteService).filter(Boolean) as string[])
+        ).sort((a, b) => a.localeCompare(b, 'fr'));
+      }
+
+      return { regions, services, statuts, pasas, corps, fonctions, unites };
     },
-    [rawAgents]
+    [rawAgents, selectedService]
   );
 }
 

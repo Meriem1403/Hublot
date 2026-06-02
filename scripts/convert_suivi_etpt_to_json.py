@@ -428,6 +428,10 @@ def convertir(chemin_excel: Path) -> dict[str, Any]:
             "dateMaj": datetime.now().strftime("%Y-%m-%d"),
         }
 
+        unite = val(principal, "niveau06")
+        if unite and str(unite).strip():
+            agent["uniteService"] = str(unite).strip()
+
         code_mission = code_pasa(sous_action, action)
         if code_mission:
             agent["missionCode"] = code_mission
