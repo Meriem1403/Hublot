@@ -21,8 +21,13 @@ const MISSION_MAPPING: Record<string, string> = {
   '0.5': 'Support administratif'
 };
 
-/** Libellé de l’option de filtre DIRM Méditerranée */
-export const DIRM_MEDITERANEE_LABEL = 'DIRM Méditerranée';
+/**
+ * Libellé de l’option de filtre « façade Méditerranée ».
+ * C’est un AGRÉGAT (pas un service réel) : il regroupe le service DIRM MED
+ * et les services littoraux méditerranéens (DDTM 06/13/34/83, DML/DMLC Corse).
+ * Renommé explicitement pour le distinguer du service réel « DIRM MED ».
+ */
+export const DIRM_MEDITERANEE_LABEL = 'Façade Méditerranée (DIRM MED + DDTM + Corse)';
 
 /** Services rattachés à la façade DIRM Méditerranée (option de filtre dédiée). */
 export const DIRM_MEDITERANEE_SERVICES = ['DIRM MED', 'DDTM 06', 'DDTM 13', 'DDTM 34', 'DDTM 83', 'DMLC CORSE', 'DML CORSE'] as const;

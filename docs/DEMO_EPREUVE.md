@@ -105,10 +105,22 @@ Voir [DEPLOIEMENT_NAS_SYNOLOGY.md](./DEPLOIEMENT_NAS_SYNOLOGY.md).
 
 ---
 
+## 9. Démo Playwright (navigateur visible)
+
+Guide complet : **[PLAYWRIGHT_DEMO.md](./PLAYWRIGHT_DEMO.md)**
+
+```bash
+npm run test:e2e:demo
+```
+
+Résultat attendu : **3 passed** sur `e2e/smoke.spec.ts` (login, connexion, health.json).
+
+---
+
 ## Ordre suggéré pour l'oral (5–10 min)
 
 1. `npm run test:run` (2 min)
 2. Onglet GitHub Actions (1 min)
-3. Démo navigateur PROD ou DEV (3 min)
+3. **`npm run test:e2e:demo`** ou démo navigateur PROD (3 min)
 4. `curl -I` headers (30 s)
 5. Mention rollback + sécurité ([SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md))

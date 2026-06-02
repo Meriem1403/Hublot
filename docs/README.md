@@ -18,6 +18,7 @@ Documentation du projet Hublot – Tableau de bord des effectifs et statistiques
 | [PLAN_TEST.md](./PLAN_TEST.md) | **5️⃣ Plan de test** — Tableau Test / Objectif / Résultat / Statut + scénarios manuels |
 | [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) | **Élaborer des scénarios** — Étant donné / Quand / Alors (ST-F01…), sécurité, automatisés |
 | [DEMO.md](./DEMO.md) / [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) | Procédure d’exécution des tests (commandes ; version épreuve avec ordre oral) |
+| [**PLAYWRIGHT_DEMO.md**](./PLAYWRIGHT_DEMO.md) | **Guide Playwright** — démo jury (headed, ralenti, UI, dépannage) |
 | [**DOCUMENTATION_DEPLOIEMENT.md**](./DOCUMENTATION_DEPLOIEMENT.md) | **Documentation du déploiement** — Procédure d’installation, rollback, architecture, capture du pipeline CI, logs de build |
 | [**Annexes/**](./Annexes/README.md) | **Annexes** — Fichiers pièces jointes (Annexe 01 à 13) : CI, Netlify, plan et scénarios de test, sécurité, tests unitaires, etc. |
 
