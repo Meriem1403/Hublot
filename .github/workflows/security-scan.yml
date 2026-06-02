@@ -1,0 +1,52 @@
+# Scans de sécurité complémentaires :
+#   - Gitleaks : détection de secrets dans l'arborescence (bloquant).
+#   - Trivy    : scan des vulnérabilités des dépendances/fichiers (informatif).
+# Complète l'audit npm bloquant (ci.yml) et l'analyse SAST (codeql.yml).
+# Doc : docs/OUTILS_STRATEGIES_TESTS_SECURITE.md
+name: Scans sécurité
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  secrets:
+    name: Secrets (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer gitleaks
+        run: |
+          VERSION=8.18.4
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz" \
+            | tar -xz gitleaks
+          ./gitleaks version
+
+      - name: Détection de secrets (arborescence courante)
+        # --no-git : on scanne les fichiers présents (pas tout l'historique),
+        # ce qui correspond à l'état réellement livré. L'allowlist .gitleaks.toml
+        # écarte les identifiants de démo/test assumés.
+        run: ./gitleaks detect --no-git --config .gitleaks.toml --redact --verbose
+
+  dependencies:
+    name: Vulnérabilités dépendances (Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan Trivy (système de fichiers)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: "."
+          severity: "HIGH,CRITICAL"
+          ignore-unfixed: true
+          # Informatif : n'échoue pas le job (l'audit bloquant reste audit:prod)
+          exit-code: "0"
+          format: table

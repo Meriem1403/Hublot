@@ -1,0 +1,43 @@
+# CodeQL — analyse statique de sécurité (SAST) du code JavaScript/TypeScript.
+# Détecte les vulnérabilités de code (injection, XSS, flux de données dangereux)
+# et publie les alertes dans l'onglet « Security > Code scanning » du dépôt.
+# Doc : docs/OUTILS_STRATEGIES_TESTS_SECURITE.md
+name: CodeQL (SAST)
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Analyse périodique : tous les lundis à 5h UTC
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyse CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript-typescript"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialiser CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # Jeu de requêtes étendu (sécurité + qualité)
+          queries: security-and-quality
+
+      - name: Analyse
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"

@@ -32,7 +32,13 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 | ST-F05 | Test performance |
 | ST-F06 | Test badge environnement |
 | ST-SEC01 | Test sécurité (headers) |
+| ST-SEC02 | Garde-fous applicatifs (sanitization, validation, session) |
+| ST-SEC03 | Aucun secret commité (scan Gitleaks) |
+| ST-SEC04 | Dépendances de production maîtrisées (audit + Trivy) |
+| ST-SEC05 | Analyse statique du code (SAST CodeQL) |
 | ST-AUTO-* | Lint, tests unitaires, E2E, build, audit |
+
+> **Outils & stratégies détaillés :** [OUTILS_STRATEGIES_TESTS_SECURITE.md](./OUTILS_STRATEGIES_TESTS_SECURITE.md).
 
 ---
 
@@ -209,6 +215,76 @@ curl -sI https://dirmhublot.netlify.app
 
 **Et** le statut HTTP est acceptable (200, 304, etc.).
 
+**Automatisation :** `npm run security:headers` (script `scripts/check-security-headers.sh`) — sortie 0 si les en-têtes obligatoires sont présents.
+
+---
+
+### ST-SEC02 — Garde-fous applicatifs (sanitization, validation, session)
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Haute |
+| **Type** | Automatisé (Vitest) |
+| **Plan** | Test sécurité (code) |
+| **Trace** | `src/utils/security.test.ts`, [OUTILS_STRATEGIES_TESTS_SECURITE.md](./OUTILS_STRATEGIES_TESTS_SECURITE.md) |
+
+**Étant donné** les utilitaires de sécurité (`sanitizeInput`, `validateFilter`, masquage RH, session),
+
+**Quand** la suite `npm run security:test` est exécutée,
+
+**Alors** une entrée contenant des balises/`javascript:`/handlers est nettoyée, un filtre hors liste est refusé, les données RH sont masquées, et une session de plus de 8 h est expirée.
+
+---
+
+### ST-SEC03 — Aucun secret commité (Gitleaks)
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Critique |
+| **Type** | Automatisé (CI — bloquant) |
+| **Plan** | Test sécurité (secrets) |
+| **Trace** | `.github/workflows/security-scan.yml`, `.gitleaks.toml` |
+
+**Étant donné** l'arborescence du dépôt,
+
+**Quand** Gitleaks scanne les fichiers (hors faux positifs allowlistés : identifiants de démo/test),
+
+**Alors** aucun secret réel n'est détecté (le job échoue sinon).
+
+---
+
+### ST-SEC04 — Dépendances de production maîtrisées
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Critique |
+| **Type** | Automatisé (CI — audit bloquant, Trivy informatif) |
+| **Plan** | Test sécurité (dépendances) |
+| **Trace** | `ci.yml` (job audit), `security-scan.yml`, [SECURITE_AUDIT.md](./SECURITE_AUDIT.md) |
+
+**Étant donné** les dépendances de production,
+
+**Quand** `npm run audit:prod` puis Trivy s'exécutent,
+
+**Alors** aucune CVE *critical* (ni *high* hors allowlist) n'est présente ; Trivy remonte le reste pour revue.
+
+---
+
+### ST-SEC05 — Analyse statique du code (SAST)
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Haute |
+| **Type** | Automatisé (CI — informatif, onglet Security) |
+| **Plan** | Test sécurité (code) |
+| **Trace** | `.github/workflows/codeql.yml` |
+
+**Étant donné** le code source JS/TS,
+
+**Quand** CodeQL analyse le dépôt (push + hebdomadaire),
+
+**Alors** les éventuelles vulnérabilités de code sont publiées dans *Security > Code scanning* pour traitement.
+
 ---
 
 ## 6. Scénarios couverts par l'automatisation (référence)
@@ -263,9 +339,11 @@ Copier-colier et renseigner :
 | ST-F04 | Responsive | Playwright | 2026-05-27 | QA local (375px) | **Passé** |
 | ST-F05 | Performance | Playwright | 2026-05-27 | QA local | **Passé** |
 | ST-F06 | Badge environnement | Playwright | 2026-05-27 | QA local + PROD | **Passé** |
-| ST-SEC01 | Headers | `curl` + Playwright | 2026-05-27 | PROD | **Passé** |
+| ST-SEC01 | Headers | `security:headers` + Playwright | 2026-05-27 | PROD | **Passé** |
+| ST-SEC02 | Garde-fous applicatifs | `security.test.ts` | — | CI / local | **Passé** (15 tests) |
 
 **Rapport détaillé :** [RAPPORT_EXECUTION_TESTS.md](./RAPPORT_EXECUTION_TESTS.md)  
+**Validation :** [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md)
 **Commande de reproduction :** `npm run test:campaign`
 
 > **Note staging :** l’URL `staging--dirmhublot.netlify.app` renvoie 404 (branch deploy à activer). Campagne validée en QA local + contrôles PROD en lecture seule.

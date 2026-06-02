@@ -14,7 +14,10 @@ Documentation du projet Hublot – Tableau de bord des effectifs et statistiques
 | [ARCHITECTURE_DEPLOIEMENT.md](./ARCHITECTURE_DEPLOIEMENT.md) | **1️⃣ Architecture de déploiement** — Dépôt Git, workflow YAML, build automatique, déploiement automatique (CI/CD) |
 | [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) | **2️⃣ Environnement de test** — Environnements DEV, TEST et PROD |
 | [SECURITE_4_DEPLOIEMENT.md](./SECURITE_4_DEPLOIEMENT.md) | **4️⃣ Sécurité** — HTTPS, variables d’env, secrets, headers, npm audit (très important pour DIRM ⚓) |
+| [OUTILS_STRATEGIES_TESTS_SECURITE.md](./OUTILS_STRATEGIES_TESTS_SECURITE.md) | **Outils & stratégies des tests de sécurité** — SCA, SAST, secrets, tests unitaires sécurité, headers (CI) |
 | [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) | **Enjeux des plans de test** — Risques RH, pyramide, stratégie, lien Agile/DevOps |
+| [PLANIFIER_EFFICACEMENT_LES_TESTS.md](./PLANIFIER_EFFICACEMENT_LES_TESTS.md) | **Planifier efficacement les tests** — méthode 6 étapes, risques, pyramide, auto vs manuel, démo |
+| [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md) | **Valider les résultats des tests** — statuts, preuves, procédure, DoD, commandes démo |
 | [PLAN_TEST.md](./PLAN_TEST.md) | **5️⃣ Plan de test** — Tableau Test / Objectif / Résultat / Statut + scénarios manuels |
 | [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) | **Élaborer des scénarios** — Étant donné / Quand / Alors (ST-F01…), sécurité, automatisés |
 | [DEMO.md](./DEMO.md) / [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) | Procédure d’exécution des tests (commandes ; version épreuve avec ordre oral) |

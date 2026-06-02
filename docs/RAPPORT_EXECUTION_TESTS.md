@@ -2,7 +2,8 @@
 
 **Date :** 27 mai 2026  
 **Projet :** Hublot — DIRM Méditerranée  
-**Référence scénarios :** [SCENARIOS_TEST.md](./SCENARIOS_TEST.md)
+**Référence scénarios :** [SCENARIOS_TEST.md](./SCENARIOS_TEST.md)  
+**Validation des résultats :** [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md)
 
 ---
 
@@ -20,7 +21,11 @@
 
 ```bash
 # Headers production
-curl -sI https://dirmhublot.netlify.app
+npm run security:headers
+# ou : curl -sI https://dirmhublot.netlify.app
+
+# Tests unitaires sécurité (ST-SEC02)
+npm run security:test
 
 # Campagne scénarios (local + prod)
 npm run test:campaign
@@ -42,6 +47,21 @@ Fichiers : `e2e/campaign-manual.spec.ts`, `e2e/campaign-prod.spec.ts`.
 | `X-Frame-Options` | `DENY` |
 | `X-Content-Type-Options` | `nosniff` |
 | Statut | `HTTP/2 200` |
+
+**Résultat :** **Passé**
+
+---
+
+## ST-SEC02 — Garde-fous applicatifs (Vitest)
+
+**Commande :** `npm run security:test`
+
+| Critère | Résultat |
+|---------|----------|
+| Tests exécutés | 15 |
+| Sanitization anti-XSS | Passé |
+| Validation filtres | Passé |
+| Session / expiration 8 h | Passé |
 
 **Résultat :** **Passé**
 
