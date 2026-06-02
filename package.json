@@ -93,6 +93,8 @@
             "test:campaign": "playwright test e2e/campaign-manual.spec.ts e2e/campaign-prod.spec.ts",
             "test:e2e:ui": "playwright test --ui",
             "audit:prod": "bash scripts/npm-audit-prod.sh",
+            "security:headers": "bash scripts/check-security-headers.sh",
+            "security:test": "vitest run src/utils/security.test.ts",
             "docker:dev": "docker-compose -f docker-compose.dev.yml up",
             "docker:dev:build": "docker-compose -f docker-compose.dev.yml up --build",
             "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",

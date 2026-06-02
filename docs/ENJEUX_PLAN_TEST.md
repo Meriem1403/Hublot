@@ -2,6 +2,8 @@
 
 Document de référence pour la compétence **« Préparer le déploiement d'une application sécurisée »** — complète le [PLAN_TEST.md](./PLAN_TEST.md).
 
+**Méthode opérationnelle :** [PLANIFIER_EFFICACEMENT_LES_TESTS.md](./PLANIFIER_EFFICACEMENT_LES_TESTS.md) — comment prioriser, choisir auto vs manuel, et tracer les résultats.
+
 ---
 
 ## 1. Pourquoi un plan de test ?
@@ -59,7 +61,7 @@ En jury : le tableau **et** les fiches **ST-\*** **et** les runs GitHub Actions 
 
 | Type | Enjeu de l'automatisation |
 |------|---------------------------|
-| **Unitaires (33)** | Répétables à chaque commit, rapides, pas d'oubli humain |
+| **Unitaires (48)** | Répétables à chaque commit, rapides, pas d'oubli humain |
 | **Lint / build / audit** | Qualité code et sécurité des dépendances |
 | **E2E (3)** | Parcours utilisateur critique sans régression manuelle |
 
@@ -100,7 +102,7 @@ flowchart TB
     CI[Lint + audit + build]
   end
   subgraph base [Base — nombreux tests rapides]
-    U[Tests unitaires Vitest — 33]
+    U[Tests unitaires Vitest — 48]
   end
   U --> CI --> E2E
 ```
@@ -126,7 +128,7 @@ Trop d'E2E = pipeline lent et fragile ; trop peu = trous sur l'intégration rée
 
 **Definition of Done (qualité)** avant merge `main` :
 
-- [ ] CI verte (lint, 33 tests, audit, build, E2E)
+- [ ] CI verte (lint, 48 tests, audit, build, E2E)
 - [ ] Tests manuels critiques exécutés sur STAGING si changement UI
 - [ ] Statuts mis à jour dans `PLAN_TEST.md`
 
@@ -162,13 +164,15 @@ Trop d'E2E = pipeline lent et fragile ; trop peu = trous sur l'intégration rée
 
 ## 7. Synthèse oral (30 secondes)
 
-> « Le plan de test Hublot structure **quoi** valider, **comment** et **quand** on peut livrer. Les enjeux sont la fiabilité des **données RH**, la **sécurité d'accès**, et l'absence de régression dans une chaîne **DevOps** avec déploiements automatiques. On combine **33 tests unitaires**, **CI complète** et **E2E** sur le parcours critique, complétés par des **tests manuels** tracés dans un tableau avec statuts. »
+> « Le plan de test Hublot structure **quoi** valider, **comment** et **quand** on peut livrer. Les enjeux sont la fiabilité des **données RH**, la **sécurité d'accès**, et l'absence de régression dans une chaîne **DevOps** avec déploiements automatiques. On combine **48 tests unitaires**, **CI complète** et **E2E** sur le parcours critique, complétés par des **tests manuels** tracés dans un tableau avec statuts. »
 
 ---
 
 ## Documents liés
 
 - [PLAN_TEST.md](./PLAN_TEST.md) — tableau et statuts
+- [PLANIFIER_EFFICACEMENT_LES_TESTS.md](./PLANIFIER_EFFICACEMENT_LES_TESTS.md) — méthode en 6 étapes, pyramide, démo
+- [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md) — statuer Passé/Échec, preuves, livraison
 - [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) — fiches Étant donné / Quand / Alors (**Annexe 13**)
 - [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) — commandes pour le jury
 - [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) — où exécuter chaque test

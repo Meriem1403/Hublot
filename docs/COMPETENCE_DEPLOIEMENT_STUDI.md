@@ -22,12 +22,12 @@
 
 - **Workflow d’intégration continue :** workflow GitHub Actions **« CI »** (fichier **`.github/workflows/ci.yml`**, **Annexe 01**) :
   - déclenchement sur `main`, `staging` et pull requests ;
-  - **ESLint**, **`npm run test:run`** (32 tests), **`npm run audit:prod`**, **`npm run build`**, **Playwright E2E** ;
+  - **ESLint**, **`npm run test:run`** (48 tests), **`npm run audit:prod`**, **`npm run build`**, **Playwright E2E** ;
   - CD cloud : Netlify (fichier **`cd-netlify.yml`** + gate required checks) ;
   - CD NAS : **`cd-nas.yml`** + **`scripts/deploy-nas.sh`** (semi-automatisé).
 - **Synthèse :** **`DEVOPS.md`**, **`CD_PIPELINES.md`**, **`MONITORING.md`**, **`ENVIRONNEMENT_STAGING.md`**.
 - **Rédaction en YAML :** La pipeline CI est décrite en YAML (syntaxe et structure attendues dans le référentiel).
-- **Automatisation des tests en DevOps :** Batterie de **32 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
+- **Automatisation des tests en DevOps :** Batterie de **48 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
 
 ---
 
@@ -59,8 +59,10 @@
 | Scripts / automatisation | Scripts npm, Python (conversion), configuration Netlify |
 | Environnement de test | **`ENVIRONNEMENT_TEST.md`** — DEV, TEST (CI), TEST local, STAGING, PROD ; `npm run check:env` |
 | Enjeux des plans de test | **`ENJEUX_PLAN_TEST.md`** — risques, stratégie, pyramide, traçabilité |
+| Planifier efficacement les tests | **`PLANIFIER_EFFICACEMENT_LES_TESTS.md`** — méthode, priorités, pyramide, Definition of Done, commandes démo |
+| Valider les résultats des tests | **`VALIDER_RESULTATS_TESTS.md`** — statuts Passé/Échec, preuves CI, rapport, DoD livraison |
 | Élaborer un scénario de test | **`SCENARIOS_TEST.md`** (+ Annexe **13**) ; synthèse jury **`Rendus/SCENARIOS_TEST.md`** |
-| Plan de test, scénarios, validation | **`PLAN_TEST.md`** ; identifiants **ST-F*** dans **`SCENARIOS_TEST.md`** ; 33 tests Vitest + E2E + lint en CI |
+| Plan de test, scénarios, validation | **`PLAN_TEST.md`** + **`RAPPORT_EXECUTION_TESTS.md`** ; ST-F* / ST-SEC* ; 48 tests Vitest + CI |
 
 ---
 

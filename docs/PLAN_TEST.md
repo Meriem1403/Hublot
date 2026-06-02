@@ -4,6 +4,10 @@ Chaque test est décrit avec un **objectif**, un **résultat attendu** et le **s
 
 **Enjeux (référentiel Studi) :** voir [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) — pourquoi planifier, risques RH, automatisation vs manuel, traçabilité.
 
+**Méthode (planifier efficacement) :** voir [PLANIFIER_EFFICACEMENT_LES_TESTS.md](./PLANIFIER_EFFICACEMENT_LES_TESTS.md) — risques, pyramide, auto vs manuel, Definition of Done, commandes démo.
+
+**Validation des résultats :** voir [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md) — statuts Passé/Échec, preuves, procédure, décision de livraison.
+
 **Annexes :** [08](./Annexes/Annexe_08_PLAN_TEST.md) (plan synthétique) · [13](./Annexes/Annexe_13_SCENARIOS_TEST.md) (scénarios détaillés) · **Exécution :** [DEMO_EPREUVE.md](./DEMO_EPREUVE.md) · **Rapport :** [RAPPORT_EXECUTION_TESTS.md](./RAPPORT_EXECUTION_TESTS.md)
 
 Document maître scénarios : [SCENARIOS_TEST.md](./SCENARIOS_TEST.md).
@@ -14,20 +18,21 @@ Document maître scénarios : [SCENARIOS_TEST.md](./SCENARIOS_TEST.md).
 
 | Enjeu | Comment le plan y répond |
 |-------|---------------------------|
-| **Données RH fiables** | 20 tests calculs + 12 tests filtres / normalisation |
+| **Données RH fiables** | 32 tests calculs/filtres + 15 tests sécurité applicative |
 | **Pas de régression en CI/CD** | Workflow **CI** à chaque push (`main`, `staging`) |
-| **Sécurité** | Auth, headers, audit npm, E2E login |
+| **Sécurité** | Auth, headers, audit npm, tests `security.test.ts`, E2E login |
 | **Traçabilité jury** | Tableau Objectif / Résultat / **Statut** + logs Actions |
 | **Coût maîtrisé** | Pyramide : beaucoup d'unitaires, peu d'E2E ciblés |
 
 ---
 
-## Batterie automatisée (36 exécutions)
+## Batterie automatisée (48 exécutions unitaires + CI)
 
 | Fichier / outil | Nombre | Couverture |
 |-----------------|--------|------------|
 | **dataService.test.ts** | 12 | Filtres, normalisation, chargement — **Annexe 11** |
 | **dataCalculations.test.ts** | 20 | Âge, ETP, répartitions, stats service — **Annexe 12** |
+| **security.test.ts** | 15 | Sanitization, session, masquage RH — ST-SEC02 |
 | **environment.test.ts** | 1 | Libellé environnement (DEV / staging…) |
 | **e2e/smoke.spec.ts** | 3 | Login, dashboard, `/health.json` — Playwright en CI |
 | **ESLint** | — | Qualité code (`npm run lint`) |
@@ -42,7 +47,7 @@ Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **An
 | Test | Type | Objectif | Résultat attendu | Statut |
 |------|------|----------|------------------|--------|
 | **Lint (ESLint)** | Automatisé | Détecter erreurs et mauvaises pratiques avant merge. | `npm run lint` sans erreur en local et en CI. | Passé |
-| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques). | `npm run test:run` : 33 tests passés (3 fichiers). CI verte. | Passé |
+| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques) et les garde-fous sécurité. | `npm run test:run` : 48 tests passés (4 fichiers). CI verte. | Passé |
 | **Tests E2E** | Automatisé | Valider le parcours critique (connexion, accès app). | `npm run test:e2e` : 3 scénarios Playwright passés en CI. | Passé |
 | **Build production** | Automatisé | Vérifier que l'app compile pour Netlify/NAS. | `npm run build` → `build/index.html` + `assets/`. CI + Netlify OK. | Passé |
 | **Audit npm (production)** | Automatisé | Limiter les vulnérabilités des dépendances runtime. | `npm run audit:prod` : critical bloquant ; high hors allowlist documentée. | Passé |
@@ -82,10 +87,11 @@ Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quan
 | Attendu | Couverture |
 |---------|------------|
 | **Enjeux des plans de test** | [ENJEUX_PLAN_TEST.md](./ENJEUX_PLAN_TEST.md) |
+| **Planifier efficacement** | [PLANIFIER_EFFICACEMENT_LES_TESTS.md](./PLANIFIER_EFFICACEMENT_LES_TESTS.md) |
 | **Élaborer un scénario** | [SCENARIOS_TEST.md](./SCENARIOS_TEST.md) — Annexe 13 |
 | **Environnement de test** | [ENVIRONNEMENT_TEST.md](./ENVIRONNEMENT_TEST.md) — Annexe 06 |
 | **Tests de sécurité** | Auth, headers, audit — Annexe 07 |
-| **Valider les résultats** | Colonne **Statut** + CI |
+| **Valider les résultats** | Colonne **Statut** + CI + [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md) |
 | **Automatiser (DevOps)** | CI : lint, Vitest, E2E, audit, build |
 
 ---

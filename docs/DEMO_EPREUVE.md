@@ -2,6 +2,8 @@
 
 Commandes et étapes pour **reproduire** les résultats du [PLAN_TEST.md](./PLAN_TEST.md) devant le jury.
 
+**Validation des statuts :** [VALIDER_RESULTATS_TESTS.md](./VALIDER_RESULTATS_TESTS.md).
+
 **Annexe associée :** [Annexe 09](./Annexes/Annexe_09_DEMO_EPREUVE.md)
 
 ---
@@ -22,9 +24,9 @@ npm ci
 npm run test:run
 ```
 
-**Résultat attendu :** 33 tests passés, 0 échec.
+**Résultat attendu :** 48 tests passés, 0 échec.
 
-**Capture jury :** terminal avec `Tests  33 passed` (ou équivalent Vitest).
+**Capture jury :** terminal avec `Tests  48 passed` (ou équivalent Vitest).
 
 ---
 
@@ -70,7 +72,7 @@ Ouvrir `http://localhost:5173` — vérifier :
 2. Ouvrir le dernier run **CI** sur `main`
 3. Vérifier : job vert, étapes Checkout → … → Build
 
-**Phrase type jury :** « Chaque push sur main déclenche la même chaîne que localement : install, 32 tests, build. »
+**Phrase type jury :** « Chaque push sur main déclenche la même chaîne que localement : lint, 48 tests, audit, build, E2E. »
 
 ---
 
