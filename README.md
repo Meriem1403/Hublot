@@ -287,6 +287,7 @@ Hublot/
 | [SECURITE_4_DEPLOIEMENT.md](./docs/SECURITE_4_DEPLOIEMENT.md) | HTTPS, secrets, headers, npm audit |
 | [ENJEUX_PLAN_TEST.md](./docs/ENJEUX_PLAN_TEST.md) | Enjeux des plans de test (référentiel Studi) |
 | [PLAN_TEST.md](./docs/PLAN_TEST.md) | Plan de test (tableau synthétique + statuts) |
+| [PLAYWRIGHT_DEMO.md](./docs/PLAYWRIGHT_DEMO.md) | Guide démo Playwright (jury) |
 | [SCENARIOS_TEST.md](./docs/SCENARIOS_TEST.md) | Scénarios formalisés (Étant donné / Quand / Alors, Annexe 13) |
 | [COMPETENCE_DEPLOIEMENT_STUDI.md](./docs/COMPETENCE_DEPLOIEMENT_STUDI.md) | Synthèse compétence déploiement sécurisé |
 | [DEPLOIEMENT_NAS_SYNOLOGY.md](./docs/DEPLOIEMENT_NAS_SYNOLOGY.md) | Déploiement sur NAS Synology |
@@ -308,7 +309,11 @@ Hublot/
 | `npm run test` | Vitest en mode watch |
 | `npm run test:run` | Vitest une fois (CI) |
 | `npm run lint` | ESLint |
-| `npm run test:e2e` | Tests E2E Playwright |
+| `npm run test:e2e` | Tests E2E Playwright (headless, rapide) |
+| **`npm run test:e2e:demo`** | **Démo jury** — smoke visible, ralenti 800 ms |
+| `npm run test:e2e:headed` | E2E avec fenêtre navigateur visible |
+| `npm run test:e2e:slow` | E2E visible + ralenti 400 ms |
+| `npm run test:e2e:ui` | Interface Playwright (pas à pas) |
 | `npm run audit:prod` | Audit npm dépendances production |
 | `npm run docker:dev` | Docker développement |
 | `npm run docker:prod` | Docker production |

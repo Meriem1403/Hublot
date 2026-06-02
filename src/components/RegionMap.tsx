@@ -504,10 +504,12 @@ export function RegionMap() {
                 const x = tooltipPosition.x;
                 const y = tooltipPosition.y;
 
-                // Estimation raisonnable de la taille du tooltip (évite une mesure DOM complexe)
-                const tipW = 360;
-                const tipH = 320;
+                // Taille du tooltip adaptée à la largeur du conteneur (responsive).
+                // On ne dépasse jamais la carte, et on descend jusqu'à 200px sur mobile.
                 const pad = 12;
+                const tipW = Math.min(360, Math.max(200, containerW - 2 * pad));
+                // Blocs empilés (1 colonne) => carte plus haute : on majore l'estimation.
+                const tipH = 420;
 
                 // Horizontal
                 const canPlaceRight = (x + pad + tipW) <= containerW;
@@ -542,8 +544,10 @@ export function RegionMap() {
                     }}
                   >
                     <div
-                      className="relative min-w-[220px] max-w-[360px] rounded-xl shadow-2xl px-4 py-3"
+                      className="relative rounded-xl shadow-2xl px-4 py-3"
                       style={{
+                        width: `${tipW}px`,
+                        maxWidth: '100%',
                         backgroundColor: 'rgba(15, 23, 42, 0.95)',
                         border: '1px solid rgba(255,255,255,0.12)',
                         boxShadow: '0 18px 45px rgba(0,0,0,0.35)',
@@ -568,9 +572,9 @@ export function RegionMap() {
 
                       {s && (
                         <div className="mt-3 space-y-2">
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="grid grid-cols-1 gap-2">
                             <div
-                              className="rounded-lg px-3 py-2"
+                              className="rounded-lg px-3 py-2 min-w-0"
                               style={{
                                 backgroundColor: 'rgba(255,255,255,0.06)',
                                 border: '1px solid rgba(255,255,255,0.12)'
@@ -579,7 +583,7 @@ export function RegionMap() {
                               <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.72)' }}>Parité</p>
                               <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-white">
                                 <span
-                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5"
+                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 whitespace-nowrap"
                                   style={{
                                     backgroundColor: 'rgba(59,130,246,0.16)',
                                     border: '1px solid rgba(59,130,246,0.35)'
@@ -589,7 +593,7 @@ export function RegionMap() {
                                   {s.hommes} H
                                 </span>
                                 <span
-                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5"
+                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 whitespace-nowrap"
                                   style={{
                                     backgroundColor: 'rgba(236,72,153,0.16)',
                                     border: '1px solid rgba(236,72,153,0.35)'
@@ -599,7 +603,7 @@ export function RegionMap() {
                                   {s.femmes} F
                                 </span>
                                 <span
-                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5"
+                                  className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 whitespace-nowrap"
                                   style={{
                                     backgroundColor: 'rgba(148,163,184,0.16)',
                                     border: '1px solid rgba(148,163,184,0.35)'
@@ -611,7 +615,7 @@ export function RegionMap() {
                               </div>
                             </div>
                             <div
-                              className="rounded-lg px-3 py-2"
+                              className="rounded-lg px-3 py-2 min-w-0"
                               style={{
                                 backgroundColor: 'rgba(255,255,255,0.06)',
                                 border: '1px solid rgba(255,255,255,0.12)'
@@ -620,7 +624,7 @@ export function RegionMap() {
                               <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.72)' }}>Temps de travail</p>
                               <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-white">
                                 <span
-                                  className="inline-flex items-center rounded-full px-2 py-0.5"
+                                  className="inline-flex items-center rounded-full px-2 py-0.5 whitespace-nowrap"
                                   style={{
                                     backgroundColor: 'rgba(16,185,129,0.16)',
                                     border: '1px solid rgba(16,185,129,0.35)'
@@ -629,7 +633,7 @@ export function RegionMap() {
                                   {s.tempsPlein} TP
                                 </span>
                                 <span
-                                  className="inline-flex items-center rounded-full px-2 py-0.5"
+                                  className="inline-flex items-center rounded-full px-2 py-0.5 whitespace-nowrap"
                                   style={{
                                     backgroundColor: 'rgba(20,184,166,0.16)',
                                     border: '1px solid rgba(20,184,166,0.35)'
@@ -638,7 +642,7 @@ export function RegionMap() {
                                   {s.tempsPartiel} TPP
                                 </span>
                                 <span
-                                  className="inline-flex items-center rounded-full px-2 py-0.5"
+                                  className="inline-flex items-center rounded-full px-2 py-0.5 whitespace-nowrap"
                                   style={{
                                     backgroundColor: 'rgba(148,163,184,0.16)',
                                     border: '1px solid rgba(148,163,184,0.35)'
