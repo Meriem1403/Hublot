@@ -1,14 +1,12 @@
-# Annexe 08
+# Annexe 08 — Plan de test
 
-# 5️⃣ Plan de test
+> Copie pour livrable — documents principaux : [1.2.1 Les enjeux des plans de test](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.1%20Les%20enjeux%20des%20plans%20de%20test.md), [1.3.7 Automatiser les tests en DevOps](../1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.7%20Automatiser%20les%20tests%20en%20DevOps.md)
 
-Chaque test est décrit avec un **objectif**, un **résultat attendu** et le **statut** constaté après exécution. La colonne **Type** indique si le test est **automatisé** ou **manuel**.
+---
 
-**Enjeux (référentiel Studi) :** voir [ENJEUX_PLAN_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md) — pourquoi planifier, risques RH, automatisation vs manuel, traçabilité.
+Chaque test est décrit avec un **objectif**, un **résultat attendu** et le **statut** constaté. La colonne **Type** indique si le test est **automatisé** ou **manuel**.
 
-**Annexes :** [08](./Annexes/Annexe_08_PLAN_TEST.md) (plan synthétique) · [13](./Annexes/Annexe_13_SCENARIOS_TEST.md) (scénarios détaillés) · **Exécution :** [DEMO_EPREUVE.md](./1.2 Préparer le déploiement d'une application/1.2.8 Procédure d'exécution des tests (épreuve).md) · **Rapport :** [RAPPORT_EXECUTION_TESTS.md](./1.2 Préparer le déploiement d'une application/1.2.9 Rapport d'exécution des tests.md)
-
-Document maître scénarios : [SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md).
+**Liens :** [Annexe 13](./Annexe_13_SCENARIOS_TEST.md) (scénarios ST-*) · [Annexe 09](./Annexe_09_DEMO_EPREUVE.md) (procédure) · [1.2.9 Rapport d'exécution](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.9%20Rapport%20d%27ex%C3%A9cution%20des%20tests.md)
 
 ---
 
@@ -16,26 +14,27 @@ Document maître scénarios : [SCENARIOS_TEST.md](../1.2 Préparer le déploieme
 
 | Enjeu | Comment le plan y répond |
 |-------|---------------------------|
-| **Données RH fiables** | 20 tests calculs + 12 tests filtres / normalisation |
-| **Pas de régression en CI/CD** | Workflow **CI** à chaque push (`main`, `staging`) |
-| **Sécurité** | Auth, headers, audit npm, E2E login |
-| **Traçabilité jury** | Tableau Objectif / Résultat / **Statut** + logs Actions |
-| **Coût maîtrisé** | Pyramide : beaucoup d'unitaires, peu d'E2E ciblés |
+| **Données RH fiables** | 20 + 12 tests unitaires + scénarios ST-F02, ST-F03 |
+| **Pas de régression CI/CD** | Workflow **CI** sur `main` / `staging` |
+| **Sécurité** | ST-SEC01 à 05, auth, audit prod, Gitleaks |
+| **Traçabilité** | IDs ST-*, statuts, logs GitHub Actions |
+| **Coût maîtrisé** | Pyramide : 48 tests unitaires, 3 E2E smoke, contrôles manuels ciblés |
 
 ---
 
-## Batterie automatisée (36 exécutions)
+## Batterie automatisée (48 tests unitaires + CI)
 
 | Fichier / outil | Nombre | Couverture |
 |-----------------|--------|------------|
 | **dataService.test.ts** | 12 | Filtres, normalisation, chargement — **Annexe 11** |
-| **dataCalculations.test.ts** | 20 | Âge, ETP, répartitions, stats service — **Annexe 12** |
+| **dataCalculations.test.ts** | 20 | Âge, ETP, répartitions, stats — **Annexe 12** |
+| **security.test.ts** | 15 | Sanitization, session, masquage RH |
 | **environment.test.ts** | 1 | Libellé environnement (DEV / staging…) |
-| **e2e/smoke.spec.ts** | 3 | Login, dashboard, `/health.json` — Playwright en CI |
-| **ESLint** | — | Qualité code (`npm run lint`) |
-| **audit prod** | — | `npm run audit:prod` — **SECURITE_AUDIT.md** |
+| **e2e/smoke.spec.ts** | 3 | Login, dashboard, `/health.json` — CI |
+| **ESLint** | — | `npm run lint` |
+| **audit prod** | — | `npm run audit:prod` |
 
-Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **Annexe 01** (`ci.yml`).
+Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **Annexe 01** (`.github/workflows/ci.yml`).
 
 ---
 
@@ -43,28 +42,28 @@ Commandes : `npm run test:run` · `npm run test:e2e` · workflow **CI** — **An
 
 | Test | Type | Objectif | Résultat attendu | Statut |
 |------|------|----------|------------------|--------|
-| **Lint (ESLint)** | Automatisé | Détecter erreurs et mauvaises pratiques avant merge. | `npm run lint` sans erreur en local et en CI. | Passé |
-| **Tests unitaires** | Automatisé | Valider la logique métier (filtres, statistiques). | `npm run test:run` : 48 tests passés (4 fichiers). CI verte. | Passé |
-| **Tests E2E** | Automatisé | Valider le parcours critique (connexion, accès app). | `npm run test:e2e` : 3 scénarios Playwright passés en CI. | Passé |
-| **Build production** | Automatisé | Vérifier que l'app compile pour Netlify/NAS. | `npm run build` → `build/index.html` + `assets/`. CI + Netlify OK. | Passé |
-| **Audit npm (production)** | Automatisé | Limiter les vulnérabilités des dépendances runtime. | `npm run audit:prod` : critical bloquant ; high hors allowlist documentée. | Passé |
-| **Test authentification** | Manuel | Accès protégé ; login / logout. | Page login sans session ; identifiants invalides refusés ; accès dashboard si valides. | **Passé** — ST-F01 ([rapport](./1.2 Préparer le déploiement d'une application/1.2.9 Rapport d'exécution des tests.md)) |
-| **Test chargement des données** | Manuel | Données cohérentes sur tous les onglets. | Graphiques et tableaux alimentés ; pas d'erreur bloquante en console. | **Passé** — ST-F02 |
-| **Test responsive** | Manuel | Usage mobile / tablette / desktop. | Pas de débordement ; filtres et onglets utilisables (≈ 375 px). | **Passé** — ST-F04 |
-| **Test performance** | Manuel | Temps de chargement acceptable. | Page interactive en quelques secondes ; navigation fluide. | **Passé** — ST-F05 |
-| **Test des filtres** | Manuel | Filtres globaux (région, service, statut, PASA…). | Sélection met à jour vues ; « DIRM Méditerranée » cohérent. | **Passé** — ST-F03 |
-| **Test badge environnement** | Manuel | Distinguer DEV / staging de la PROD. | Badge visible hors production ; absent sur dirmhublot.netlify.app. | **Passé** — ST-F06 |
-| **Test sécurité (headers)** | Automatisé | Headers durcis en production. | `curl -I https://dirmhublot.netlify.app` : HTTPS, `X-Frame-Options`, `X-Content-Type-Options`. | **Passé** — ST-SEC01 |
+| **Lint (ESLint)** | Automatisé | Qualité code avant merge | `npm run lint` OK en local et CI | Passé |
+| **Tests unitaires** | Automatisé | Logique métier + sécurité session | `npm run test:run` : **48 tests**, 4 fichiers | Passé |
+| **Tests E2E** | Automatisé | Parcours critique | `npm run test:e2e` : 3 scénarios smoke | Passé |
+| **Build production** | Automatisé | Artefact Netlify/NAS | `build/index.html` + `assets/` | Passé |
+| **Audit npm (production)** | Automatisé | Vulnérabilités runtime | `npm run audit:prod` exit 0 | Passé |
+| **Authentification** | Manuel / E2E | Accès protégé | ST-F01 | Passé |
+| **Chargement données** | Manuel / E2E | Cohérence onglets | ST-F02 | Passé |
+| **Filtres** | Manuel / E2E | Filtres globaux | ST-F03 | Passé |
+| **Responsive** | Manuel / E2E | Mobile ~375 px | ST-F04 | Passé |
+| **Performance** | Manuel / E2E | Réactivité onglets | ST-F05 | Passé |
+| **Badge environnement** | Manuel / E2E | DEV vs PROD | ST-F06 | Passé |
+| **Headers HTTP** | Auto + manuel | Durcissement prod | ST-SEC01 | Passé |
+| **Garde-fous code** | Automatisé | `security.test.ts` | ST-SEC02 | Passé |
+| **Secrets (Gitleaks)** | Automatisé | CI `security-scan.yml` | ST-SEC03 | Passé |
+| **Dépendances prod** | Automatisé | audit + Trivy | ST-SEC04 | Passé |
+| **SAST (CodeQL)** | Automatisé | `codeql.yml` | ST-SEC05 | Passé |
 
 ---
 
-## Détail des scénarios manuels
+## Scénarios détaillés
 
-Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quand / Alors*, traçabilité **ST-F***) sont dans **[SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md)** — **Annexe 13**.
-
-### Rappels exécution rapide
-
-- **Auth** → ST-F01 · **Données** → ST-F02 · **Filtres** → ST-F03 · **Responsive** → ST-F04 · **Perf** → ST-F05 · **Badge** → ST-F06 · **Headers** → ST-SEC01
+Formalisation *Étant donné / Quand / Alors* : [1.2.2 Elaborer un scénario de test](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.2%20Elaborer%20un%20sc%C3%A9nario%20de%20test.md) — **Annexe 13**.
 
 ---
 
@@ -72,36 +71,21 @@ Les scénarios **formalisés** (priorité, préconditions, *Étant donné / Quan
 
 | Statut | Signification |
 |--------|----------------|
-| **Passé** | Exécuté, conforme au résultat attendu |
-| **Échec** | Exécuté, non conforme — à corriger |
-| **À exécuter** | Manuel à faire (puis Passé / Échec) |
-| **À vérifier** | À contrôler après deploy (ex. headers) |
+| **Passé** | Conforme au résultat attendu |
+| **Échec** | Non conforme — correction requise |
+| **À exécuter** | Manuel restant |
+| **À vérifier** | À contrôler après deploy |
 
 ---
 
-## Alignement référentiel Studi
+## Alignement référentiel
 
-| Attendu | Couverture |
-|---------|------------|
-| **Enjeux des plans de test** | [ENJEUX_PLAN_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md) |
-| **Élaborer un scénario** | [SCENARIOS_TEST.md](../1.2 Préparer le déploiement d'une application/1.2.2 Elaborer un scénario de test.md) — Annexe 13 |
-| **Environnement de test** | [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md) — Annexe 06 |
-| **Tests de sécurité** | Auth, headers, audit — Annexe 07 |
-| **Valider les résultats** | Colonne **Statut** + CI |
-| **Automatiser (DevOps)** | CI : lint, Vitest, E2E, audit, build |
+| Attendu | Document |
+|---------|----------|
+| Enjeux | [1.2.1](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.1%20Les%20enjeux%20des%20plans%20de%20test.md) |
+| Scénarios | [1.2.2](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.2%20Elaborer%20un%20sc%C3%A9nario%20de%20test.md) — Annexe 13 |
+| Environnements | [1.1.3](../1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.3%20Les%20bases%20d%27un%20environnement%20de%20test.md) — Annexe 06 |
+| Sécurité | Annexe 07 |
+| Exécution | Annexe 09 — [1.2.8](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.8%20Proc%C3%A9dure%20d%27ex%C3%A9cution%20des%20tests%20(%C3%A9preuve).md) |
 
----
-
-## Annexes
-
-| Annexe | Document |
-|--------|----------|
-| **08** | [Annexe_08_PLAN_TEST.md](./Annexes/Annexe_08_PLAN_TEST.md) |
-| **13** | [Annexe_13_SCENARIOS_TEST.md](./Annexes/Annexe_13_SCENARIOS_TEST.md) |
-| **09** | [Annexe_09_DEMO_EPREUVE.md](./Annexes/Annexe_09_DEMO_EPREUVE.md) |
-| **06** | [Annexe_06_ENVIRONNEMENT_TEST.md](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) |
-| **07** | [Annexe_07_SECURITE_4_DEPLOIEMENT.md](./Annexes/Annexe_07_SECURITE_4_DEPLOIEMENT.md) |
-| **01** | [Annexe_01_build.yml](./Annexes/Annexe_01_build.yml) (CI) |
-| **11–12** | Tests unitaires sources |
-
-Index : [Annexes/README.md](./Annexes/README.md).
+Index : [Annexes/README.md](./README.md).

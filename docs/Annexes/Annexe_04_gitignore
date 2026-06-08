@@ -1,11 +1,16 @@
 # Annexe 04 — Fichiers exclus du dépôt (sécurité, secrets)
 # Fichier original : .gitignore
 
+# Tests E2E
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
 # Dépendances
 node_modules
 npm-debug.log
 yarn-error.log
-package-lock.json
 yarn.lock
 
 # Build
@@ -14,15 +19,18 @@ dist
 .next
 out
 
-# Environnement (ne jamais commiter de vrais identifiants)
+# Environnement (ne jamais commiter de vrais identifiants prod)
 .env
-.env.*
-!.env.example
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
 .env.production
+.env.production.local
+.env.*.local
+.env.staging
+# Fichiers de modes versionnés (sans secrets prod) :
+!.env.example
+!.env.development
+!.env.test
+!.env.staging.example
 
 # IDE
 .vscode
@@ -44,7 +52,7 @@ Thumbs.db
 *.md
 !README.md
 !docs/
-!docs/*.md
+!docs/**/*.md
 
 # Scripts Python (gardés séparément)
 __pycache__
@@ -69,6 +77,7 @@ src/data/
 *.pfx
 scripts/rapport_analyse.json
 **/rapport*.json
+scripts/backups/
 
 # Rapports et logs
 *.log

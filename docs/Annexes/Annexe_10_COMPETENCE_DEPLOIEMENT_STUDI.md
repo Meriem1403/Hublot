@@ -1,70 +1,73 @@
 # Annexe 10 — Validation compétence Studi
 
-> Copie pour livrable — document principal : `../1.1 Les bases de la démarche DevOps/1.1.6 Introduction au YAML.md`
+> Copie pour livrable — alignée sur les chapitres 1.1, 1.2 et 1.3 du dossier `docs/`.
 
 ---
 
-# Validation compétence Studi : Préparer le déploiement d'une application sécurisée
+# Validation compétence : Préparer le déploiement d'une application sécurisée
 
-**Application :** Hublot – Tableau de bord DIRM Méditerranée ([dirm.mediterranee.developpement-durable.gouv.fr](https://www.dirm.mediterranee.developpement-durable.gouv.fr), Ministère chargé de la Mer et de la Pêche)  
+**Application :** Hublot — tableau de bord DIRM Méditerranée  
+**Dépôt :** [github.com/Meriem1403/Hublot](https://github.com/Meriem1403/Hublot)  
 **Déploiement en ligne :** https://dirmhublot.netlify.app  
-**Référentiel :** Programme en vigueur le 21/02/2024 – Déploiement, DevOps, CI/CD, tests, sécurité.
+**Référentiel :** Déploiement, DevOps, CI/CD, tests, sécurité (programme Studi).
 
 ---
 
 ## 1. Déploiement continu (CD) et hébergement
 
-- **Application hébergée et accessible :** https://dirmhublot.netlify.app  
-- **Pipeline de déploiement :** À chaque `git push` sur la branche `main`, Netlify déclenche automatiquement un build puis un déploiement (livraison continue).
-- **Configuration du déploiement :** Fichier **`netlify.toml`** à la racine du projet :
-  - Commande de build : `npm run build`
-  - Dossier publié : `build`
-  - Règles de redirection (SPA, fonctions serverless).
-- **Documentation du processus :** Voir **`HOSTING.md`** (options Docker, build manuel, Netlify/Vercel) et **`COMMENT_VOIR_LES_DONNEES_SUR_NETLIFY.md`** pour la mise en œuvre sur Netlify.
+- **Application accessible :** https://dirmhublot.netlify.app (HTTPS Netlify).
+- **CD :** à chaque `git push` sur `main`, Netlify build et publie le dossier `build/` (voir **Annexe 02**).
+- **Configuration :** `netlify.toml` — commande `npm run build`, publish `build`, redirects SPA, headers de sécurité.
+- **Documentation :** [1.2.7 Documenter le processus de déploiement](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.7%20Documenter%20le%20processus%20de%20d%C3%A9ploiement.md), [1.1.5 CD](../1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.5%20La%20mise%20en%20place%20de%20la%20livraison%20ou%20d%C3%A9ploiement%20continu%20(CD).md), **Annexe 05**.
 
 ---
 
 ## 2. Intégration continue (CI) et YAML
 
-- **Workflow d’intégration continue :** Le dépôt contient un workflow GitHub Actions nommé **« CI/CD Pipeline »** (fichier **`.github/workflows/build.yml`**, **Annexe 01**) qui :
-  - se déclenche sur chaque push et pull request sur `main` (et manuellement via `workflow_dispatch`) ;
-  - exécute `npm ci`, puis **`npm run test:run`** (48 tests Vitest), puis `npm run build` ;
-  - vérifie le dossier `build/` (aligné sur Netlify) et exécute `npm audit` (informatif).
-- **Synthèse DevOps :** voir **`DEVOPS.md`**, **`ARCHITECTURE_DEPLOIEMENT.md`**, **`DOCUMENTATION_DEPLOIEMENT.md`**.
-- **Rédaction en YAML :** La pipeline CI est décrite en YAML (syntaxe et structure attendues dans le référentiel).
-- **Automatisation des tests en DevOps :** Batterie de **48 tests** unitaires (Vitest), exécutés automatiquement dans le workflow CI. Fichiers : **`src/services/dataService.test.ts`** (12 tests : filtres région/service/statut/mission, DIRM Méditerranée, normalisation, chargement), **`src/utils/dataCalculations.test.ts`** (20 tests : âge, tranches d’âge, ETP, répartitions statut/contrat/genre/responsabilité/âge, vue d’ensemble, stats par service). Commande : `npm run test:run`.
+- **Workflow CI :** GitHub Actions, nom **CI**, fichier `.github/workflows/ci.yml` (**Annexe 01**).
+- **Déclencheurs :** push et pull request sur `main` et `staging`, `workflow_dispatch`.
+- **Jobs :** ESLint → `npm run test:run` (**48 tests** Vitest) → `npm run audit:prod` → `npm run build` → `npm run test:e2e` (Playwright).
+- **YAML :** `ci.yml`, `netlify.toml`, workflows `cd-netlify.yml`, `security-scan.yml`, `codeql.yml`.
+- **Documentation :** [1.1.4 CI](../1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.4%20La%20mise%20en%20place%20de%20l%27int%C3%A9gration%20continue%20(CI).md), [1.1.6 Introduction au YAML](../1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.6%20Introduction%20au%20YAML.md), [1.3.6 Écrire un script YAML d'Intégration Continue](../1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.6%20Ecrire%20un%20script%20YAML%20d%E2%80%99Int%C3%A9gration%20Continue.md).
+
+**Tests automatisés :**
+
+| Fichier | Tests | Annexe |
+|---------|-------|--------|
+| `src/services/dataService.test.ts` | 12 | 11 |
+| `src/utils/dataCalculations.test.ts` | 20 | 12 |
+| `src/utils/security.test.ts` | 15 | — |
+| `src/config/environment.test.ts` | 1 | — |
+
+Commande : `npm run test:run`. Détail : [1.3.7 Automatiser les tests en DevOps](../1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.7%20Automatiser%20les%20tests%20en%20DevOps.md).
 
 ---
 
-## 3. Préparer le déploiement d’une application sécurisée
+## 3. Application sécurisée
 
-- **Authentification :** Page de connexion (identifiants configurés via variables d’environnement au build) ; accès aux données protégé après authentification.
-- **Données sensibles :** Fichiers sensibles (`.env`, `agents.json`, données Excel, etc.) sont exclus du dépôt via **`.gitignore`** ; pas de secrets committés.
-- **Documentation sécurité et déploiement :**
-  - **`DEPLOIEMENT_SECURISE.md`** : étapes pour un déploiement sécurisé (HTTPS, Docker, firewall, etc.).
-  - **`CHECKLIST_SECURITE.md`** : checklist avant mise en production (authentification, HTTPS, headers, Docker, sauvegardes).
-  - **`SECURITE.md`** : mesures de sécurité implémentées dans l’application.
-- **Environnement de test :** Possibilité de lancer l’application en local (`npm run dev`) ou avec Docker (`make dev` / `docker-compose`) pour tester avant déploiement.
-- **Scripts dans la démarche DevOps :**
-  - Script de conversion des données : **`scripts/convert_excel_to_json.py`** (préparation des données pour l’app).
-  - Scripts npm : `npm run build`, `npm run dev` ; possibilité d’utiliser `make` pour Docker et conversion (voir **`README.md`**).
+- **Authentification :** page de connexion ; variables `VITE_APP_USERNAME` / `VITE_APP_PASSWORD` au build (Netlify).
+- **Données sensibles :** `.gitignore` (**Annexe 04**) — pas de `agents.json` ni `.env` secrets dans Git.
+- **Headers HTTP :** `netlify.toml` — **Annexe 02** ; scénario **ST-SEC01**.
+- **Sécurité applicative :** `src/utils/security.ts`, 15 tests — **ST-SEC02** ; Gitleaks / Trivy / CodeQL — **ST-SEC03** à **05**.
+- **Documentation :** [1.2.4 Tests de sécurité](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4%20Les%20outils%20et%20les%20strat%C3%A9gies%20des%20tests%20de%20s%C3%A9curit%C3%A9.md), **Annexe 07**, [1.2.4.4 Checklist sécurité](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.4%20Checklist%20s%C3%A9curit%C3%A9.md).
 
 ---
 
-## 4. Synthèse pour le jury
+## 4. Environnements, plan de test, scripts
 
-| Attendu du référentiel | Élément dans le projet |
-|------------------------|-------------------------|
-| Déploiement d’une application | Application en ligne : https://dirmhublot.netlify.app |
-| Déploiement continu (CD) | Netlify : build + déploiement automatique à chaque push |
-| Intégration continue (CI) | Workflow GitHub Actions – tests automatiques puis build |
-| YAML | `netlify.toml`, `.github/workflows/build.yml` |
-| Documentation du processus de déploiement | `DEVOPS.md`, `DOCUMENTATION_DEPLOIEMENT.md`, `HOSTING.md`, `README.md` (racine) |
-| Application sécurisée | Authentification, `.gitignore` pour les secrets, docs sécurité |
-| Scripts / automatisation | Scripts npm, Python (conversion), configuration Netlify |
-| Environnement de test | Instructions en local et Docker dans `README.md` et `HOSTING.md` ; voir **`ENVIRONNEMENT_TEST.md`** (DEV / TEST / PROD). |
-| Plan de test, scénarios, validation | **`PLAN_TEST.md`** : tableau Test / Objectif / Résultat attendu / Statut (auth, API, responsive, performance, tests automatisés CI, sécurité). |
+| Attendu référentiel | Élément Hublot |
+|----------------------|----------------|
+| Environnements DEV / TEST / PROD | [1.1.3](../1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.3%20Les%20bases%20d%27un%20environnement%20de%20test.md) — **Annexe 06** |
+| Plan de test | [1.2.1](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.1%20Les%20enjeux%20des%20plans%20de%20test.md), **Annexe 08** |
+| Scénarios de test | [1.2.2](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.2%20Elaborer%20un%20sc%C3%A9nario%20de%20test.md) — **Annexe 13** |
+| Exécution / rapport | **Annexe 09**, [1.2.9](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.9%20Rapport%20d%27ex%C3%A9cution%20des%20tests.md) |
+| Scripts d'évolution données | [1.3.3](../1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.3%20Les%20bases%20des%20scripts%20d%27%C3%A9volution.md), `scripts/run-evolution-pipeline.sh` |
+| Déploiement NAS | [1.3.2](../1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.2%20R%C3%A9diger%20et%20utiliser%20un%20script%20de%20d%C3%A9ploiement.md) |
 
 ---
 
-**Conclusion :** Le projet Hublot permet de valider la compétence « Préparer le déploiement d’une application sécurisée » et les éléments associés du référentiel Studi (démarche DevOps, bases du déploiement automatique, CI/CD, YAML, documentation et sécurisation).
+## 5. Synthèse
+
+Le projet Hublot couvre la compétence « Préparer le déploiement d'une application sécurisée » : **CI bloquante** (48 tests, lint, audit prod, E2E), **CD Netlify**, **documentation structurée** (parcours 1.1 / 1.2 / 1.3), **annexes numérotées** 01 à 13 et **sécurisation** (auth, headers, scan secrets, audit dépendances, SAST).
+
+Index des annexes : [README.md](./README.md).

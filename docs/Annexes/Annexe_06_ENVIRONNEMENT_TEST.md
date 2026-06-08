@@ -8,7 +8,7 @@
 
 Document de référence **Studi** — séparation **DEV**, **TEST**, **STAGING** et **PROD** pour Hublot.
 
-**Annexe :** [Annexe 06](./Annexes/Annexe_06_ENVIRONNEMENT_TEST.md) · **Staging :** [ENVIRONNEMENT_STAGING.md](./1.2 Préparer le déploiement d'une application/1.2.3 Mettre en place un environnement de test.md)
+**Annexe :** [Annexe 06](./Annexe_06_ENVIRONNEMENT_TEST.md) · **Staging :** [1.2.3 Mettre en place un environnement de test](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.3%20Mettre%20en%20place%20un%20environnement%20de%20test.md)
 
 ---
 
@@ -175,7 +175,7 @@ Voir [ENVIRONNEMENT_STAGING.md](./1.2 Préparer le déploiement d'une applicatio
 | Tests manuels UI | Navigateur | — | :4173 | URL staging | URL prod |
 | Headers sécurité | — | — | — | curl -I | curl -I |
 
-Plan détaillé : [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md)
+Plan détaillé : [1.3.7 Automatiser les tests en DevOps](../1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.7%20Automatiser%20les%20tests%20en%20DevOps.md) — **Annexe 08**
 
 ---
 
@@ -193,13 +193,13 @@ Code : `src/config/environment.ts` — libellé et badge selon `VITE_APP_ENV`.
 
 ---
 
-## Parcours jury (5 minutes)
+## Parcours de démonstration (5 minutes)
 
-1. Montrer **DEV** : `npm run dev` → badge « Développement » + login démo.
-2. Montrer **TEST** : GitHub Actions → workflow **CI** → jobs verts.
-3. Montrer **TEST local** : `npm run check:env` ou preview :4173.
-4. Montrer **STAGING** : branche `staging` + URL Netlify (si activée).
-5. Montrer **PROD** : https://dirmhublot.netlify.app — pas de badge.
+1. **DEV** : `npm run dev` → badge « Développement » + login démo.
+2. **TEST** : GitHub Actions → workflow **CI** (`.github/workflows/ci.yml`) → jobs verts.
+3. **TEST local** : `npm run check:env` ou preview `:4173`.
+4. **STAGING** : branche `staging` + URL Netlify (`staging--dirmhublot.netlify.app` si activée).
+5. **PROD** : https://dirmhublot.netlify.app — pas de badge staging.
 
 ---
 

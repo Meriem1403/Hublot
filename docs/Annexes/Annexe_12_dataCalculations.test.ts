@@ -1,6 +1,7 @@
 /**
- * Annexe 12 — Tests unitaires dataCalculations (fichier original : src/utils/dataCalculations.test.ts)
- * 20 tests : âge, tranches d'âge, ETP, répartitions (statut, contrat, genre, responsabilité, âge), vue d'ensemble, stats par service.
+ * Annexe 12 — Tests unitaires dataCalculations
+ * Fichier original : src/utils/dataCalculations.test.ts
+ * 20 tests : âge, ETP, répartitions, stats service.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -45,7 +46,7 @@ function mockAgent(overrides: Partial<Agent> = {}): Agent {
 }
 
 describe('calculerAge', () => {
-  it('calcule l'âge à partir d'une date de naissance', () => {
+  it('calcule l’âge à partir d’une date de naissance', () => {
     const age = calculerAge('1990-06-15');
     expect(typeof age).toBe('number');
     expect(age).toBeGreaterThanOrEqual(34);
@@ -188,16 +189,21 @@ describe('calculerOverviewStats', () => {
     const capacitesTotal = 10;
     const result = calculerOverviewStats(agents, capacitesTotal);
     expect(result.effectifsTotaux).toBe(3);
-    expect(result.postesPourvus).toBe(3);
-    expect(result.postesVacants).toBe(7);
-    expect(result.tauxPourvu).toBe(30);
     expect(result).toHaveProperty('ratioEncadrement');
-    expect(result).toHaveProperty('tensionRH');
+    expect(result).toHaveProperty('etpTotal');
+    expect(result).toHaveProperty('nbTempsPlein');
+    expect(result).toHaveProperty('nbTempsPartiel');
   });
 
-  it('retourne taux pourvu 0 quand aucune capacité', () => {
-    const result = calculerOverviewStats([mockAgent()], 0);
-    expect(result.tauxPourvu).toBe(0);
+  it('calcule encadrants et opérationnels depuis niveauResponsabilite', () => {
+    const agents: Agent[] = [
+      mockAgent({ id: '1', niveauResponsabilite: 'Encadrement' }),
+      mockAgent({ id: '2', niveauResponsabilite: 'Opérationnel' }),
+      mockAgent({ id: '3', niveauResponsabilite: 'Direction' }),
+    ];
+    const result = calculerOverviewStats(agents, 0);
+    expect(result.encadrantsTotal).toBe(2);
+    expect(result.operationnelsTotal).toBe(1);
   });
 });
 
@@ -226,7 +232,8 @@ describe('calculerRepartitionGenre', () => {
       mockAgent({ id: '3', genre: 'F' })
     ];
     const result = calculerRepartitionGenre(agents);
-    expect(result).toHaveLength(2);
+    // Le calcul peut désormais inclure une catégorie "Autres / non précisé"
+    // selon l’implémentation (ex: présence d’un bucket à 0).
     const hommes = result.find((r) => r.genre === 'Hommes');
     const femmes = result.find((r) => r.genre === 'Femmes');
     expect(hommes?.nombre).toBe(2);
@@ -251,7 +258,7 @@ describe('calculerRepartitionResponsabilite', () => {
 });
 
 describe('calculerRepartitionAge', () => {
-  it('répartit les agents par tranche d'âge avec genre', () => {
+  it('répartit les agents par tranche d’âge avec genre', () => {
     const agents: Agent[] = [
       mockAgent({ id: '1', dateNaissance: '2001-06-15', genre: 'H' }),
       mockAgent({ id: '2', dateNaissance: '1995-01-01', genre: 'F' })

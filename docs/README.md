@@ -1,6 +1,8 @@
 # Documentation Hublot
 
-Documentation du projet Hublot organisee selon le plan du referentiel.
+Documentation du projet Hublot organisée selon le plan du référentiel Studi.
+
+**Méthodologie rédactionnelle** (structure commune de tous les chapitres) : [METHODOLOGIE_REDACTION.md](./METHODOLOGIE_REDACTION.md)
 
 ## Parcours numerote (referentiel)
 
