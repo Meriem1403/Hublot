@@ -5,8 +5,8 @@
 Application web de visualisation et d'analyse des **données agents** (effectifs, missions, régions, services, statuts, contrats, parité, âges, temps de travail) — avec filtres globaux, méthodologie des calculs par onglet et déploiement automatisé (CI/CD). Les jeux de données sources sont **internes à la DIRM** et ne sont pas exposés dans ce dépôt public.
 
 <p align="center">
-  <a href="https://github.com/Meriem1403/Hublot/actions/workflows/build.yml">
-    <img src="https://github.com/Meriem1403/Hublot/actions/workflows/build.yml/badge.svg" alt="CI/CD Pipeline" />
+  <a href="https://github.com/Meriem1403/Hublot/actions/workflows/ci.yml">
+    <img src="https://github.com/Meriem1403/Hublot/actions/workflows/ci.yml/badge.svg" alt="CI Pipeline" />
   </a>
   <a href="https://dirmhublot.netlify.app">
     <img src="https://img.shields.io/website?url=https%3A%2F%2Fdirmhublot.netlify.app&label=production&up_message=en%20ligne&down_message=hors%20ligne" alt="Site production" />
@@ -14,7 +14,7 @@ Application web de visualisation et d'analyse des **données agents** (effectifs
   <img src="https://img.shields.io/badge/node-20.x-339933?logo=node.js&logoColor=white" alt="Node.js 20" />
   <img src="https://img.shields.io/badge/react-18-61DAFB?logo=react&logoColor=black" alt="React 18" />
   <img src="https://img.shields.io/badge/vite-6-646CFF?logo=vite&logoColor=white" alt="Vite 6" />
-  <img src="https://img.shields.io/badge/tests-32%20Vitest-6E9F18" alt="32 tests Vitest" />
+  <img src="https://img.shields.io/badge/tests-48%20Vitest-6E9F18" alt="48 tests Vitest" />
   <img src="https://img.shields.io/badge/typescript-ready-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/docker-ready-2496ED?logo=docker&logoColor=white" alt="Docker" />
 </p>
@@ -187,7 +187,7 @@ La procédure d'import, de mise à jour et de déploiement des données est docu
 ## Tests et qualité
 
 ```bash
-# Tests unitaires (32 tests)
+# Tests unitaires (48 tests)
 npm run test:run
 
 # Build de production
@@ -257,7 +257,7 @@ Checklist : [docs/CHECKLIST_SECURITE.md](./docs/CHECKLIST_SECURITE.md) · [docs/
 
 ```
 Hublot/
-├── .github/workflows/build.yml   # Pipeline CI/CD
+├── .github/workflows/ci.yml      # Pipeline CI
 ├── src/
 │   ├── components/               # Vues (onglets, graphiques, carte)
 │   ├── hooks/                    # Chargement et agrégation des données
