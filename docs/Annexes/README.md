@@ -4,6 +4,8 @@ Les fichiers mentionnés dans la documentation du déploiement sont regroupés i
 
 **Document unique :** [TOUTES_LES_ANNEXES.md](./TOUTES_LES_ANNEXES.md) — toutes les annexes (01 à 13) à la suite dans un seul fichier Markdown.
 
+**PDF fusionné annexes :** `docs/Rendus/pdf/Documentation_Annexes_Fusionnee.pdf` — génération : `npm run docs:pdf:annexes`
+
 | Annexe | Fichier | Description |
 |--------|---------|-------------|
 | **Annexe 01** | [Annexe_01_build.yml](./Annexe_01_build.yml) | Workflow **CI** (GitHub Actions) — fichier original : `.github/workflows/ci.yml` |
@@ -22,4 +24,12 @@ Les fichiers mentionnés dans la documentation du déploiement sont regroupés i
 
 ---
 
-Dans les documents (DOCUMENTATION_DEPLOIEMENT, PLAN_TEST, etc.), les références utilisent la forme **« Annexe 01 »**, **« Annexe 02 »**, etc., et pointent vers ce dossier.
+Dans les chapitres 1.1 / 1.2 / 1.3, les références utilisent la forme **« Annexe 01 »**, **« Annexe 02 »**, etc.
+
+**Mise à jour des copies techniques (01–04, 11–12) et regénération du bundle :**
+
+```bash
+node scripts/sync-annexes-bundle.js
+```
+
+Les fichiers `Annexe_01_build.yml` et `Annexe_02_netlify.toml` sont des copies commentées de `.github/workflows/ci.yml` et `netlify.toml` (le nom `_build` est historique ; le fichier source est bien **ci.yml**).

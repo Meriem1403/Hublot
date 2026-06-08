@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 200" role="img" aria-label="Hublot - DIRM Mediterranee">
+  <defs>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#bae6fd"/>
+    </linearGradient>
+  </defs>
+  <!-- Hublot (porthole) + chart motif -->
+  <circle cx="100" cy="100" r="72" fill="none" stroke="url(#ring)" stroke-width="10"/>
+  <circle cx="100" cy="100" r="52" fill="rgba(255,255,255,0.08)"/>
+  <rect x="72" y="118" width="14" height="36" rx="3" fill="url(#bar)"/>
+  <rect x="93" y="98" width="14" height="56" rx="3" fill="url(#bar)"/>
+  <rect x="114" y="78" width="14" height="76" rx="3" fill="url(#bar)"/>
+  <!-- Map / Mediterranean stylized coast -->
+  <path d="M220 145 Q260 95 310 120 T400 100 T480 130" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="310" cy="118" r="6" fill="#f0f9ff"/>
+  <circle cx="360" cy="108" r="5" fill="#bae6fd"/>
+  <circle cx="400" cy="112" r="7" fill="#f0f9ff"/>
+  <circle cx="440" cy="125" r="5" fill="#bae6fd"/>
+  <!-- Waves -->
+  <path d="M200 168 C240 152 280 184 320 168 S400 152 480 168" fill="none" stroke="#60a5fa" stroke-width="2.5" opacity="0.85"/>
+  <path d="M200 182 C250 168 300 190 350 176 S430 162 480 178" fill="none" stroke="#93c5fd" stroke-width="2" opacity="0.6"/>
+  <!-- Title mark -->
+  <text x="220" y="72" fill="#f8fafc" font-family="Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="700">Hublot</text>
+  <text x="220" y="98" fill="#bae6fd" font-family="Helvetica Neue, Arial, sans-serif" font-size="14" font-weight="500" letter-spacing="0.06em">DIRM MEDITERRANEE</text>
+</svg>
