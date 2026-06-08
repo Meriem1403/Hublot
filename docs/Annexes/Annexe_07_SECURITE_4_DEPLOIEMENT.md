@@ -108,13 +108,13 @@ Configuration Nginx (NAS) : voir `nginx.conf` (CSP, X-Frame-Options en commentai
 - Identifiants injectés au build via variables d'environnement (`import.meta.env`).
 - Session côté navigateur (`sessionStorage`) — à renforcer (JWT / SSO) en évolution future.
 
-Test manuel : voir [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) — scénario authentification.
+Test manuel : **Annexe 08** / **Annexe 13** — scénario **ST-F01** (authentification).
 
 ---
 
 ## 8. Checklist avant mise en production
 
-Utiliser [CHECKLIST_SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.4 Checklist sécurité.md) :
+Utiliser [1.2.4.4 Checklist sécurité](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.4%20Checklist%20s%C3%A9curit%C3%A9.md) :
 
 - [ ] Mots de passe forts configurés sur Netlify
 - [ ] `.env` absent du dépôt
@@ -122,10 +122,10 @@ Utiliser [CHECKLIST_SECURITE.md](./1.2 Préparer le déploiement d'une applicati
 - [ ] Headers vérifiés en production
 - [ ] Rollback testé (au moins une fois)
 
-Compléments : [SECURITE.md](./1.2 Préparer le déploiement d'une application/1.2.4.1 Mesures de sécurité applicative.md), [DEPLOIEMENT_SECURISE.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.1 Les bases du déploiement automatique.md)
+Compléments : [1.2.4.1 Mesures de sécurité applicative](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.1%20Mesures%20de%20s%C3%A9curit%C3%A9%20applicative.md), [1.3.1 Les bases du déploiement automatique](../1.3%20R%C3%A9diger%20des%20scriptes%20dans%20la%20d%C3%A9marche%20DevOps/1.3.1%20Les%20bases%20du%20d%C3%A9ploiement%20automatique.md)
 
 ---
 
-## Synthèse jury
+## Synthèse
 
-> « Le déploiement est sécurisé par HTTPS en production, des variables d'environnement pour les secrets, l'exclusion des données RH du dépôt, des headers HTTP durcis et un audit npm intégré à la CI. L'authentification protège l'accès aux tableaux de bord. »
+Le déploiement Hublot repose sur HTTPS Netlify, variables d'environnement pour les secrets, exclusion des données RH du dépôt (**.gitignore**, Annexe 04), headers HTTP durcis (**Annexe 02**), `npm run audit:prod` et scans Gitleaks/Trivy/CodeQL en CI. L'authentification protège le tableau de bord ; les scénarios **ST-SEC01** à **ST-SEC05** sont détaillés dans **Annexe 13**.

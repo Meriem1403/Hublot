@@ -1,6 +1,7 @@
 /**
- * Annexe 11 — Tests unitaires dataService (fichier original : src/services/dataService.test.ts)
- * 12 tests : filtres (région, service DIRM Méditerranée, statut, mission), normalisation, chargement.
+ * Annexe 11 — Tests unitaires dataService
+ * Fichier original : src/services/dataService.test.ts
+ * 12 tests : filtres (région, service, statut, mission), normalisation, chargement.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -21,7 +22,7 @@ function mockAgent(overrides: Partial<Agent> = {}): Agent {
     genre: 'H',
     statut: 'Titulaire',
     contratType: 'Temps plein',
-    region: 'Marseille',
+    region: "PROVENCE-ALPES-COTE-D'AZUR",
     service: 'DDTM 13',
     mission: 'Mission test',
     metier: 'Métier test',
@@ -40,31 +41,31 @@ function mockAgent(overrides: Partial<Agent> = {}): Agent {
 
 describe('filterAgentsFrom', () => {
   const agents: Agent[] = [
-    mockAgent({ id: '1', region: 'Marseille', service: 'DDTM 13' }),
-    mockAgent({ id: '2', region: 'Nice', service: 'DDTM 06' }),
-    mockAgent({ id: '3', region: 'Toulon', service: 'DDTM 83' }),
-    mockAgent({ id: '4', region: 'Sète', service: 'DDTM 34' }),
-    mockAgent({ id: '5', region: 'Paris', service: 'DIRM BNEM' })
+    mockAgent({ id: '1', region: "PROVENCE-ALPES-COTE-D'AZUR", service: 'DDTM 13' }),
+    mockAgent({ id: '2', region: "PROVENCE-ALPES-COTE-D'AZUR", service: 'DDTM 06' }),
+    mockAgent({ id: '3', region: "PROVENCE-ALPES-COTE-D'AZUR", service: 'DDTM 83' }),
+    mockAgent({ id: '4', region: 'OCCITANIE', service: 'DDTM 34' }),
+    mockAgent({ id: '5', region: 'NORMANDIE', service: 'DIRM BNEM' })
   ];
 
   it('filtre par région', () => {
-    const result = filterAgentsFrom(agents, { region: 'Marseille' });
-    expect(result).toHaveLength(1);
-    expect(result[0].region).toBe('Marseille');
+    const result = filterAgentsFrom(agents, { region: "PROVENCE-ALPES-COTE-D'AZUR" });
+    expect(result).toHaveLength(3);
+    expect(result.every((a) => a.region === "PROVENCE-ALPES-COTE-D'AZUR")).toBe(true);
   });
 
-  it('filtre par service DIRM Méditerranée (régions Marseille, Nice, Toulon, Sète)', () => {
+  it('filtre par service DIRM Méditerranée (services dédiés)', () => {
     const result = filterAgentsFrom(agents, { service: DIRM_MEDITERANEE_LABEL });
     expect(result).toHaveLength(4);
-    const regions = result.map((a) => a.region).sort();
-    expect(regions).toEqual(['Marseille', 'Nice', 'Sète', 'Toulon']);
+    const services = result.map((a) => a.service).sort();
+    expect(services).toEqual(['DDTM 06', 'DDTM 13', 'DDTM 34', 'DDTM 83']);
   });
 
   it('filtre par service classique', () => {
     const result = filterAgentsFrom(agents, { service: 'DDTM 06' });
     expect(result).toHaveLength(1);
     expect(result[0].service).toBe('DDTM 06');
-    expect(result[0].region).toBe('Nice');
+    expect(result[0].region).toBe("PROVENCE-ALPES-COTE-D'AZUR");
   });
 
   it('sans filtre retourne tous les agents', () => {
@@ -110,21 +111,21 @@ describe('filterAgentsFrom', () => {
 });
 
 describe('normalizeAgents', () => {
-  it('mappe la région depuis le code service (ex. DDTM 13 → Marseille)', () => {
+  it('ne modifie pas la région source', () => {
     const agents: Agent[] = [
-      mockAgent({ id: '1', service: 'DDTM 13', region: 'Inconnu' })
+      mockAgent({ id: '1', service: 'DDTM 13', region: 'PROVENCE-ALPES-COTE-D\'AZUR' })
     ];
     const result = normalizeAgents(agents);
     expect(result).toHaveLength(1);
-    expect(result[0].region).toBe('Marseille');
+    expect(result[0].region).toBe("PROVENCE-ALPES-COTE-D'AZUR");
   });
 
-  it('mappe le service vers le nom normalisé (ex. DDTM 13 → Surveillance et contrôle)', () => {
+  it('ne normalise pas le service (conserve DDTM/DIRM/DM/SAM)', () => {
     const agents: Agent[] = [
       mockAgent({ id: '1', service: 'DDTM 13' })
     ];
     const result = normalizeAgents(agents);
-    expect(result[0].service).toBe('Surveillance et contrôle');
+    expect(result[0].service).toBe('DDTM 13');
   });
 
   it('conserve les agents sans mapping inchangés pour les champs non mappés', () => {
@@ -142,13 +143,13 @@ describe('loadAgentsDataFrom', () => {
   it('charge et normalise les agents depuis un StatDirmData', () => {
     const data: StatDirmData = {
       agents: [
-        mockAgent({ id: '1', service: 'DDTM 06', region: '?' })
+        mockAgent({ id: '1', service: 'DDTM 06', region: "PROVENCE-ALPES-COTE-D'AZUR" })
       ],
       capacites: { missions: [], regions: [] }
     };
     const result = loadAgentsDataFrom(data);
     expect(result).toHaveLength(1);
-    expect(result[0].region).toBe('Nice');
-    expect(result[0].service).toBe('Opérations maritimes');
+    expect(result[0].region).toBe("PROVENCE-ALPES-COTE-D'AZUR");
+    expect(result[0].service).toBe('DDTM 06');
   });
 });

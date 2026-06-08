@@ -75,7 +75,42 @@ NAS_HOST=... NAS_USER=... NAS_PATH=... ./scripts/deploy-nas.sh --rsync
 - `convert_excel_to_json.py` : convertisseur historique (legacy)
 - `npm-audit-prod.sh` : audit npm orienté production
 - `check-security-headers.sh` : validation headers HTTP sécurité
+- `build-pdf.js` : génération PDF depuis Markdown via WeasyPrint
+- `sync-annexes-bundle.js` : regénère `docs/Annexes/TOUTES_LES_ANNEXES.md` après modification des annexes
 - `push-agents-to-neon.js` / `reset-neon-agents.js` / `check-neon-agents.js` : gestion des données Neon
+
+## Générer la documentation PDF (WeasyPrint)
+
+Prérequis (macOS) :
+
+```bash
+brew install weasyprint
+```
+
+Commandes :
+
+```bash
+# PDF livret compact (~70 pages) : En bref, mise en place, preuves, synthèse
+npm run docs:pdf
+
+# PDF annexes uniquement (01 à 13)
+npm run docs:pdf:annexes
+
+# PDF complet (~170 pages) : toutes les sections
+npm run docs:pdf:full
+
+# Image de couverture personnalisée (PNG/JPG prioritaire sur le SVG)
+npm run docs:pdf:one -- --merged --cover "docs/Rendus/mon-logo.png"
+
+# Générer un seul document
+npm run docs:pdf:one -- --input "docs/README.md"
+
+# Générer un doc avec sortie personnalisée
+npm run docs:pdf:one -- --input "docs/README.md" --output "docs/Rendus/pdf/README.pdf"
+
+# Générer un PDF par document (mode batch)
+node scripts/build-pdf.js --all
+```
 
 ## Bonnes pratiques
 

@@ -1,12 +1,32 @@
 # Annexe 02 — Configuration Netlify (build, headers, redirects)
 # Fichier original : netlify.toml
 
-# Netlify : build + function agents (Neon)
-# La variable NETLIFY_DATABASE_URL est créée par l'extension Neon sur Netlify.
+# Netlify : CD cloud (complète la CI GitHub Actions — voir docs/CD_PIPELINES.md)
+# La variable NETLIFY_DATABASE_URL est créée par l’extension Neon sur Netlify.
 
 [build]
   command   = "npm run build"
   publish   = "build"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Contexte affiché côté monitoring (Sentry, logs)
+  VITE_APP_ENV = "production"
+
+# Branche staging → URL dédiée (ex. staging--dirmhublot.netlify.app)
+[context.staging]
+  command = "npm run build"
+  [context.staging.environment]
+    VITE_APP_ENV = "staging"
+
+# Pull requests → deploy preview (préproduction)
+[context.deploy-preview]
+  command = "npm run build"
+  [context.deploy-preview.environment]
+    VITE_APP_ENV = "preview"
+
+[context.branch-deploy]
+  command = "npm run build"
 
 # Headers de sécurité (voir docs/SECURITE_4_DEPLOIEMENT.md)
 [[headers]]
@@ -16,12 +36,6 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-# Ne pas rediriger les functions vers index.html
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to   = "/.netlify/functions/:splat"
-  status = 200
 
 # SPA : toutes les autres URLs → index.html
 [[redirects]]

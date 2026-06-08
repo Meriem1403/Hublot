@@ -1,10 +1,8 @@
-# Annexe 13
+# Annexe 13 — Scénarios de test
 
-# Scénarios de test — Hublot
+> Copie pour livrable — document principal : [1.2.2 Elaborer un scénario de test](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.2%20Elaborer%20un%20sc%C3%A9nario%20de%20test.md)
 
-Document **opérationnel** pour **élaborer et exécuter** des scénarios de test, en complément du [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) et des [enjeux](../1.2 Préparer le déploiement d'une application/1.2.1 Les enjeux des plans de test.md).
-
-**Annexe livrable :** [Annexe 13](./Annexes/Annexe_13_SCENARIOS_TEST.md)
+Document **opérationnel** pour élaborer et exécuter des scénarios, en complément de [1.2.1](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.1%20Les%20enjeux%20des%20plans%20de%20test.md) et **Annexe 08** (plan de test).
 
 ---
 
@@ -25,16 +23,20 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 
 ## 2. Correspondance avec le plan de test
 
-| ID scénario | Ligne du tableau [PLAN_TEST.md](../1.3 Rédiger des scriptes dans la démarche DevOps/1.3.7 Automatiser les tests en DevOps.md) |
-|-------------|--------------------------------------------------|
+| ID scénario | Ligne du plan ([Annexe 08](./Annexe_08_PLAN_TEST.md)) |
+|-------------|------------------------------------------------------|
 | ST-F01 | Test authentification |
 | ST-F02 | Test chargement des données |
 | ST-F03 | Test des filtres |
 | ST-F04 | Test responsive |
 | ST-F05 | Test performance |
 | ST-F06 | Test badge environnement |
-| ST-SEC01 | Test sécurité (headers) |
-| ST-AUTO-* | Lint, tests unitaires, E2E, build, audit |
+| ST-SEC01 | Headers HTTP en production |
+| ST-SEC02 | Garde-fous applicatifs |
+| ST-SEC03 | Aucun secret commité (Gitleaks) |
+| ST-SEC04 | Dépendances de production |
+| ST-SEC05 | Analyse statique (CodeQL) |
+| ST-AUTO-* | Lint, 48 tests, E2E, build, audit:prod |
 
 ---
 
@@ -45,7 +47,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 3. **Formuler une intention** en une phrase (ex. « un utilisateur non authentifié ne voit pas le tableau de bord »).
 4. **Découper en étapes atomiques** (une action par étape lorsque possible).
 5. **Rendre observable le succès** : texte visible, code HTTP, absence d'erreur console.
-6. **Choisir l'environnement** : préférer **STAGING** pour les tests manuels hors DEV — voir [ENVIRONNEMENT_TEST.md](../1.1 Les bases de la démarche DevOps/1.1.3 Les bases d'un environnement de test.md).
+6. **Choisir l'environnement** : préférer **STAGING** pour les tests manuels hors DEV — voir [1.1.3](../1.1%20Les%20bases%20de%20la%20d%C3%A9marche%20DevOps/1.1.3%20Les%20bases%20d%27un%20environnement%20de%20test.md) — **Annexe 06**.
 
 ---
 
@@ -195,7 +197,7 @@ Un **scénario** décrit un comportement attendu de l'application dans un **cas 
 | **Priorité** | Haute |
 | **Type** | Semi-automatisable (CLI) |
 | **Plan** | Test sécurité (headers) |
-| **Trace** | [SECURITE_4_DEPLOIEMENT.md](./1.2 Préparer le déploiement d'une application/1.2.4.2 Sécurité du déploiement.md), Annexe 02 |
+| **Trace** | [1.2.4.2 Sécurité du déploiement](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.2%20S%C3%A9curit%C3%A9%20du%20d%C3%A9ploiement.md), Annexe 02 |
 
 **Étant donné** le site déployé en HTTPS sur Netlify,
 
@@ -211,6 +213,73 @@ curl -sI https://dirmhublot.netlify.app
 
 **Et** le statut HTTP est acceptable (200, 304, etc.).
 
+**Automatisation :** `npm run security:headers` (`scripts/check-security-headers.sh`).
+
+---
+
+### ST-SEC02 — Garde-fous applicatifs
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Haute |
+| **Type** | Automatisé (Vitest) |
+| **Plan** | Test sécurité (code) |
+| **Trace** | `src/utils/security.test.ts`, [1.2.4](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4%20Les%20outils%20et%20les%20strat%C3%A9gies%20des%20tests%20de%20s%C3%A9curit%C3%A9.md) |
+
+**Étant donné** les utilitaires (`sanitizeInput`, `validateFilter`, masquage RH, session),
+
+**Quand** `npm run security:test` est exécuté,
+
+**Alors** les 15 tests passent (entrées dangereuses nettoyées, filtre hors liste refusé, session > 8 h expirée).
+
+---
+
+### ST-SEC03 — Aucun secret commité (Gitleaks)
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Critique |
+| **Type** | Automatisé (CI — bloquant) |
+| **Trace** | `.github/workflows/security-scan.yml`, `.gitleaks.toml` |
+
+**Étant donné** l'arborescence du dépôt,
+
+**Quand** Gitleaks scanne les fichiers,
+
+**Alors** aucun secret réel n'est détecté (sinon le job échoue).
+
+---
+
+### ST-SEC04 — Dépendances de production maîtrisées
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Critique |
+| **Type** | Automatisé (CI) |
+| **Trace** | `ci.yml`, `security-scan.yml`, [1.2.4.3](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.4.3%20Audit%20des%20d%C3%A9pendances.md) |
+
+**Étant donné** les dépendances de production,
+
+**Quand** `npm run audit:prod` puis Trivy s'exécutent,
+
+**Alors** aucune CVE *critical* (ni *high* hors allowlist documentée).
+
+---
+
+### ST-SEC05 — Analyse statique du code (SAST)
+
+| Champ | Détail |
+|-------|--------|
+| **Priorité** | Haute |
+| **Type** | Automatisé (CI — informatif) |
+| **Trace** | `.github/workflows/codeql.yml` |
+
+**Étant donné** le code JS/TS,
+
+**Quand** CodeQL analyse le dépôt,
+
+**Alors** les alertes sont publiées dans *Security > Code scanning*.
+
 ---
 
 ## 6. Scénarios couverts par l'automatisation (référence)
@@ -220,12 +289,12 @@ Ces comportements correspondent à une **suite automatisée** ; le scénario « 
 | ID | Intention métier technique | Moyen |
 |----|----------------------------|-------|
 | ST-AUTO-01 | Pas de violation des règles ESLint | `npm run lint` dans la CI |
-| ST-AUTO-02 | Régression sur filtres ou calculs | `npm run test:run` (Vitest) |
-| ST-AUTO-03 | Régression login / santé exposition | `npm run test:e2e` (Playwright — `e2e/smoke.spec.ts`) |
-| ST-AUTO-04 | Artefact déployable | `npm run build` + vérif dossier dans CI |
-| ST-AUTO-05 | Risque dépendances prod maîtrisé | `npm run audit:prod` dans la CI |
+| ST-AUTO-02 | Régression filtres / calculs | `npm run test:run` (**48 tests** Vitest) |
+| ST-AUTO-03 | Régression login / santé | `npm run test:e2e` (`e2e/smoke.spec.ts`) |
+| ST-AUTO-04 | Artefact déployable | `npm run build` + vérif `build/` |
+| ST-AUTO-05 | Risque dépendances prod | `npm run audit:prod` |
 
-Détail d'exécution : [DEMO_EPREUVE.md](./1.2 Préparer le déploiement d'une application/1.2.8 Procédure d'exécution des tests (épreuve).md).
+Détail d'exécution : [Annexe 09](./Annexe_09_DEMO_EPREUVE.md) — [1.2.8](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.8%20Proc%C3%A9dure%20d%27ex%C3%A9cution%20des%20tests%20(%C3%A9preuve).md).
 
 ---
 
@@ -240,7 +309,7 @@ Copier-colier et renseigner :
 |-------|--------|
 | **Priorité** | Critique / Haute / Moyenne / Basse |
 | **Type** | Manuel / Automatisé |
-| **Plan** | [Référencer la ligne PLAN_TEST.md] |
+| **Plan** | [Référencer Annexe 08 / 1.2.1] |
 | **Environnement** | DEV / STAGING / PROD |
 | **Préconditions** | ... |
 
@@ -265,9 +334,10 @@ Copier-colier et renseigner :
 | ST-F04 | Responsive | Playwright | 2026-05-27 | QA local (375px) | **Passé** |
 | ST-F05 | Performance | Playwright | 2026-05-27 | QA local | **Passé** |
 | ST-F06 | Badge environnement | Playwright | 2026-05-27 | QA local + PROD | **Passé** |
-| ST-SEC01 | Headers | `curl` + Playwright | 2026-05-27 | PROD | **Passé** |
+| ST-SEC01 | Headers | `security:headers` + Playwright | 2026-05-27 | PROD | **Passé** |
+| ST-SEC02 | Garde-fous applicatifs | `security:test` | — | CI / local | **Passé** (15 tests) |
 
-**Rapport détaillé :** [RAPPORT_EXECUTION_TESTS.md](./1.2 Préparer le déploiement d'une application/1.2.9 Rapport d'exécution des tests.md)  
+**Rapport détaillé :** [1.2.9 Rapport d'exécution des tests](../1.2%20Pr%C3%A9parer%20le%20d%C3%A9ploiement%20d%27une%20application/1.2.9%20Rapport%20d%27ex%C3%A9cution%20des%20tests.md)  
 **Commande de reproduction :** `npm run test:campaign`
 
 > **Note staging :** l’URL `staging--dirmhublot.netlify.app` renvoie 404 (branch deploy à activer). Campagne validée en QA local + contrôles PROD en lecture seule.
