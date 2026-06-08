@@ -31,13 +31,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Initialiser CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
           # Jeu de requêtes étendu (sécurité + qualité)
           queries: security-and-quality
 
       - name: Analyse
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{ matrix.language }}"
