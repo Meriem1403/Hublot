@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, TrendingUp, AlertTriangle, MapPin, LogOut, Filter, ChevronDown, ChevronUp } from 'lucide-react';
+import { Users, TrendingUp, AlertTriangle, MapPin, LogOut, Filter, ChevronDown, ChevronUp, Layers } from 'lucide-react';
 import { OverviewCards } from './components/OverviewCards';
 import { MissionChart } from './components/MissionChart';
 import { RegionMap } from './components/RegionMap';
@@ -12,6 +12,7 @@ import { AgeChart } from './components/AgeChart';
 import { GenderDonut } from './components/GenderDonut';
 import { WorkTimeGauge } from './components/WorkTimeGauge';
 import { DynamicView } from './components/DynamicView';
+import { PasaEffectifsView } from './components/PasaEffectifsView';
 import { LoginPage } from './components/LoginPage';
 import { EnvironmentBadge } from './components/EnvironmentBadge';
 import { shouldShowEnvironmentBadge } from './config/environment';
@@ -104,7 +105,8 @@ export default function App() {
               { id: 'age', label: 'Âges', icon: Users },
               { id: 'gender', label: 'Parité H/F', icon: Users },
               { id: 'worktime', label: 'Temps de travail', icon: Users },
-              { id: 'dynamic', label: 'Vue dynamique', icon: TrendingUp }
+              { id: 'dynamic', label: 'Vue dynamique', icon: TrendingUp },
+              { id: 'pasa-effectifs', label: 'Effectifs PASA', icon: Layers }
             ].map(tab => (
               <button
                 key={tab.id}
@@ -127,8 +129,8 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Filtres globaux (tous les onglets) — Service inclut DIRM Méditerranée */}
-      <GlobalFilterBar />
+      {/* Filtres globaux — masqués sur l'onglet PASA dédié (données indépendantes) */}
+      {activeTab !== 'pasa-effectifs' && <GlobalFilterBar />}
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" key={activeTab}>
@@ -144,6 +146,7 @@ export default function App() {
         {activeTab === 'gender' && <GenderDonut />}
         {activeTab === 'worktime' && <WorkTimeGauge />}
         {activeTab === 'dynamic' && <DynamicView />}
+        {activeTab === 'pasa-effectifs' && <PasaEffectifsView />}
       </main>
 
       {/* Footer */}

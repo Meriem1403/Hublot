@@ -54,4 +54,5 @@ Documentation du projet Hublot organisée selon le plan du référentiel Studi.
 
 - [Annexes](./Annexes/README.md) : pieces jointes numérotées.
 - [Rendus](./Rendus/) : versions de rendu.
+- [Guide de présentation Hublot](./Rendus/PRESENTATION_HUBLOT.md) : navigation, démos et liens vers tous les chapitres.
 - [Archive](./Archive/) : documents utiles mais hors parcours principal.

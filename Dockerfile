@@ -13,7 +13,7 @@ RUN npm ci --only=production=false 2>/dev/null || npm install
 # Copier le code source
 COPY . .
 
-# Builder l'application (sortie Vite: /app/dist)
+# Builder l'application (sortie Vite: /app/build — voir vite.config.ts outDir)
 RUN npm run build
 
 # Stage 2: Serveur de production avec Nginx
@@ -23,7 +23,7 @@ FROM nginx:alpine AS production
 RUN apk add --no-cache wget
 
 # Copier les fichiers buildés depuis le stage builder
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
 # Copier la configuration Nginx personnalisée
 COPY nginx.conf /etc/nginx/conf.d/default.conf

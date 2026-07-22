@@ -1,0 +1,590 @@
+{
+  "metadonnees": {
+    "dateExport": "2026-07-20",
+    "source": "2026_03_Suivi_des_emplois_en_ETPT_RPROG.xlsx",
+    "feuille": "Données annuelles",
+    "moisReference": 12,
+    "lignesBrutes": 32705,
+    "description": "Effectifs PASA dérivés indépendamment de agents.json"
+  },
+  "actions": [
+    {
+      "id": "pasa2",
+      "code": "217-11-02",
+      "title": "PASA 2 — Emplois et formations maritimes",
+      "lignesAnalysees": 467,
+      "totalEffectif": 408,
+      "totalEtpt": 392.02,
+      "categories": [
+        {
+          "id": "lpm",
+          "label": "Lycées professionnels maritimes (LPM)",
+          "effectif": 225,
+          "etpt": 217.72,
+          "detailsParService": [
+            {
+              "service": "DIRM NANTES",
+              "effectif": 84,
+              "etpt": 80.4
+            },
+            {
+              "service": "DIRM MED",
+              "effectif": 52,
+              "etpt": 51.3
+            },
+            {
+              "service": "DIRM LE HAVRE",
+              "effectif": 47,
+              "etpt": 44.42
+            },
+            {
+              "service": "DIRM BORDEAUX",
+              "effectif": 43,
+              "etpt": 41.6
+            }
+          ]
+        },
+        {
+          "id": "services_formation",
+          "label": "Services formation (DIRM)",
+          "effectif": 53,
+          "etpt": 51.4,
+          "detailsParService": [
+            {
+              "service": "ESP MER",
+              "effectif": 15,
+              "etpt": 14.4
+            },
+            {
+              "service": "DIRM MED",
+              "effectif": 13,
+              "etpt": 13.0
+            },
+            {
+              "service": "DIRM NANTES",
+              "effectif": 11,
+              "etpt": 10.2
+            },
+            {
+              "service": "DIRM BORDEAUX",
+              "effectif": 8,
+              "etpt": 8.0
+            },
+            {
+              "service": "DIRM LE HAVRE",
+              "effectif": 6,
+              "etpt": 5.8
+            }
+          ]
+        },
+        {
+          "id": "services_instructions",
+          "label": "Services instructions / permis (DDTM)",
+          "effectif": 42,
+          "etpt": 41.1,
+          "detailsParService": [
+            {
+              "service": "DDTM 29",
+              "effectif": 15,
+              "etpt": 14.8
+            },
+            {
+              "service": "DDTM 17",
+              "effectif": 7,
+              "etpt": 7.0
+            },
+            {
+              "service": "DDTM 85",
+              "effectif": 5,
+              "etpt": 4.8
+            },
+            {
+              "service": "DDTM 22",
+              "effectif": 5,
+              "etpt": 4.6
+            },
+            {
+              "service": "DDTM 35",
+              "effectif": 4,
+              "etpt": 4.0
+            },
+            {
+              "service": "DDTM 76",
+              "effectif": 3,
+              "etpt": 2.9
+            },
+            {
+              "service": "DDTM 14",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 50",
+              "effectif": 1,
+              "etpt": 1.0
+            }
+          ]
+        },
+        {
+          "id": "ssgm",
+          "label": "Services de santé des gens de mer (SSGM)",
+          "effectif": 44,
+          "etpt": 38.3,
+          "detailsParService": [
+            {
+              "service": "DIRM NANTES",
+              "effectif": 16,
+              "etpt": 14.2
+            },
+            {
+              "service": "DIRM MED",
+              "effectif": 10,
+              "etpt": 7.7
+            },
+            {
+              "service": "DIRM LE HAVRE",
+              "effectif": 8,
+              "etpt": 7.5
+            },
+            {
+              "service": "DIRM BORDEAUX",
+              "effectif": 6,
+              "etpt": 5.4
+            },
+            {
+              "service": "DGAMPA",
+              "effectif": 4,
+              "etpt": 3.5
+            }
+          ]
+        },
+        {
+          "id": "autres",
+          "label": "Autres / non classés",
+          "effectif": 44,
+          "etpt": 43.5,
+          "detailsParService": [
+            {
+              "service": "DGAMPA",
+              "effectif": 37,
+              "etpt": 36.5
+            },
+            {
+              "service": "DM GUADELOUPE",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DGTM GUYANE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DM MARTINIQUE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DTAM ST-PIERRE/MIQ",
+              "effectif": 1,
+              "etpt": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pasa8",
+      "code": "217-11-08",
+      "title": "PASA 8 — Planification et plaisance",
+      "lignesAnalysees": 194,
+      "totalEffectif": 194,
+      "totalEtpt": 189.8,
+      "categories": [
+        {
+          "id": "planification",
+          "label": "Planification (DIRM)",
+          "effectif": 25,
+          "etpt": 25.1,
+          "detailsParService": [
+            {
+              "service": "DIRM BORDEAUX",
+              "effectif": 9,
+              "etpt": 8.7
+            },
+            {
+              "service": "DIRM LE HAVRE",
+              "effectif": 6,
+              "etpt": 6.8
+            },
+            {
+              "service": "DIRM NANTES",
+              "effectif": 7,
+              "etpt": 6.6
+            },
+            {
+              "service": "DIRM MED",
+              "effectif": 3,
+              "etpt": 3.0
+            }
+          ]
+        },
+        {
+          "id": "plaisance",
+          "label": "Plaisance (DDTM)",
+          "effectif": 95,
+          "etpt": 92.9,
+          "detailsParService": [
+            {
+              "service": "DDTM 29",
+              "effectif": 15,
+              "etpt": 13.4
+            },
+            {
+              "service": "DDTM 83",
+              "effectif": 14,
+              "etpt": 13.4
+            },
+            {
+              "service": "DML CORSE",
+              "effectif": 7,
+              "etpt": 9.0
+            },
+            {
+              "service": "DDTM 14",
+              "effectif": 7,
+              "etpt": 6.9
+            },
+            {
+              "service": "DDTM 64",
+              "effectif": 7,
+              "etpt": 6.8
+            },
+            {
+              "service": "DDTM 85",
+              "effectif": 7,
+              "etpt": 6.8
+            },
+            {
+              "service": "DDTM 17",
+              "effectif": 7,
+              "etpt": 6.4
+            },
+            {
+              "service": "DDTM 76",
+              "effectif": 6,
+              "etpt": 6.0
+            },
+            {
+              "service": "DDTM 66",
+              "effectif": 6,
+              "etpt": 5.6
+            },
+            {
+              "service": "DDTM 50",
+              "effectif": 5,
+              "etpt": 5.0
+            },
+            {
+              "service": "DDTM 35",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DDTM 59",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DDTM 44",
+              "effectif": 3,
+              "etpt": 2.6
+            },
+            {
+              "service": "DDTM 06",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 13",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 62",
+              "effectif": 1,
+              "etpt": 1.0
+            }
+          ]
+        },
+        {
+          "id": "autres",
+          "label": "Autres / non classés",
+          "effectif": 74,
+          "etpt": 71.8,
+          "detailsParService": [
+            {
+              "service": "DGAMPA",
+              "effectif": 44,
+              "etpt": 41.8
+            },
+            {
+              "service": "DEALM MAYOTTE",
+              "effectif": 9,
+              "etpt": 9.0
+            },
+            {
+              "service": "DM MARTINIQUE",
+              "effectif": 9,
+              "etpt": 9.0
+            },
+            {
+              "service": "DM GUADELOUPE",
+              "effectif": 5,
+              "etpt": 5.0
+            },
+            {
+              "service": "DMSOI",
+              "effectif": 4,
+              "etpt": 4.0
+            },
+            {
+              "service": "DGTM GUYANE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DTAM ST-PIERRE/MIQ",
+              "effectif": 1,
+              "etpt": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pasa7",
+      "code": "217-11-07",
+      "title": "PASA 7 — Pêche et aquaculture",
+      "lignesAnalysees": 162,
+      "totalEffectif": 162,
+      "totalEtpt": 159.9,
+      "categories": [
+        {
+          "id": "peche",
+          "label": "Pêche",
+          "effectif": 60,
+          "etpt": 59.6,
+          "detailsParService": [
+            {
+              "service": "DGAMPA",
+              "effectif": 45,
+              "etpt": 44.8
+            },
+            {
+              "service": "DDTM 17",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 35",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DIRM BORDEAUX",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 85",
+              "effectif": 2,
+              "etpt": 1.8
+            },
+            {
+              "service": "DDTM 29",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DDTM 59",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DDTM 66",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DDTM 76",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DGTM GUYANE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            }
+          ]
+        },
+        {
+          "id": "aquaculture",
+          "label": "Aquaculture",
+          "effectif": 37,
+          "etpt": 37.5,
+          "detailsParService": [
+            {
+              "service": "DDTM 17",
+              "effectif": 12,
+              "etpt": 13.0
+            },
+            {
+              "service": "DGAMPA",
+              "effectif": 10,
+              "etpt": 10.0
+            },
+            {
+              "service": "DDTM 50",
+              "effectif": 4,
+              "etpt": 3.7
+            },
+            {
+              "service": "DM MARTINIQUE",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DDTM 29",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 35",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 59",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DDTM 85",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 0.8
+            }
+          ]
+        },
+        {
+          "id": "autres",
+          "label": "Autres / non classés",
+          "effectif": 65,
+          "etpt": 62.8,
+          "detailsParService": [
+            {
+              "service": "DGAMPA",
+              "effectif": 12,
+              "etpt": 12.0
+            },
+            {
+              "service": "DDTM 29",
+              "effectif": 8,
+              "etpt": 7.5
+            },
+            {
+              "service": "DIRM NANTES",
+              "effectif": 8,
+              "etpt": 7.3
+            },
+            {
+              "service": "DDTM 85",
+              "effectif": 7,
+              "etpt": 7.0
+            },
+            {
+              "service": "DIRM BORDEAUX",
+              "effectif": 6,
+              "etpt": 6.0
+            },
+            {
+              "service": "DIRM LE HAVRE",
+              "effectif": 6,
+              "etpt": 6.0
+            },
+            {
+              "service": "DDTM 17",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DIRM MED",
+              "effectif": 3,
+              "etpt": 2.9
+            },
+            {
+              "service": "DGTM GUYANE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DM GUADELOUPE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DML CORSE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 66",
+              "effectif": 2,
+              "etpt": 1.6
+            },
+            {
+              "service": "DDTM 35",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DDTM 50",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DTAM ST-PIERRE/MIQ",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DDTM 62",
+              "effectif": 1,
+              "etpt": 0.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
