@@ -10,9 +10,11 @@ type MethodologyDialogProps = {
   title: string;
   intro?: string;
   sections: MethodologySection[];
+  /** Classes supplémentaires pour le bouton déclencheur (ex. pleine largeur). */
+  buttonClassName?: string;
 };
 
-export function MethodologyDialog({ title, intro, sections }: MethodologyDialogProps) {
+export function MethodologyDialog({ title, intro, sections, buttonClassName }: MethodologyDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,7 +22,7 @@ export function MethodologyDialog({ title, intro, sections }: MethodologyDialogP
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition"
+        className={`inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ${buttonClassName ?? ''}`}
       >
         Méthodologie des calculs
       </button>
@@ -74,4 +76,3 @@ export function MethodologyDialog({ title, intro, sections }: MethodologyDialogP
     </>
   );
 }
-
