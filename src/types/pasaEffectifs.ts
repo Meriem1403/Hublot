@@ -4,12 +4,20 @@ export interface PasaCategoryDetail {
   etpt: number;
 }
 
+export interface PasaPosteDetail {
+  poste: string;
+  service: string;
+  effectif: number;
+  etpt: number;
+}
+
 export interface PasaCategory {
   id: string;
   label: string;
   effectif: number;
   etpt: number;
   detailsParService: PasaCategoryDetail[];
+  detailsParPoste: PasaPosteDetail[];
 }
 
 export interface PasaActionEffectifs {

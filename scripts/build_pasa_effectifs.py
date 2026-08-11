@@ -180,6 +180,7 @@ def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_key: str
     details: dict[str, dict[str, dict[str, float]]] = defaultdict(
         lambda: defaultdict(lambda: {"effectif": 0.0, "etpt": 0.0})
     )
+    postes: dict[str, dict[tuple[str, str], dict[str, Any]]] = defaultdict(dict)
 
     categorize = {
         "pasa2": lambda r: categorize_pasa2(r["niveau03"], r["niveau06"], r["niveau08"]),
@@ -196,6 +197,13 @@ def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_key: str
         svc = row["niveau03"] or "Non renseigné"
         details[cat][svc]["effectif"] += 1
         details[cat][svc]["etpt"] += row["etpt"]
+
+        poste_label = row["poste"] or "Poste non renseigné"
+        poste_key = (poste_label, svc)
+        if poste_key not in postes[cat]:
+            postes[cat][poste_key] = {"matricules": set(), "etpt": 0.0}
+        postes[cat][poste_key]["matricules"].add(row["matricule"])
+        postes[cat][poste_key]["etpt"] += row["etpt"]
 
     order = {
         "pasa2": ("lpm", "services_formation", "services_instructions", "ssgm", "autres"),
@@ -221,6 +229,18 @@ def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_key: str
                         for service, values in details.get(key, {}).items()
                     ],
                     key=lambda x: (-x["etpt"], x["service"]),
+                ),
+                "detailsParPoste": sorted(
+                    [
+                        {
+                            "poste": poste,
+                            "service": service,
+                            "effectif": len(values["matricules"]),
+                            "etpt": round(values["etpt"], 2),
+                        }
+                        for (poste, service), values in postes.get(key, {}).items()
+                    ],
+                    key=lambda x: (-x["etpt"], x["poste"], x["service"]),
                 ),
             }
         )
