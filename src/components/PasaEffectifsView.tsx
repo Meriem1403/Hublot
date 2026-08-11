@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -26,13 +26,28 @@ function pct(value: number, total: number): number {
 }
 
 function exportCsv(action: PasaActionEffectifs) {
-  const lines = ['PASA;Catégorie;Service;Effectif;ETPT'];
+  const lines = ['PASA;Catégorie;Service;Poste;Effectif;ETPT'];
   action.categories.forEach((cat) => {
-    cat.detailsParService.forEach((row) => {
-      lines.push(
-        [`"${action.code}"`, `"${cat.label}"`, `"${row.service}"`, row.effectif, row.etpt.toFixed(2)].join(';')
-      );
-    });
+    if (cat.detailsParPoste?.length) {
+      cat.detailsParPoste.forEach((row) => {
+        lines.push(
+          [
+            `"${action.code}"`,
+            `"${cat.label}"`,
+            `"${row.service}"`,
+            `"${row.poste.replace(/"/g, '""')}"`,
+            row.effectif,
+            row.etpt.toFixed(2),
+          ].join(';')
+        );
+      });
+    } else {
+      cat.detailsParService.forEach((row) => {
+        lines.push(
+          [`"${action.code}"`, `"${cat.label}"`, `"${row.service}"`, '""', row.effectif, row.etpt.toFixed(2)].join(';')
+        );
+      });
+    }
   });
   const blob = new Blob(['\ufeff' + lines.join('\n')], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
@@ -91,6 +106,15 @@ function PasaActionPanel({
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     () => action.categories.find((c) => c.effectif > 0)?.id ?? action.categories[0]?.id ?? ''
   );
+  const [detailView, setDetailView] = useState<'service' | 'poste'>('service');
+  const [posteSearch, setPosteSearch] = useState('');
+
+  useEffect(() => {
+    if (selectedCategoryId === 'autres') {
+      setDetailView('poste');
+    }
+    setPosteSearch('');
+  }, [selectedCategoryId]);
 
   const activeCategories = useMemo(
     () => action.categories.filter((c) => c.effectif > 0 || c.etpt > 0),
@@ -99,6 +123,27 @@ function PasaActionPanel({
 
   const selectedCategory =
     action.categories.find((c) => c.id === selectedCategoryId) ?? activeCategories[0];
+
+  const filteredPostes = useMemo(() => {
+    const rows = selectedCategory?.detailsParPoste ?? [];
+    const q = posteSearch.trim().toLowerCase();
+    if (!q) return rows;
+    return rows.filter(
+      (row) => row.poste.toLowerCase().includes(q) || row.service.toLowerCase().includes(q)
+    );
+  }, [selectedCategory, posteSearch]);
+
+  const filteredPostesTotals = useMemo(
+    () =>
+      filteredPostes.reduce(
+        (acc, row) => ({
+          effectif: acc.effectif + row.effectif,
+          etpt: acc.etpt + row.etpt,
+        }),
+        { effectif: 0, etpt: 0 }
+      ),
+    [filteredPostes]
+  );
 
   const total = metric === 'effectif' ? action.totalEffectif : action.totalEtpt;
   const dataKey = metric;
@@ -295,7 +340,12 @@ function PasaActionPanel({
 
       <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
-          <h3>Détail par service</h3>
+          <div>
+            <h3>Détail par catégorie</h3>
+            <p className="text-sm text-gray-500 mt-1">
+              Consultez la répartition par service ou par intitulé de poste.
+            </p>
+          </div>
           <select
             value={selectedCategoryId}
             onChange={(e) => setSelectedCategoryId(e.target.value)}
@@ -309,7 +359,39 @@ function PasaActionPanel({
           </select>
         </div>
 
-        {selectedCategory && selectedCategory.detailsParService.length > 0 ? (
+        {selectedCategory?.id === 'autres' && (
+          <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            Cette catégorie regroupe les agents non classés automatiquement. Utilisez l&apos;onglet
+            « Par poste » pour voir les intitulés de fonction correspondants.
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-2 mb-4">
+          <button
+            type="button"
+            onClick={() => setDetailView('service')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              detailView === 'service'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Par service
+          </button>
+          <button
+            type="button"
+            onClick={() => setDetailView('poste')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              detailView === 'poste'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Par poste
+          </button>
+        </div>
+
+        {detailView === 'service' && selectedCategory && selectedCategory.detailsParService.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-sm min-w-[480px]">
               <thead className="bg-gray-50 border-b-2 border-gray-200">
@@ -346,9 +428,87 @@ function PasaActionPanel({
               </tfoot>
             </table>
           </div>
-        ) : (
+        ) : detailView === 'service' ? (
           <p className="text-sm text-gray-500">Aucun détail par service pour cette catégorie.</p>
-        )}
+        ) : null}
+
+        {detailView === 'poste' && selectedCategory && (selectedCategory.detailsParPoste?.length ?? 0) > 0 ? (
+          <div className="space-y-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-gray-600">
+                {filteredPostes.length} poste{filteredPostes.length > 1 ? 's' : ''}
+                {posteSearch.trim() ? ` (filtré sur ${selectedCategory.detailsParPoste.length})` : ''}
+              </p>
+              <input
+                type="search"
+                value={posteSearch}
+                onChange={(e) => setPosteSearch(e.target.value)}
+                placeholder="Rechercher un poste ou un service…"
+                className="w-full sm:w-72 px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <div className="overflow-x-auto max-h-[420px] overflow-y-auto border border-gray-100 rounded-lg">
+              <table className="w-full text-sm min-w-[640px]">
+                <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0 z-10">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-gray-700">Poste / fonction</th>
+                    <th className="px-4 py-3 text-left text-gray-700">Service</th>
+                    <th className="px-4 py-3 text-right text-gray-700">Effectif</th>
+                    <th className="px-4 py-3 text-right text-gray-700">ETPT</th>
+                    <th className="px-4 py-3 text-right text-gray-700">Part</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {filteredPostes.map((row) => (
+                    <tr key={`${row.poste}::${row.service}`} className="hover:bg-gray-50">
+                      <td className="px-4 py-3 text-gray-900">{row.poste}</td>
+                      <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{row.service}</td>
+                      <td className="px-4 py-3 text-right tabular-nums">{row.effectif}</td>
+                      <td className="px-4 py-3 text-right tabular-nums">{row.etpt.toFixed(1)}</td>
+                      <td className="px-4 py-3 text-right tabular-nums text-gray-600">
+                        {pct(
+                          metric === 'effectif' ? row.effectif : row.etpt,
+                          metric === 'effectif' ? selectedCategory.effectif : selectedCategory.etpt
+                        )}
+                        %
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                {filteredPostes.length > 0 && (
+                  <tfoot className="bg-gray-50 font-semibold sticky bottom-0">
+                    <tr>
+                      <td className="px-4 py-3 text-gray-900" colSpan={2}>
+                        {posteSearch.trim() ? 'Total filtré' : 'Total'}
+                      </td>
+                      <td className="px-4 py-3 text-right tabular-nums">
+                        {posteSearch.trim() ? filteredPostesTotals.effectif : selectedCategory.effectif}
+                      </td>
+                      <td className="px-4 py-3 text-right tabular-nums">
+                        {(posteSearch.trim() ? filteredPostesTotals.etpt : selectedCategory.etpt).toFixed(1)}
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        {posteSearch.trim()
+                          ? `${pct(
+                              metric === 'effectif'
+                                ? filteredPostesTotals.effectif
+                                : filteredPostesTotals.etpt,
+                              metric === 'effectif' ? selectedCategory.effectif : selectedCategory.etpt
+                            )}%`
+                          : '100%'}
+                      </td>
+                    </tr>
+                  </tfoot>
+                )}
+              </table>
+            </div>
+            {filteredPostes.length === 0 && (
+              <p className="text-sm text-gray-500">Aucun poste ne correspond à votre recherche.</p>
+            )}
+          </div>
+        ) : detailView === 'poste' ? (
+          <p className="text-sm text-gray-500">Aucun détail par poste pour cette catégorie.</p>
+        ) : null}
       </div>
     </div>
   );
