@@ -1189,8 +1189,8 @@
         {
           "id": "ssgm",
           "label": "Services de santé des gens de mer (SSGM)",
-          "effectif": 44,
-          "etpt": 38.3,
+          "effectif": 40,
+          "etpt": 34.8,
           "detailsParService": [
             {
               "service": "DIRM NANTES",
@@ -1211,11 +1211,6 @@
               "service": "DIRM BORDEAUX",
               "effectif": 6,
               "etpt": 5.4
-            },
-            {
-              "service": "DGAMPA",
-              "effectif": 4,
-              "etpt": 3.5
             }
           ],
           "detailsParPoste": [
@@ -1262,18 +1257,6 @@
               "etpt": 1.4
             },
             {
-              "poste": "Chargé d'études au service de santé des gens de mer",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef du bureau du service de santé des gens de mer",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Infirmier",
               "service": "DIRM LE HAVRE",
               "effectif": 1,
@@ -1306,12 +1289,6 @@
             {
               "poste": "Infirmier/ère interrégional-e Service Santé des Gens de Mer",
               "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Médecin expert - Coordonnateur national du SSGM",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -1400,12 +1377,6 @@
               "etpt": 0.5
             },
             {
-              "poste": "Vacataire service de santé des gens de mer",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 0.5
-            },
-            {
               "poste": "Médecin vacataire au SSGM de Saint-Nazaire",
               "service": "DIRM NANTES",
               "effectif": 1,
@@ -1416,13 +1387,13 @@
         {
           "id": "gens_de_mer_ac",
           "label": "Gens de mer administration centrale",
-          "effectif": 37,
-          "etpt": 36.5,
+          "effectif": 41,
+          "etpt": 40.0,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 37,
-              "etpt": 36.5
+              "effectif": 41,
+              "etpt": 40.0
             }
           ],
           "detailsParPoste": [
@@ -1482,6 +1453,12 @@
             },
             {
               "poste": "Chargé d études juridiques et budgétaires",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé d'études au service de santé des gens de mer",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -1589,6 +1566,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef du bureau du service de santé des gens de mer",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef du service des flottes et des marins",
               "service": "DGAMPA",
               "effectif": 1,
@@ -1602,6 +1585,12 @@
             },
             {
               "poste": "Gestionnaire de crédits LPM, ASP et associations",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Médecin expert - Coordonnateur national du SSGM",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -1641,6 +1630,12 @@
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 0.8
+            },
+            {
+              "poste": "Vacataire service de santé des gens de mer",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 0.5
             }
           ]
         },
@@ -1712,34 +1707,124 @@
         {
           "id": "flotte_commerce_ac",
           "label": "Flotte de commerce administration centrale",
-          "effectif": 1,
-          "etpt": 1.0,
+          "effectif": 16,
+          "etpt": 15.8,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
+              "effectif": 16,
+              "etpt": 15.8
             }
           ],
           "detailsParPoste": [
+            {
+              "poste": "Adjoint chef guichet unique registre international français",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint.e chef MFC - Chef.fe bureau du pavillon français",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint.e chef MFC CB économie transport et sces maritimes",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé d'études et procédure du pavillon",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission juridique",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé-e de mission juridique",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission affaires économiques",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission support",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
             {
               "poste": "Chef de la mission de la flotte de commerce",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
+            },
+            {
+              "poste": "Chef du guichet unique du registre international francais",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Gestionnaire instructeur réf francisation hypothèques mer",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Gestionnaire instructeur(trice) du GU RIF",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Inspecteur(trice) sécurité des navires PRPM",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Responsable des affaires internationales et européennes",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Référent droit du travail maritime, droit social",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Gestionnaire instructeur(rice) - référent(e)gens de mer",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 0.8
             }
           ]
         },
         {
           "id": "securite_maritime_ac",
           "label": "Sécurité maritime administration centrale",
-          "effectif": 4,
-          "etpt": 4.0,
+          "effectif": 15,
+          "etpt": 15.0,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 4,
-              "etpt": 4.0
+              "effectif": 15,
+              "etpt": 15.0
             }
           ],
           "detailsParPoste": [
@@ -1750,7 +1835,73 @@
               "etpt": 1.0
             },
             {
+              "poste": "Adjoint chef bureau contrôle État port et environnementaux",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint chef bureau transition écologique des navires",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint.e chef bureau sécurité navires et innovation navale",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé d?étude juridique",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de projet mise en oeuvre décarbonisation navire",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission expert en charge des relations avec les OI",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission innovation-décarbonation transport maritime",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) d'études navires et « technologies vertes »",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) de mission environnement",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé(e) de mission sûreté auprès du SD STEN",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef bureau contrôle navires État du port et environnementau",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef bureau sécurité navires et innovation navale",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -1772,8 +1923,8 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 191,
-          "etpt": 187.4,
+          "effectif": 165,
+          "etpt": 161.6,
           "detailsParService": [
             {
               "service": "DIRM NANTES",
@@ -1789,11 +1940,6 @@
               "service": "DIRM MED",
               "effectif": 34,
               "etpt": 33.6
-            },
-            {
-              "service": "DGAMPA",
-              "effectif": 26,
-              "etpt": 25.8
             },
             {
               "service": "DIRM BORDEAUX",
@@ -1929,24 +2075,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Adjoint chef bureau contrôle État port et environnementaux",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint chef bureau transition écologique des navires",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint chef guichet unique registre international français",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Adjoint(e) au chef de centre de sécurité des navires de Caen",
               "service": "DIRM LE HAVRE",
               "effectif": 1,
@@ -1977,26 +2105,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "Adjoint.e chef MFC - Chef.fe bureau du pavillon français",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint.e chef MFC CB économie transport et sces maritimes",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Adjoint.e chef SQSN / Coordonnateur CRS",
               "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint.e chef bureau sécurité navires et innovation navale",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2055,92 +2165,14 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé d'études et procédure du pavillon",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé d?étude juridique",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chargé de mission coordination contrôle droit travail mariti",
               "service": "DIRM MED",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Chargé de mission juridique",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chargé de mission temporaire",
               "service": "DIRM LE HAVRE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé de projet mise en oeuvre décarbonisation navire",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission expert en charge des relations avec les OI",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission innovation-décarbonation transport maritime",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) d'études navires et « technologies vertes »",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) de mission environnement",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé-e de mission juridique",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission affaires économiques",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission support",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef bureau contrôle navires État du port et environnementau",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef bureau sécurité navires et innovation navale",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2165,12 +2197,6 @@
             {
               "poste": "Chef du centre de sécurité des navires",
               "service": "DIRM LE HAVRE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef du guichet unique du registre international francais",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2255,18 +2281,6 @@
             {
               "poste": "Gestionnaire des activités maritimes et fluviales",
               "service": "DGTM GUYANE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Gestionnaire instructeur réf francisation hypothèques mer",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Gestionnaire instructeur(trice) du GU RIF",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2409,12 +2423,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Inspecteur(trice) sécurité des navires PRPM",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Inspecteur-rice de la sécurité des navires et de la préventi",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
@@ -2489,18 +2497,6 @@
             {
               "poste": "Responsable de la formation maritime et de la police du rôle",
               "service": "SAM NOUV.CALEDONIE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Responsable des affaires internationales et européennes",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Référent droit du travail maritime, droit social",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2609,12 +2605,6 @@
             {
               "poste": "A \"Réservé Service\" ISN-PRPM",
               "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 0.8
-            },
-            {
-              "poste": "Gestionnaire instructeur(rice) - référent(e)gens de mer",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 0.8
             },
@@ -5927,46 +5917,66 @@
         {
           "id": "peche",
           "label": "Pêche",
-          "effectif": 81,
-          "etpt": 79.8,
+          "effectif": 57,
+          "etpt": 55.5,
           "detailsParService": [
             {
-              "service": "DGAMPA",
-              "effectif": 51,
-              "etpt": 50.8
+              "service": "DIRM BORDEAUX",
+              "effectif": 8,
+              "etpt": 8.0
             },
             {
               "service": "DIRM NANTES",
-              "effectif": 6,
-              "etpt": 5.8
-            },
-            {
-              "service": "DIRM BORDEAUX",
-              "effectif": 4,
-              "etpt": 4.0
-            },
-            {
-              "service": "DDTM 29",
-              "effectif": 4,
-              "etpt": 3.9
-            },
-            {
-              "service": "DDTM 85",
-              "effectif": 3,
-              "etpt": 2.8
-            },
-            {
-              "service": "DDTM 17",
-              "effectif": 2,
-              "etpt": 2.0
-            },
-            {
-              "service": "DDTM 35",
-              "effectif": 2,
-              "etpt": 2.0
+              "effectif": 8,
+              "etpt": 7.8
             },
             {
               "service": "DIRM LE HAVRE",
+              "effectif": 7,
+              "etpt": 7.0
+            },
+            {
+              "service": "DDTM 29",
+              "effectif": 6,
+              "etpt": 5.9
+            },
+            {
+              "service": "DDTM 85",
+              "effectif": 4,
+              "etpt": 3.8
+            },
+            {
+              "service": "DDTM 17",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DDTM 35",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DGTM GUYANE",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
+              "service": "DIRM MED",
+              "effectif": 3,
+              "etpt": 2.9
+            },
+            {
+              "service": "DDTM 66",
+              "effectif": 3,
+              "etpt": 2.6
+            },
+            {
+              "service": "DM GUADELOUPE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DML CORSE",
               "effectif": 2,
               "etpt": 2.0
             },
@@ -5981,22 +5991,12 @@
               "etpt": 1.0
             },
             {
-              "service": "DDTM 66",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "service": "DDTM 76",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "service": "DGTM GUYANE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "service": "DML CORSE",
+              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6008,68 +6008,26 @@
           ],
           "detailsParPoste": [
             {
-              "poste": "Chargé.e de mission responsable pêcherie méditerranée",
-              "service": "DGAMPA",
-              "effectif": 2,
-              "etpt": 2.0
-            },
-            {
               "poste": "Gestionnaire « Réglementation et Droits à Produire »",
               "service": "DIRM NANTES",
               "effectif": 2,
               "etpt": 2.0
             },
             {
-              "poste": "Adjoint CB appui scientifique et des données Environnement",
-              "service": "DGAMPA",
+              "poste": "Adjoint au chef de la mission territoriale, chargé dév. eco",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Adjoint CB appui scientifique et données Expertise",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint chef bureau chargé des audits et contrôle des aides",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint chef de bureau, en charge gestion flotte pêche fr",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint(e) au sous-directeur des ressources halieutiques",
-              "service": "DGAMPA",
+              "poste": "Adjoint(e) au chef du SAMP - Chef(fe) de l'UAM",
+              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 1.0
             },
             {
               "poste": "Adjoint.e Chef.fe pôle Economie maritime pêche pro embarquée",
               "service": "DDTM 35",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint.e au chef du bureau des affaires européennes",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint.e sous-directeur des ressources halieutiques",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint.e à la cheffe du bureau de l'économie des pêches",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6110,32 +6068,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "CM pilotage du contrôle interne FEAMP/Expertise juridique",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chargé de la gestion des demandes d'aide FEAMP et des licenc",
               "service": "DIRM BORDEAUX",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé de mission Accords Nord et océan Indien",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé de mission Accords thoniers internationaux",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé de mission Atlantique - Méditerranée - UE",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6146,92 +6080,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé de mission responsable des autorisations de pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé de mission valorisation des données et ORGP",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé de mission « Autorisations de pêche ORGP et Pays tier",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé instruction procédures import-export produits pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission accompagnement arrêt temporaire, PAI, Brexit",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission affaires juridiques et négociations RU",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission appui scientifique MO Brexit politiques aides",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission encadrement technique pêche Atlantique",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission expertise scientifique et collecte de données",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission innovation et suivi de l'aval filière pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission organisation professionnelle pêche & loisir",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission pêche durable régions Ultrapériphériques",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission suivi collecte de données region ultrapériph",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission transition éco réduction impact écosystème",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé planif opérationnelle-règlementation pêches-Formation",
-              "service": "DGAMPA",
+              "poste": "Chargé(e) d'appui mer et littoral",
+              "service": "DDTM 29",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6242,32 +6092,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé(e) de mission Affaires thonières océan Indien",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) de mission Pilotage FEAMPA",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) de mission Union européenne",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) de mission gestion des thonidés",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) de mission économie pêches - transitions",
-              "service": "DGAMPA",
+              "poste": "Chargé(e) de mission \"emploi et formation maritimes\"",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6278,56 +6104,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé.e de mission Europe, affaires maritimes et pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission Outre-mer - gestion internationale pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission entreprises de pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission environnement marin et pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission structuration économique de la filière",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission valorisation produits de la pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e mission exploitation données d'activité pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargée de mission réglementation gestion quotas pêche",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef  bureau de l'appui scientifique et de la donnée",
-              "service": "DGAMPA",
+              "poste": "Chargé-e mission développement économique et règlementation",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6338,8 +6116,38 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef du bureau de la gestion de la ressource",
-              "service": "DGAMPA",
+              "poste": "Chef de l'unitié aciton économique Poitou Charentes",
+              "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef de service mer littoral",
+              "service": "DDTM 85",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef du service SGMPC",
+              "service": "DDTM 35",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef du service affaires maritimes, littorales et fluviales",
+              "service": "DGTM GUYANE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef du service affaires économiques",
+              "service": "DIRM MED",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef du service des activités maritimes",
+              "service": "DDTM 17",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6350,13 +6158,31 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef(fe) de bureau affaires européennes et internationales",
-              "service": "DGAMPA",
+              "poste": "Chef(fe) de la Mission Territoriale de Caen",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
             {
               "poste": "Chef(fe) de la division réglementation",
+              "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef(fe) de mission territoriale Boulogne-sur-Mer",
+              "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef(fe) de service des activités maritimes",
+              "service": "DDTM 29",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef(fe) du service action économique et règlementation",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
               "etpt": 1.0
@@ -6368,14 +6194,20 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef.fe du bureau de l'économie des pêches",
-              "service": "DGAMPA",
+              "poste": "Chef.fe du pole économie maritime, pêche professionnelle emb",
+              "service": "DDTM 35",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Chef.fe du pole économie maritime, pêche professionnelle emb",
-              "service": "DDTM 35",
+              "poste": "Délégué(e) LaRochelle, adj au chef(fe) du SAER, chef de DAE",
+              "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Gestionnaire  « affaires économiques »",
+              "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6386,14 +6218,20 @@
               "etpt": 1.0
             },
             {
+              "poste": "Gestionnaire affaires économiques",
+              "service": "DGTM GUYANE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Gestionnaire dossiers économie bleue",
               "service": "DML CORSE",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Gestionnaire procédures appui scientifique et donnée",
-              "service": "DGAMPA",
+              "poste": "Gestionnaire « affaires économiques » au BSEFM du SRAFM",
+              "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6410,6 +6248,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Instructeur affaires économiques",
+              "service": "DML CORSE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Instructeur autorisations pêche professionnelle et loisirs",
               "service": "DDTM 85",
               "effectif": 1,
@@ -6422,26 +6266,26 @@
               "etpt": 1.0
             },
             {
+              "poste": "Instructeur-trice gestion des procédures maritimes",
+              "service": "DM GUADELOUPE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Référent pêche de loisir / suivi des activités nautiques",
               "service": "DDTM 17",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Sous- directeur des ressources halieutiques",
-              "service": "DGAMPA",
+              "poste": "adjoint au responsable des affaires économiques",
+              "service": "DIRM MED",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Superviseur réglementation pêches",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Vacation « Gestion de la flotte de pêche française »",
-              "service": "DGAMPA",
+              "poste": "agent de la cellule « Développement économique »",
+              "service": "DM GUADELOUPE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6452,14 +6296,32 @@
               "etpt": 1.0
             },
             {
+              "poste": "chef de l'unité action économique",
+              "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint du chef de service des affaires économiques",
+              "service": "DIRM MED",
+              "effectif": 1,
+              "etpt": 0.9
+            },
+            {
               "poste": "Gestionnaire économie maritime",
               "service": "DDTM 29",
               "effectif": 1,
               "etpt": 0.9
             },
             {
-              "poste": "Chargé de mission sur le suivi questions environnementales",
-              "service": "DGAMPA",
+              "poste": "Adjoint chef de l'unité encadrement des activités maritimes",
+              "service": "DDTM 66",
+              "effectif": 1,
+              "etpt": 0.8
+            },
+            {
+              "poste": "Chef(fe) de l unité encadrement des activités maritimes",
+              "service": "DDTM 66",
               "effectif": 1,
               "etpt": 0.8
             },
@@ -6486,8 +6348,8 @@
         {
           "id": "aquaculture",
           "label": "Aquaculture",
-          "effectif": 40,
-          "etpt": 40.5,
+          "effectif": 33,
+          "etpt": 33.5,
           "detailsParService": [
             {
               "service": "DDTM 17",
@@ -6495,9 +6357,9 @@
               "etpt": 13.0
             },
             {
-              "service": "DGAMPA",
-              "effectif": 10,
-              "etpt": 10.0
+              "service": "DDTM 85",
+              "effectif": 5,
+              "etpt": 5.0
             },
             {
               "service": "DDTM 29",
@@ -6516,11 +6378,6 @@
             },
             {
               "service": "DDTM 35",
-              "effectif": 2,
-              "etpt": 2.0
-            },
-            {
-              "service": "DDTM 85",
               "effectif": 2,
               "etpt": 2.0
             },
@@ -6560,26 +6417,14 @@
               "etpt": 2.0
             },
             {
-              "poste": "Adjoint(e) chef service pêche maritime aquaculture durables",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjointe au chef de bureau de l'aquaculture",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Agent instructeur du pôle « Pêche et aquaculture »",
               "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Assistant service pêche maritime et aquaculture durables",
-              "service": "DGAMPA",
+              "poste": "Assistant technique référent cartographie",
+              "service": "DDTM 85",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6596,18 +6441,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé mission Aides et soutien des entreprises aquacoles",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé mission aquaculture gestion risques bioéconomie et OP",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chargé(e) d'études « Qualité sanitaire des eaux conchylicole",
               "service": "DDTM 29",
               "effectif": 1,
@@ -6616,30 +6449,6 @@
             {
               "poste": "Chargé(e) de mission coordination des procédures admin. URH",
               "service": "DDTM 85",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) mission suivi et pilotage des politiques aquacoles",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé.e de mission juridique et réglementaire",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef du bureau de l'aquaculture",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef service pêche maritime, aquaculture durable",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6680,8 +6489,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "Sous-directeur de l'aquaculture et de l'économie des pêches",
-              "service": "DGAMPA",
+              "poste": "Technicien CM référent zoosanitaire-environnement",
+              "service": "DDTM 85",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6700,6 +6509,12 @@
             {
               "poste": "Technicien(ne) cultures marines - adjoint au chef UCM",
               "service": "DDTM 29",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Technicien-CM-Regularisation cadastrale-degustation",
+              "service": "DDTM 85",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6768,18 +6583,180 @@
         {
           "id": "peche_aqua_ac",
           "label": "Pêche et aquaculture administration centrale",
-          "effectif": 6,
-          "etpt": 6.0,
+          "effectif": 67,
+          "etpt": 66.8,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 6,
-              "etpt": 6.0
+              "effectif": 67,
+              "etpt": 66.8
             }
           ],
           "detailsParPoste": [
             {
+              "poste": "Chargé.e de mission responsable pêcherie méditerranée",
+              "service": "DGAMPA",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Adjoint CB appui scientifique et des données Environnement",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint CB appui scientifique et données Expertise",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint chef bureau chargé des audits et contrôle des aides",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint chef de bureau, en charge gestion flotte pêche fr",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) au sous-directeur des ressources halieutiques",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) chef service pêche maritime aquaculture durables",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint.e au chef du bureau des affaires européennes",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint.e sous-directeur des ressources halieutiques",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint.e à la cheffe du bureau de l'économie des pêches",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjointe au chef de bureau de l'aquaculture",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Assistant service pêche maritime et aquaculture durables",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "CM pilotage du contrôle interne FEAMP/Expertise juridique",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission Accords Nord et océan Indien",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission Accords thoniers internationaux",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission Atlantique - Méditerranée - UE",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission responsable des autorisations de pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission valorisation des données et ORGP",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission « Autorisations de pêche ORGP et Pays tier",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé instruction procédures import-export produits pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission Aides et soutien des entreprises aquacoles",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé mission Pilotage FEAM et aides d'Etat",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission accompagnement arrêt temporaire, PAI, Brexit",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission affaires juridiques et négociations RU",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission appui scientifique MO Brexit politiques aides",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission aquaculture gestion risques bioéconomie et OP",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission encadrement technique pêche Atlantique",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission expertise scientifique et collecte de données",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -6791,7 +6768,73 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé mission innovation et suivi de l'aval filière pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission organisation professionnelle pêche & loisir",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission pêche durable régions Ultrapériphériques",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission suivi collecte de données region ultrapériph",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission transition éco réduction impact écosystème",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé planif opérationnelle-règlementation pêches-Formation",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) de mission Affaires thonières océan Indien",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé(e) de mission Aides d?Etat",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) de mission Pilotage FEAMPA",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) de mission Union européenne",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) de mission gestion des thonidés",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) de mission économie pêches - transitions",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -6803,7 +6846,103 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé(e) mission suivi et pilotage des politiques aquacoles",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission Europe, affaires maritimes et pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission Outre-mer - gestion internationale pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission entreprises de pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission environnement marin et pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission juridique et réglementaire",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission structuration économique de la filière",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de mission valorisation produits de la pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e mission exploitation données d'activité pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargée de mission réglementation gestion quotas pêche",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef  bureau de l'appui scientifique et de la donnée",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef du bureau de l'aquaculture",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef du bureau de la gestion de la ressource",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef service pêche maritime, aquaculture durable",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef(fe) de bureau affaires européennes et internationales",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef.fe de bureau des fonds européens et d'investissement",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef.fe du bureau de l'économie des pêches",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -6813,217 +6952,76 @@
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
+            },
+            {
+              "poste": "Gestionnaire procédures appui scientifique et donnée",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Sous- directeur des ressources halieutiques",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Sous-directeur de l'aquaculture et de l'économie des pêches",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Superviseur réglementation pêches",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Vacation « Gestion de la flotte de pêche française »",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission sur le suivi questions environnementales",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 0.8
             }
           ]
         },
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 35,
-          "etpt": 33.6,
+          "effectif": 5,
+          "etpt": 4.1,
           "detailsParService": [
             {
-              "service": "DDTM 85",
-              "effectif": 5,
-              "etpt": 5.0
-            },
-            {
-              "service": "DIRM LE HAVRE",
-              "effectif": 5,
-              "etpt": 5.0
-            },
-            {
-              "service": "DIRM BORDEAUX",
-              "effectif": 4,
-              "etpt": 4.0
-            },
-            {
               "service": "DDTM 17",
-              "effectif": 3,
-              "etpt": 3.0
+              "effectif": 2,
+              "etpt": 2.0
             },
             {
-              "service": "DIRM MED",
-              "effectif": 3,
-              "etpt": 2.9
+              "service": "DDTM 85",
+              "effectif": 1,
+              "etpt": 1.0
             },
             {
               "service": "DDTM 29",
-              "effectif": 3,
-              "etpt": 2.6
+              "effectif": 1,
+              "etpt": 0.6
             },
             {
               "service": "DIRM NANTES",
-              "effectif": 3,
-              "etpt": 2.5
-            },
-            {
-              "service": "DGTM GUYANE",
-              "effectif": 2,
-              "etpt": 2.0
-            },
-            {
-              "service": "DM GUADELOUPE",
-              "effectif": 2,
-              "etpt": 2.0
-            },
-            {
-              "service": "DDTM 66",
-              "effectif": 2,
-              "etpt": 1.6
-            },
-            {
-              "service": "DDTM 35",
               "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "service": "DML CORSE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "service": "DTAM ST-PIERRE/MIQ",
-              "effectif": 1,
-              "etpt": 1.0
+              "etpt": 0.5
             }
           ],
           "detailsParPoste": [
             {
-              "poste": "Adjoint au chef de la mission territoriale, chargé dév. eco",
-              "service": "DIRM LE HAVRE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint(e) au chef du SAMP - Chef(fe) de l'UAM",
-              "service": "DTAM ST-PIERRE/MIQ",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Assistant technique référent cartographie",
-              "service": "DDTM 85",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) d'appui mer et littoral",
-              "service": "DDTM 29",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) de mission \"emploi et formation maritimes\"",
-              "service": "DIRM LE HAVRE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé-e mission développement économique et règlementation",
-              "service": "DIRM LE HAVRE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef de l'unitié aciton économique Poitou Charentes",
-              "service": "DIRM BORDEAUX",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef de service mer littoral",
-              "service": "DDTM 85",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef du service SGMPC",
-              "service": "DDTM 35",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef du service affaires maritimes, littorales et fluviales",
-              "service": "DGTM GUYANE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef du service affaires économiques",
-              "service": "DIRM MED",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef du service des activités maritimes",
-              "service": "DDTM 17",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef(fe) de la Mission Territoriale de Caen",
-              "service": "DIRM LE HAVRE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef(fe) de mission territoriale Boulogne-sur-Mer",
-              "service": "DIRM LE HAVRE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef(fe) de service des activités maritimes",
-              "service": "DDTM 29",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef(fe) du service action économique et règlementation",
-              "service": "DIRM BORDEAUX",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Délégué(e) LaRochelle, adj au chef(fe) du SAER, chef de DAE",
-              "service": "DIRM BORDEAUX",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Gestionnaire  « affaires économiques »",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Gestionnaire affaires économiques",
-              "service": "DGTM GUYANE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Gestionnaire instructeur administratif",
               "service": "DDTM 17",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Gestionnaire « affaires économiques » au BSEFM du SRAFM",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Instructeur affaires économiques",
-              "service": "DML CORSE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Instructeur-trice gestion des procédures maritimes",
-              "service": "DM GUADELOUPE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7034,58 +7032,10 @@
               "etpt": 1.0
             },
             {
-              "poste": "Technicien CM référent zoosanitaire-environnement",
-              "service": "DDTM 85",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Technicien-CM-Regularisation cadastrale-degustation",
-              "service": "DDTM 85",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "adjoint au responsable des affaires économiques",
-              "service": "DIRM MED",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "agent de la cellule « Développement économique »",
-              "service": "DM GUADELOUPE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "chargé de mission auprès du DML",
               "service": "DDTM 17",
               "effectif": 1,
               "etpt": 1.0
-            },
-            {
-              "poste": "chef de l'unité action économique",
-              "service": "DIRM BORDEAUX",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint du chef de service des affaires économiques",
-              "service": "DIRM MED",
-              "effectif": 1,
-              "etpt": 0.9
-            },
-            {
-              "poste": "Adjoint chef de l'unité encadrement des activités maritimes",
-              "service": "DDTM 66",
-              "effectif": 1,
-              "etpt": 0.8
-            },
-            {
-              "poste": "Chef(fe) de l unité encadrement des activités maritimes",
-              "service": "DDTM 66",
-              "effectif": 1,
-              "etpt": 0.8
             },
             {
               "poste": "Gestionnaire financier et coordinateur opérationnel",
@@ -7114,13 +7064,18 @@
         {
           "id": "planification",
           "label": "Planification (DIRM)",
-          "effectif": 44,
-          "etpt": 44.1,
+          "effectif": 45,
+          "etpt": 45.1,
           "detailsParService": [
             {
               "service": "DIRM BORDEAUX",
               "effectif": 9,
               "etpt": 8.7
+            },
+            {
+              "service": "DM MARTINIQUE",
+              "effectif": 7,
+              "etpt": 7.0
             },
             {
               "service": "DIRM LE HAVRE",
@@ -7133,19 +7088,9 @@
               "etpt": 6.6
             },
             {
-              "service": "DM MARTINIQUE",
-              "effectif": 6,
-              "etpt": 6.0
-            },
-            {
               "service": "DEALM MAYOTTE",
               "effectif": 5,
               "etpt": 5.0
-            },
-            {
-              "service": "DGAMPA",
-              "effectif": 4,
-              "etpt": 4.0
             },
             {
               "service": "DIRM MED",
@@ -7159,6 +7104,16 @@
             },
             {
               "service": "DGTM GUYANE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DMSOI",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 1.0
             }
@@ -7189,14 +7144,14 @@
               "etpt": 2.0
             },
             {
-              "poste": "Adjoint au chef du service et Chef(fe) du pôle «DPM\"",
-              "service": "DM MARTINIQUE",
+              "poste": "Adjoint HF au chef service SDDM",
+              "service": "DMSOI",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Adjoint chef service  espaces maritimes et littoraux",
-              "service": "DGAMPA",
+              "poste": "Adjoint au chef du service et Chef(fe) du pôle «DPM\"",
+              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7207,20 +7162,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "Assistant service espaces maritimes et littoraux",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Assistant-e MCPML, secrétariat des instances façade NAMO",
               "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Assistante service espaces maritimes et littoraux",
-              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7239,6 +7182,12 @@
             {
               "poste": "Chargé d'étude (planification maritime) DIRM SA",
               "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission coordinaion pol. maritimes, litt. et fluv.",
+              "service": "DGTM GUYANE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7285,6 +7234,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef H/F du service des activités maritimes et du contrôle",
+              "service": "DMSOI",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef adjt MCPML/chargé déploiemt polit maritime intégrée ML",
               "service": "DIRM NANTES",
               "effectif": 1,
@@ -7315,12 +7270,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef du service des espaces maritimes et littoraux",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chef(fe) de la mission mer et littoral",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
@@ -7333,6 +7282,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Coordinateur(trice) des politiques maritimes",
+              "service": "DTAM ST-PIERRE/MIQ",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Gestionnaire des espaces maritimes et littoraux",
               "service": "DGTM GUYANE",
               "effectif": 1,
@@ -7341,6 +7296,12 @@
             {
               "poste": "Instructeur(rice) fonds européens unité affaires économiques",
               "service": "DEALM MAYOTTE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Responsable de l'observatoire de l'économie maritime",
+              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7409,8 +7370,8 @@
         {
           "id": "plaisance",
           "label": "Plaisance (DDTM)",
-          "effectif": 101,
-          "etpt": 98.9,
+          "effectif": 102,
+          "etpt": 99.9,
           "detailsParService": [
             {
               "service": "DDTM 29",
@@ -7488,6 +7449,11 @@
               "etpt": 2.0
             },
             {
+              "service": "DEALM MAYOTTE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
               "service": "DM GUADELOUPE",
               "effectif": 2,
               "etpt": 2.0
@@ -7499,11 +7465,6 @@
             },
             {
               "service": "DDTM 62",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "service": "DEALM MAYOTTE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7593,6 +7554,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Administration des gens de mer et protection sociale des mar",
+              "service": "DMSOI",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Agent d l'unité Plaisance",
               "service": "DDTM 13",
               "effectif": 1,
@@ -7671,12 +7638,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef H/F du service des activités maritimes et du contrôle",
-              "service": "DMSOI",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chef d'unité Gens de Mer-Navires",
               "service": "DDTM 85",
               "effectif": 1,
@@ -7685,6 +7646,12 @@
             {
               "poste": "Chef de Pôle marins, navires et domaines publics",
               "service": "DDTM 64",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef des gens de mer",
+              "service": "DEALM MAYOTTE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -8254,13 +8221,13 @@
         {
           "id": "planification_ac",
           "label": "Planification administration centrale",
-          "effectif": 15,
-          "etpt": 14.5,
+          "effectif": 19,
+          "etpt": 18.5,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 15,
-              "etpt": 14.5
+              "effectif": 19,
+              "etpt": 18.5
             }
           ],
           "detailsParPoste": [
@@ -8277,7 +8244,25 @@
               "etpt": 1.0
             },
             {
+              "poste": "Adjoint chef service  espaces maritimes et littoraux",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Adjoint.e au sous-directeur de la planification maritime",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Assistant service espaces maritimes et littoraux",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Assistante service espaces maritimes et littoraux",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8331,6 +8316,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef du service des espaces maritimes et littoraux",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef projet Initiatives régionales internationales",
               "service": "DGAMPA",
               "effectif": 1,
@@ -8359,48 +8350,21 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 9,
-          "etpt": 9.0,
+          "effectif": 3,
+          "etpt": 3.0,
           "detailsParService": [
             {
               "service": "DEALM MAYOTTE",
-              "effectif": 3,
-              "etpt": 3.0
+              "effectif": 2,
+              "etpt": 2.0
             },
             {
               "service": "DMSOI",
-              "effectif": 3,
-              "etpt": 3.0
-            },
-            {
-              "service": "DGTM GUYANE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "service": "DM MARTINIQUE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 1.0
             }
           ],
           "detailsParPoste": [
-            {
-              "poste": "Adjoint HF au chef service SDDM",
-              "service": "DMSOI",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Administration des gens de mer et protection sociale des mar",
-              "service": "DMSOI",
-              "effectif": 1,
-              "etpt": 1.0
-            },
             {
               "poste": "Assistante",
               "service": "DEALM MAYOTTE",
@@ -8408,32 +8372,8 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé de mission coordinaion pol. maritimes, litt. et fluv.",
-              "service": "DGTM GUYANE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef des gens de mer",
-              "service": "DEALM MAYOTTE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chef du secrétariat et de la comptabilité",
               "service": "DEALM MAYOTTE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Coordinateur(trice) des politiques maritimes",
-              "service": "DTAM ST-PIERRE/MIQ",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Responsable de l'observatoire de l'économie maritime",
-              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },

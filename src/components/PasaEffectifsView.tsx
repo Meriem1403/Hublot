@@ -82,8 +82,8 @@ function methodologySections(data: PasaEffectifsData) {
     {
       title: 'PASA 3 — Flotte de commerce et sécurité des navires',
       bullets: [
-        'Flotte de commerce AC : Niveau 08 = SFM/MFC.',
-        'Sécurité maritime AC : Niveau 08 = SFM/STEN.',
+        'Flotte de commerce AC : Niveau 08 commençant par SFM/MFC (MFC, MFC1, MFC2, MFC/GURIF…).',
+        'Sécurité maritime AC : Niveau 08 commençant par SFM/STEN (STEN, STEN1, STEN2, STEN3…).',
         'Autres : tous les autres agents.',
       ],
     },
@@ -100,16 +100,22 @@ function methodologySections(data: PasaEffectifsData) {
       bullets: [
         'Plaisance AC : Niveau 08 = SEML/MNP, MNP1, MNP2.',
         'Planification AC : Niveau 08 = SEML/PM, PM1, PM2.',
-        'Planification : DIRM + mots-clés planification (DPM, économie bleue, etc.).',
-        'Plaisance : DDTM / DML + mots-clés plaisance.',
+        'Planification : DIRM + mots-clés (DPM, économie bleue, SDDM, litt., maritimes…).',
+        'Plaisance : DDTM / DML + mots-clés (plaisance, protection sociale, marin, gens…).',
       ],
     },
     {
       title: 'PASA 7 — Pêche et aquaculture',
       bullets: [
-        'Pêche : mots-clés (réglementation, FEAMP, filières, captures, etc.).',
-        'Aquaculture : mots-clés (conchylicole, cult. marines, algoculture, URH).',
-        'Pêche et aquaculture AC : agents DGAMPA non classés ci-dessus.',
+        'Administration centrale : tous les agents DGAMPA (priorité absolue).',
+        'Pêche : mots-clés territoriaux (réglementation, FEAMP, filières, captures…).',
+        'Aquaculture : mots-clés territoriaux (conchylicole, cult. marines, technicien…).',
+      ],
+    },
+    {
+      title: 'Règle générale — Administration centrale',
+      bullets: [
+        'Les agents DGAMPA sont toujours classés en administration centrale, avant tout autre critère (mots-clés, structure…).',
       ],
     },
     {
