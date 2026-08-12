@@ -163,6 +163,10 @@ def contains_any(text: str, needles: tuple[str, ...]) -> bool:
     return any(n.upper() in up for n in needles)
 
 
+def n08_starts_with(n08: str, prefix: str) -> bool:
+    return n08.upper().strip().startswith(prefix.upper())
+
+
 # ---------------------------------------------------------------------------
 # Fonctions de catégorisation par PASA
 # ---------------------------------------------------------------------------
@@ -171,12 +175,12 @@ PASA2_INSTRUCTION_KEYWORDS = ("ACTIVITÉS MARITIMES", "INSTRUCT")
 
 def categorize_pasa2(r: dict[str, Any]) -> str:
     n03, n06, n08, poste = r["niveau03"], r["niveau06"], r["niveau08"], r["poste"]
+    if is_dgampa(n03):
+        return "gens_de_mer_ac"
     if contains_any(n06, ("LPM",)) or contains_any(n08, ("LPM",)):
         return "lpm"
     if contains_any(n06, ("SSGM",)) or contains_any(n08, ("SSGM",)):
         return "ssgm"
-    if is_dgampa(n03):
-        return "gens_de_mer_ac"
     if is_dirm(n03):
         return "services_formation"
     if is_ddtm(n03):
@@ -186,20 +190,24 @@ def categorize_pasa2(r: dict[str, Any]) -> str:
     return "autres"
 
 
-PASA8_PLAISANCE_N08 = ("SEML/MNP", "SEML/MNP1", "SEML/MNP2")
-PASA8_PLANIFICATION_N08 = ("SEML/PM", "SEML/PM1", "SEML/PM2")
 PASA8_PLANIFICATION_KW = (
     "DOMAINE PUBLIC", "ÉCONOMIE BLEUE", "ECONOMIE BLEUE", "DPM",
     "COORDINATION", "POLITIQUES PUBLIQUES", "AFFAIRES ÉCONOMIQUES",
     "AFFAIRES ECONOMIQUES", "ESPACES MARITIMES",
+    "ÉCONOMIE", "ECONOMIE", "LITT.", "MARITIMES", "SDDM",
 )
-PASA8_PLAISANCE_KW = ("PLAISANCE", "ACTIVITÉS MARITIMES", "ACTIVITES MARITIMES")
+PASA8_PLAISANCE_KW = (
+    "PLAISANCE", "ACTIVITÉS MARITIMES", "ACTIVITES MARITIMES",
+    "PROTECTION SOCIALE", "MARIN", "GENS",
+)
 
 def categorize_pasa8(r: dict[str, Any]) -> str:
     n03, n08, poste = r["niveau03"], r["niveau08"], r["poste"]
-    if n08.upper().strip() in [v.upper() for v in PASA8_PLAISANCE_N08]:
-        return "plaisance_ac"
-    if n08.upper().strip() in [v.upper() for v in PASA8_PLANIFICATION_N08]:
+    if is_dgampa(n03):
+        if n08_starts_with(n08, "SEML/MNP"):
+            return "plaisance_ac"
+        if n08_starts_with(n08, "SEML/PM"):
+            return "planification_ac"
         return "planification_ac"
     if is_dirm(n03):
         return "planification"
@@ -216,29 +224,36 @@ PASA7_PECHE_KW = (
     "RÉGLEMENTATION", "REGLEMENTATION", "FEAMP", "RESSOURCES HALIEUTIQUES",
     "FILIÈRES", "FILIERES", "CONTRÔLE", "CONTROLE", "ÉCONOMIE", "ECONOMIE",
     "CAPTURES",
+    "TERRITORIALE", "CHEF", "MER", "LITTORAL", "ÉCONOMIQUE", "ECONOMIQUE",
+    "SGMPC", "AFFAIRES", "MARITIMES",
 )
-PASA7_AQUA_KW = ("CONCHYLICOLE", "CULT. MARINES", "ALGOCULTURE", "URH")
+PASA7_AQUA_KW = (
+    "CONCHYLICOLE", "CULT. MARINES", "ALGOCULTURE", "URH",
+    "TECHNICIEN", "CARTOGRAPHIE",
+)
 PASA7_PECHE_LEGACY = ("PÊCHE", "PECHE", "PECHERIE", "/BEP", "/BGR", "/BASD", "/BAEI", "PECH ")
 PASA7_AQUA_LEGACY = ("AQUACULTURE", "AQUA", "CULTURES MARINES", "CULTURE MARINE", "BAQUA")
 
 def categorize_pasa7(r: dict[str, Any]) -> str:
     n06, n08, poste, n03 = r["niveau06"], r["niveau08"], r["poste"], r["niveau03"]
+    if is_dgampa(n03):
+        return "peche_aqua_ac"
     text = " ".join([poste, n06, n08])
     if contains_any(text, PASA7_AQUA_LEGACY) or contains_any(poste, PASA7_AQUA_KW):
         return "aquaculture"
     if contains_any(text, PASA7_PECHE_LEGACY) or contains_any(poste, PASA7_PECHE_KW):
         return "peche"
-    if is_dgampa(n03):
-        return "peche_aqua_ac"
     return "autres"
 
 
 def categorize_pasa3(r: dict[str, Any]) -> str:
-    n08 = r["niveau08"].upper().strip()
-    if n08 == "SFM/MFC":
+    n03, n08 = r["niveau03"], r["niveau08"]
+    if is_dgampa(n03):
+        if n08_starts_with(n08, "SFM/MFC"):
+            return "flotte_commerce_ac"
+        if n08_starts_with(n08, "SFM/STEN"):
+            return "securite_maritime_ac"
         return "flotte_commerce_ac"
-    if n08 == "SFM/STEN":
-        return "securite_maritime_ac"
     return "autres"
 
 
