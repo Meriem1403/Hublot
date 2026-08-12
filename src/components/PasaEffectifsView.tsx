@@ -75,16 +75,49 @@ function methodologySections(data: PasaEffectifsData) {
         'LPM : repérage « LPM » dans Niveau 06 ou 08.',
         'SSGM : repérage « SSGM » dans Niveau 06 ou 08.',
         'Services formation : structures DIRM (hors LPM/SSGM).',
-        'Services instructions : structures DDTM / DML.',
+        'Services instructions : structures DDTM / DML + mots-clés « activités maritimes », « instruction ».',
+        'Gens de mer AC : agents DGAMPA.',
       ],
     },
     {
+      title: 'PASA 3 — Flotte de commerce et sécurité des navires',
+      bullets: [
+        'Flotte de commerce AC : Niveau 08 = SFM/MFC.',
+        'Sécurité maritime AC : Niveau 08 = SFM/STEN.',
+        'Autres : tous les autres agents.',
+      ],
+    },
+    {
+      title: 'PASA 4 — Contrôle des activités en mer',
+      bullets: ['Administration centrale : agents DGAMPA.', 'Autres : tous les autres agents.'],
+    },
+    {
+      title: 'PASA 5 — Soutien',
+      bullets: ['Tous les agents sans sous-catégorisation.'],
+    },
+    {
       title: 'PASA 8 — Planification et plaisance',
-      bullets: ['Planification : DIRM.', 'Plaisance : DDTM / DML.'],
+      bullets: [
+        'Plaisance AC : Niveau 08 = SEML/MNP, MNP1, MNP2.',
+        'Planification AC : Niveau 08 = SEML/PM, PM1, PM2.',
+        'Planification : DIRM + mots-clés planification (DPM, économie bleue, etc.).',
+        'Plaisance : DDTM / DML + mots-clés plaisance.',
+      ],
     },
     {
       title: 'PASA 7 — Pêche et aquaculture',
-      bullets: ['Aquaculture / Pêche : mots-clés métier.', 'Reste en « Autres ».'],
+      bullets: [
+        'Pêche : mots-clés (réglementation, FEAMP, filières, captures, etc.).',
+        'Aquaculture : mots-clés (conchylicole, cult. marines, algoculture, URH).',
+        'Pêche et aquaculture AC : agents DGAMPA non classés ci-dessus.',
+      ],
+    },
+    {
+      title: 'PASA 11, 13, 16 — CROSS, Phares & Balises, Capitaineries',
+      bullets: [
+        'Administration centrale : agents DGAMPA.',
+        'Autres : tous les autres agents.',
+      ],
     },
     {
       title: 'Calculs',
@@ -597,8 +630,8 @@ export function PasaEffectifsView() {
                 : 'text-gray-600 hover:bg-gray-100 border border-gray-200'
             }`}
           >
-            <span className="hidden sm:inline">{action.title}</span>
-            <span className="sm:hidden">{action.code}</span>
+            <span className="hidden sm:inline">{action.title.replace(/^PASA \d+ — /, 'PASA ' + action.id.replace('pasa', '') + ' — ')}</span>
+            <span className="sm:hidden">PASA {action.id.replace('pasa', '')}</span>
             <span className="ml-2 tabular-nums opacity-80">({action.totalEffectif})</span>
           </button>
         ))}

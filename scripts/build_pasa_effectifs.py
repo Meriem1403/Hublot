@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Extrait les effectifs PASA 2 / 7 / 8 depuis l'export RenoiRH ETPT_RPROG
+Extrait les effectifs PASA depuis l'export RenoiRH ETPT_RPROG
 (feuille « Données annuelles ») vers public/data/pasa-effectifs.json.
 
 Usage :
@@ -33,21 +33,98 @@ COL = {
     "etpt": "ETPT RH",
 }
 
-PASA_CODES = {
-    "pasa2": "0217-11-02",
-    "pasa7": "0217-11-07",
-    "pasa8": "0217-11-08",
-}
+# ---------------------------------------------------------------------------
+# Configuration de tous les PASA
+# ---------------------------------------------------------------------------
+
+PASA_CONFIG: list[dict[str, Any]] = [
+    {
+        "id": "pasa2",
+        "code": "0217-11-02",
+        "title": "PASA 2 — Emplois et formations maritimes",
+        "categories_order": [
+            "lpm", "services_formation", "services_instructions", "ssgm",
+            "gens_de_mer_ac", "autres",
+        ],
+    },
+    {
+        "id": "pasa3",
+        "code": "0217-11-03",
+        "title": "PASA 3 — Flotte de commerce et sécurité des navires",
+        "categories_order": [
+            "flotte_commerce_ac", "securite_maritime_ac", "autres",
+        ],
+    },
+    {
+        "id": "pasa4",
+        "code": "0217-11-04",
+        "title": "PASA 4 — Contrôle des activités en mer",
+        "categories_order": ["controle_ac", "autres"],
+    },
+    {
+        "id": "pasa5",
+        "code": "0217-11-05",
+        "title": "PASA 5 — Soutien",
+        "categories_order": ["tous"],
+    },
+    {
+        "id": "pasa7",
+        "code": "0217-11-07",
+        "title": "PASA 7 — Pêche et aquaculture",
+        "categories_order": [
+            "peche", "aquaculture", "peche_aqua_ac", "autres",
+        ],
+    },
+    {
+        "id": "pasa8",
+        "code": "0217-11-08",
+        "title": "PASA 8 — Planification et plaisance",
+        "categories_order": [
+            "planification", "plaisance",
+            "plaisance_ac", "planification_ac",
+            "autres",
+        ],
+    },
+    {
+        "id": "pasa11",
+        "code": "0217-11-11",
+        "title": "PASA 11 — CROSS",
+        "categories_order": ["cross_ac", "autres"],
+    },
+    {
+        "id": "pasa13",
+        "code": "0217-11-13",
+        "title": "PASA 13 — Phares et Balises (dont POLMAR)",
+        "categories_order": ["phares_balises_ac", "autres"],
+    },
+    {
+        "id": "pasa16",
+        "code": "0217-11-16",
+        "title": "PASA 16 — Capitaineries",
+        "categories_order": ["capitaineries_ac", "autres"],
+    },
+]
 
 LABELS = {
     "lpm": "Lycées professionnels maritimes (LPM)",
     "services_formation": "Services formation (DIRM)",
     "services_instructions": "Services instructions / permis (DDTM)",
     "ssgm": "Services de santé des gens de mer (SSGM)",
+    "gens_de_mer_ac": "Gens de mer administration centrale",
+    "flotte_commerce_ac": "Flotte de commerce administration centrale",
+    "securite_maritime_ac": "Sécurité maritime administration centrale",
+    "controle_ac": "Contrôle des activités en mer administration centrale",
+    "cross_ac": "CROSS administration centrale",
+    "phares_balises_ac": "Phares et Balises administration centrale",
+    "capitaineries_ac": "Capitaineries administration centrale",
     "planification": "Planification (DIRM)",
     "plaisance": "Plaisance (DDTM)",
+    "planification_ac": "Planification administration centrale",
+    "plaisance_ac": "Plaisance administration centrale",
     "peche": "Pêche",
     "aquaculture": "Aquaculture",
+    "peche_aqua_ac": "Pêche et aquaculture administration centrale",
+    "tous": "Tous les agents",
     "autres": "Autres / non classés",
 }
 
@@ -77,45 +154,122 @@ def is_ddtm(service: str) -> bool:
     return s.startswith("DDTM") or s.startswith("DML")
 
 
+def is_dgampa(service: str) -> bool:
+    return service.upper().strip() == "DGAMPA"
+
+
 def contains_any(text: str, needles: tuple[str, ...]) -> bool:
     up = text.upper()
-    return any(n in up for n in needles)
+    return any(n.upper() in up for n in needles)
 
 
-def categorize_pasa2(n03: str, n06: str, n08: str) -> str:
+# ---------------------------------------------------------------------------
+# Fonctions de catégorisation par PASA
+# ---------------------------------------------------------------------------
+
+PASA2_INSTRUCTION_KEYWORDS = ("ACTIVITÉS MARITIMES", "INSTRUCT")
+
+def categorize_pasa2(r: dict[str, Any]) -> str:
+    n03, n06, n08, poste = r["niveau03"], r["niveau06"], r["niveau08"], r["poste"]
     if contains_any(n06, ("LPM",)) or contains_any(n08, ("LPM",)):
         return "lpm"
     if contains_any(n06, ("SSGM",)) or contains_any(n08, ("SSGM",)):
         return "ssgm"
+    if is_dgampa(n03):
+        return "gens_de_mer_ac"
     if is_dirm(n03):
         return "services_formation"
     if is_ddtm(n03):
         return "services_instructions"
+    if contains_any(poste, PASA2_INSTRUCTION_KEYWORDS):
+        return "services_instructions"
     return "autres"
 
 
-def categorize_pasa8(n03: str) -> str:
+PASA8_PLAISANCE_N08 = ("SEML/MNP", "SEML/MNP1", "SEML/MNP2")
+PASA8_PLANIFICATION_N08 = ("SEML/PM", "SEML/PM1", "SEML/PM2")
+PASA8_PLANIFICATION_KW = (
+    "DOMAINE PUBLIC", "ÉCONOMIE BLEUE", "ECONOMIE BLEUE", "DPM",
+    "COORDINATION", "POLITIQUES PUBLIQUES", "AFFAIRES ÉCONOMIQUES",
+    "AFFAIRES ECONOMIQUES", "ESPACES MARITIMES",
+)
+PASA8_PLAISANCE_KW = ("PLAISANCE", "ACTIVITÉS MARITIMES", "ACTIVITES MARITIMES")
+
+def categorize_pasa8(r: dict[str, Any]) -> str:
+    n03, n08, poste = r["niveau03"], r["niveau08"], r["poste"]
+    if n08.upper().strip() in [v.upper() for v in PASA8_PLAISANCE_N08]:
+        return "plaisance_ac"
+    if n08.upper().strip() in [v.upper() for v in PASA8_PLANIFICATION_N08]:
+        return "planification_ac"
     if is_dirm(n03):
         return "planification"
     if is_ddtm(n03):
         return "plaisance"
+    if contains_any(poste, PASA8_PLANIFICATION_KW):
+        return "planification"
+    if contains_any(poste, PASA8_PLAISANCE_KW):
+        return "plaisance"
     return "autres"
 
 
-def categorize_pasa7(poste: str, n06: str, n08: str) -> str:
+PASA7_PECHE_KW = (
+    "RÉGLEMENTATION", "REGLEMENTATION", "FEAMP", "RESSOURCES HALIEUTIQUES",
+    "FILIÈRES", "FILIERES", "CONTRÔLE", "CONTROLE", "ÉCONOMIE", "ECONOMIE",
+    "CAPTURES",
+)
+PASA7_AQUA_KW = ("CONCHYLICOLE", "CULT. MARINES", "ALGOCULTURE", "URH")
+PASA7_PECHE_LEGACY = ("PÊCHE", "PECHE", "PECHERIE", "/BEP", "/BGR", "/BASD", "/BAEI", "PECH ")
+PASA7_AQUA_LEGACY = ("AQUACULTURE", "AQUA", "CULTURES MARINES", "CULTURE MARINE", "BAQUA")
+
+def categorize_pasa7(r: dict[str, Any]) -> str:
+    n06, n08, poste, n03 = r["niveau06"], r["niveau08"], r["poste"], r["niveau03"]
     text = " ".join([poste, n06, n08])
-    if contains_any(
-        text,
-        ("AQUACULTURE", "AQUA", "CULTURES MARINES", "CULTURE MARINE", "BAQUA"),
-    ):
+    if contains_any(text, PASA7_AQUA_LEGACY) or contains_any(poste, PASA7_AQUA_KW):
         return "aquaculture"
-    if contains_any(
-        text,
-        ("PÊCHE", "PECHE", "PECHERIE", "/BEP", "/BGR", "/BASD", "/BAEI", "PECH "),
-    ):
+    if contains_any(text, PASA7_PECHE_LEGACY) or contains_any(poste, PASA7_PECHE_KW):
         return "peche"
+    if is_dgampa(n03):
+        return "peche_aqua_ac"
     return "autres"
 
+
+def categorize_pasa3(r: dict[str, Any]) -> str:
+    n08 = r["niveau08"].upper().strip()
+    if n08 == "SFM/MFC":
+        return "flotte_commerce_ac"
+    if n08 == "SFM/STEN":
+        return "securite_maritime_ac"
+    return "autres"
+
+
+def categorize_simple_dgampa(ac_key: str) -> Any:
+    def _cat(r: dict[str, Any]) -> str:
+        if is_dgampa(r["niveau03"]):
+            return ac_key
+        return "autres"
+    return _cat
+
+
+def categorize_pasa5(r: dict[str, Any]) -> str:
+    return "tous"
+
+
+CATEGORIZERS: dict[str, Any] = {
+    "pasa2": categorize_pasa2,
+    "pasa3": categorize_pasa3,
+    "pasa4": categorize_simple_dgampa("controle_ac"),
+    "pasa5": categorize_pasa5,
+    "pasa7": categorize_pasa7,
+    "pasa8": categorize_pasa8,
+    "pasa11": categorize_simple_dgampa("cross_ac"),
+    "pasa13": categorize_simple_dgampa("phares_balises_ac"),
+    "pasa16": categorize_simple_dgampa("capitaineries_ac"),
+}
+
+
+# ---------------------------------------------------------------------------
+# Chargement et agrégation
+# ---------------------------------------------------------------------------
 
 def load_rows(chemin: Path) -> tuple[list[dict[str, Any]], int, Optional[int]]:
     wb = openpyxl.load_workbook(chemin, read_only=True, data_only=True)
@@ -167,11 +321,13 @@ def load_rows(chemin: Path) -> tuple[list[dict[str, Any]], int, Optional[int]]:
     return parsed, len(parsed), mois_ref
 
 
-def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_key: str) -> dict[str, Any]:
-    code = PASA_CODES[pasa_key]
+def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_cfg: dict[str, Any]) -> dict[str, Any]:
+    pasa_key = pasa_cfg["id"]
+    code = pasa_cfg["code"]
+    categorize = CATEGORIZERS[pasa_key]
+
     filtered = [
-        r
-        for r in rows
+        r for r in rows
         if r["sous_action"].startswith(code) and (mois_ref is None or r["mois"] == mois_ref)
     ]
 
@@ -181,12 +337,6 @@ def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_key: str
         lambda: defaultdict(lambda: {"effectif": 0.0, "etpt": 0.0})
     )
     postes: dict[str, dict[tuple[str, str], dict[str, Any]]] = defaultdict(dict)
-
-    categorize = {
-        "pasa2": lambda r: categorize_pasa2(r["niveau03"], r["niveau06"], r["niveau08"]),
-        "pasa7": lambda r: categorize_pasa7(r["poste"], r["niveau06"], r["niveau08"]),
-        "pasa8": lambda r: categorize_pasa8(r["niveau03"]),
-    }[pasa_key]
 
     for row in filtered:
         if row["etpt"] <= 0:
@@ -199,20 +349,14 @@ def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_key: str
         details[cat][svc]["etpt"] += row["etpt"]
 
         poste_label = row["poste"] or "Poste non renseigné"
-        poste_key = (poste_label, svc)
-        if poste_key not in postes[cat]:
-            postes[cat][poste_key] = {"matricules": set(), "etpt": 0.0}
-        postes[cat][poste_key]["matricules"].add(row["matricule"])
-        postes[cat][poste_key]["etpt"] += row["etpt"]
-
-    order = {
-        "pasa2": ("lpm", "services_formation", "services_instructions", "ssgm", "autres"),
-        "pasa7": ("peche", "aquaculture", "autres"),
-        "pasa8": ("planification", "plaisance", "autres"),
-    }[pasa_key]
+        poste_k = (poste_label, svc)
+        if poste_k not in postes[cat]:
+            postes[cat][poste_k] = {"matricules": set(), "etpt": 0.0}
+        postes[cat][poste_k]["matricules"].add(row["matricule"])
+        postes[cat][poste_k]["etpt"] += row["etpt"]
 
     categories = []
-    for key in order:
+    for key in pasa_cfg["categories_order"]:
         categories.append(
             {
                 "id": key,
@@ -248,16 +392,10 @@ def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_key: str
     total_effectif = len({r["matricule"] for r in filtered if r["etpt"] > 0})
     total_etpt = round(sum(r["etpt"] for r in filtered if r["etpt"] > 0), 2)
 
-    titles = {
-        "pasa2": "PASA 2 — Emplois et formations maritimes",
-        "pasa7": "PASA 7 — Pêche et aquaculture",
-        "pasa8": "PASA 8 — Planification et plaisance",
-    }
-
     return {
         "id": pasa_key,
-        "code": PASA_CODES[pasa_key].replace("0217-11-", "217-11-"),
-        "title": titles[pasa_key],
+        "code": code.replace("0217-11-", "217-11-"),
+        "title": pasa_cfg["title"],
         "lignesAnalysees": len(filtered),
         "totalEffectif": total_effectif,
         "totalEtpt": total_etpt,
@@ -276,11 +414,7 @@ def build(chemin: Path) -> dict[str, Any]:
             "lignesBrutes": nb_brut,
             "description": "Effectifs PASA dérivés indépendamment de agents.json",
         },
-        "actions": [
-            aggregate(rows, mois_ref, "pasa2"),
-            aggregate(rows, mois_ref, "pasa8"),
-            aggregate(rows, mois_ref, "pasa7"),
-        ],
+        "actions": [aggregate(rows, mois_ref, cfg) for cfg in PASA_CONFIG],
     }
 
 
