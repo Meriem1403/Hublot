@@ -1,46 +1,46 @@
 {
   "metadonnees": {
-    "dateExport": "2026-08-12",
-    "source": "2026_03_Suivi_des_emplois_en_ETPT_RPROG.xlsx",
+    "dateExport": "2026-09-07",
+    "source": "2026_08_Suivi_des_emplois_en_ETPT_RPROG_fiabilise.xlsx",
     "feuille": "Données annuelles",
-    "moisReference": 12,
-    "lignesBrutes": 32705,
-    "description": "Effectifs PASA dérivés indépendamment de agents.json"
+    "moisReference": 9,
+    "lignesBrutes": 32758,
+    "description": "Effectifs PASA dérivés indépendamment de agents.json. Données fiabilisées (245 corrections de taggage intégrées, mois 09)."
   },
   "actions": [
     {
       "id": "pasa2",
       "code": "217-11-02",
       "title": "PASA 2 — Emplois et formations maritimes",
-      "lignesAnalysees": 467,
-      "totalEffectif": 408,
-      "totalEtpt": 392.02,
+      "lignesAnalysees": 504,
+      "totalEffectif": 445,
+      "totalEtpt": 427.31,
       "categories": [
         {
           "id": "lpm",
           "label": "Lycées professionnels maritimes (LPM)",
-          "effectif": 225,
-          "etpt": 217.72,
+          "effectif": 241,
+          "etpt": 232.21,
           "detailsParService": [
             {
               "service": "DIRM NANTES",
-              "effectif": 84,
-              "etpt": 80.4
+              "effectif": 92,
+              "etpt": 87.9
             },
             {
               "service": "DIRM MED",
-              "effectif": 52,
-              "etpt": 51.3
+              "effectif": 53,
+              "etpt": 52.3
             },
             {
               "service": "DIRM LE HAVRE",
-              "effectif": 47,
-              "etpt": 44.42
+              "effectif": 53,
+              "etpt": 49.41
             },
             {
               "service": "DIRM BORDEAUX",
-              "effectif": 43,
-              "etpt": 41.6
+              "effectif": 44,
+              "etpt": 42.6
             }
           ],
           "detailsParPoste": [
@@ -75,10 +75,22 @@
               "etpt": 5.5
             },
             {
+              "poste": "Chargé d'enseignement",
+              "service": "DIRM NANTES",
+              "effectif": 5,
+              "etpt": 4.7
+            },
+            {
               "poste": "Surveillant des établ. Enseig.",
               "service": "DIRM MED",
               "effectif": 4,
               "etpt": 4.0
+            },
+            {
+              "poste": "Chargé d'enseignement",
+              "service": "DIRM LE HAVRE",
+              "effectif": 4,
+              "etpt": 3.5
             },
             {
               "poste": "Chargé d'enseignement",
@@ -105,6 +117,12 @@
               "etpt": 2.6
             },
             {
+              "poste": "Assistant d'éducation",
+              "service": "DIRM NANTES",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
               "poste": "Conseiller principal d éducation",
               "service": "DIRM BORDEAUX",
               "effectif": 2,
@@ -117,20 +135,26 @@
               "etpt": 2.0
             },
             {
-              "poste": "Chargé d'enseignement",
-              "service": "DIRM NANTES",
-              "effectif": 2,
-              "etpt": 1.7
-            },
-            {
               "poste": "Secrétaire Général.e du LPM du Guilvinec",
               "service": "DIRM NANTES",
               "effectif": 2,
               "etpt": 1.5
             },
             {
+              "poste": "Assistant d'éducation",
+              "service": "DIRM LE HAVRE",
+              "effectif": 2,
+              "etpt": 1.49
+            },
+            {
               "poste": "Adjoint-e à la secrétaire générale du LPM de Saint-Malo",
               "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Assistant d'éducation",
+              "service": "DIRM MED",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -161,12 +185,6 @@
             {
               "poste": "Chargé d'enseignement",
               "service": "DIRM BORDEAUX",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé d'enseignement",
-              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -273,6 +291,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Directeur/trice du LPM Florence Arthaud de Saint-Malo",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Directeur/trice du LPM Jacques-de-Thézac d'Étel",
               "service": "DIRM NANTES",
               "effectif": 1,
@@ -280,6 +304,12 @@
             },
             {
               "poste": "Directeur/trice du LPM du Guilvinec",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Directeur/trice-adjoint-e du Lycée Prof. Maritime d'Etel",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
@@ -300,6 +330,12 @@
               "poste": "Enseignant mathématiques / physique (RIN)",
               "service": "DIRM NANTES",
               "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Infirmière",
+              "service": "DIRM NANTES",
+              "effectif": 2,
               "etpt": 1.0
             },
             {
@@ -371,6 +407,12 @@
             {
               "poste": "Secrétaire administration et formation initiale",
               "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Secrétaire comptable",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -489,6 +531,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "[G] CDD 6 sex P205-3633-3633022-LPM64",
+              "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "[G] Directeur adjoint en formation continue",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
@@ -567,12 +615,6 @@
               "etpt": 0.5
             },
             {
-              "poste": "Infirmière",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 0.5
-            },
-            {
               "poste": "Chargé enseignement EPS",
               "service": "DIRM LE HAVRE",
               "effectif": 1,
@@ -593,13 +635,13 @@
             },
             {
               "service": "DIRM MED",
-              "effectif": 13,
-              "etpt": 13.0
+              "effectif": 12,
+              "etpt": 12.0
             },
             {
               "service": "DIRM NANTES",
-              "effectif": 11,
-              "etpt": 10.2
+              "effectif": 12,
+              "etpt": 11.2
             },
             {
               "service": "DIRM BORDEAUX",
@@ -616,8 +658,8 @@
             {
               "poste": "DIRM - Vacataires - BOP 205",
               "service": "DIRM MED",
-              "effectif": 5,
-              "etpt": 5.0
+              "effectif": 4,
+              "etpt": 4.0
             },
             {
               "poste": "Gestionnaire formation maritime",
@@ -782,6 +824,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "GENERIQUE CDD 6 SEXIES P205 (1 %)",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Gestionnaire finance et budget",
               "service": "ESP MER",
               "effectif": 1,
@@ -882,13 +930,18 @@
         {
           "id": "services_instructions",
           "label": "Services instructions / permis (DDTM)",
-          "effectif": 44,
-          "etpt": 43.1,
+          "effectif": 57,
+          "etpt": 55.9,
           "detailsParService": [
             {
               "service": "DDTM 29",
               "effectif": 15,
               "etpt": 14.8
+            },
+            {
+              "service": "DDTM 56",
+              "effectif": 8,
+              "etpt": 7.8
             },
             {
               "service": "DDTM 17",
@@ -912,11 +965,16 @@
             },
             {
               "service": "DDTM 76",
-              "effectif": 3,
-              "etpt": 2.9
+              "effectif": 4,
+              "etpt": 3.9
             },
             {
               "service": "DDTM 14",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "DDTM 50",
               "effectif": 2,
               "etpt": 2.0
             },
@@ -926,15 +984,32 @@
               "etpt": 2.0
             },
             {
-              "service": "DDTM 50",
+              "service": "DML CORSE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "service": "SAM POLYNESIE",
               "effectif": 1,
               "etpt": 1.0
             }
           ],
           "detailsParPoste": [
             {
+              "poste": "Gestionnaire Marins Navires",
+              "service": "DDTM 56",
+              "effectif": 3,
+              "etpt": 2.8
+            },
+            {
               "poste": "Gestionnaire \"Navigation Professionnelle\"",
               "service": "DDTM 29",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Gestionnaire du centre de gestion des activités maritimes",
+              "service": "DML CORSE",
               "effectif": 2,
               "etpt": 2.0
             },
@@ -953,6 +1028,12 @@
             {
               "poste": "ASSISTANT GESTIONNAIRE MARIN NAVIRE PLAISANCE",
               "service": "DDTM 17",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adj à la responsable d'unité Assistance aux Usagers Mer",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -981,6 +1062,18 @@
               "etpt": 1.0
             },
             {
+              "poste": "Adjointe à la responsable d'unité Marins Navires, pole prof",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Agent Administratif",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Agent instructeur Marins-Navires",
               "service": "DDTM 17",
               "effectif": 1,
@@ -993,6 +1086,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Agent.e d'accueil instructeur(trice) navigation prof usagers",
+              "service": "DDTM 50",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Assistant gestion social des marins",
               "service": "DDTM 14",
               "effectif": 1,
@@ -1001,6 +1100,18 @@
             {
               "poste": "Assistante nav. prof.-plaisance- affaires nautiques Dieppe",
               "service": "DDTM 76",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de mission affaires nautiques",
+              "service": "DDTM 76",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé mission formation professionnelle contrôle armements",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -1077,6 +1188,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Gestionnaire marins-navires",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Gestionnaire polyvalent activités maritimes et littorales",
               "service": "DDTM 29",
               "effectif": 1,
@@ -1121,6 +1238,12 @@
             {
               "poste": "Instructeur enregistrement navires-gestionnaire procédures",
               "service": "DDTM 22",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Instructeur francisation des navires SAM PF",
+              "service": "SAM POLYNESIE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -1189,13 +1312,13 @@
         {
           "id": "ssgm",
           "label": "Services de santé des gens de mer (SSGM)",
-          "effectif": 40,
-          "etpt": 34.8,
+          "effectif": 41,
+          "etpt": 35.8,
           "detailsParService": [
             {
               "service": "DIRM NANTES",
-              "effectif": 16,
-              "etpt": 14.2
+              "effectif": 17,
+              "etpt": 15.2
             },
             {
               "service": "DIRM MED",
@@ -1282,6 +1405,12 @@
             },
             {
               "poste": "Infirmier/ère des Gens de Mer_SSGM Lorient",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Infirmier/ère du SSGM des Sables-d'Olonne",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
@@ -1387,18 +1516,24 @@
         {
           "id": "gens_de_mer_ac",
           "label": "Gens de mer administration centrale",
-          "effectif": 41,
-          "etpt": 40.0,
+          "effectif": 44,
+          "etpt": 43.0,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 41,
-              "etpt": 40.0
+              "effectif": 44,
+              "etpt": 43.0
             }
           ],
           "detailsParPoste": [
             {
               "poste": "Assistant auprès du chef de service flotte et marins",
+              "service": "DGAMPA",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Chargé mission RH pour les lycées professionnels maritimes",
               "service": "DGAMPA",
               "effectif": 2,
               "etpt": 2.0
@@ -1429,6 +1564,12 @@
             },
             {
               "poste": "Adjoint(e) au chef du bureau formation et emploi maritimes",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) au sous-directeur des gens de mer",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -1476,12 +1617,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé mission RH pour les lycées professionnels maritimes",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chargé mission convention travail maritime internationales",
               "service": "DGAMPA",
               "effectif": 1,
@@ -1489,6 +1624,12 @@
             },
             {
               "poste": "Chargé rédaction juridique promotion formation maritime",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) d'études au bureau sécurité sociale des marins",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -1642,9 +1783,14 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 5,
-          "etpt": 5.0,
+          "effectif": 9,
+          "etpt": 9.0,
           "detailsParService": [
+            {
+              "service": "I.G.A.M.",
+              "effectif": 4,
+              "etpt": 4.0
+            },
             {
               "service": "DM GUADELOUPE",
               "effectif": 3,
@@ -1675,6 +1821,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Conseiller expert technique transports maritimes",
+              "service": "I.G.A.M.",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Gens de mer / ENIM",
               "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
@@ -1691,6 +1843,24 @@
               "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
+            },
+            {
+              "poste": "chargé de mission",
+              "service": "I.G.A.M.",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "chargé de mission IGEM",
+              "service": "I.G.A.M.",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "inspecteur général de l'enseignement maritime",
+              "service": "I.G.A.M.",
+              "effectif": 1,
+              "etpt": 1.0
             }
           ]
         }
@@ -1700,25 +1870,31 @@
       "id": "pasa3",
       "code": "217-11-03",
       "title": "PASA 3 — Flotte de commerce et sécurité des navires",
-      "lignesAnalysees": 197,
-      "totalEffectif": 196,
-      "totalEtpt": 192.4,
+      "lignesAnalysees": 204,
+      "totalEffectif": 203,
+      "totalEtpt": 199.4,
       "categories": [
         {
           "id": "flotte_commerce_ac",
           "label": "Flotte de commerce administration centrale",
-          "effectif": 16,
-          "etpt": 15.8,
+          "effectif": 17,
+          "etpt": 16.8,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 16,
-              "etpt": 15.8
+              "effectif": 17,
+              "etpt": 16.8
             }
           ],
           "detailsParPoste": [
             {
               "poste": "Adjoint chef guichet unique registre international français",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) au chef du guichet unique",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -1818,13 +1994,13 @@
         {
           "id": "securite_maritime_ac",
           "label": "Sécurité maritime administration centrale",
-          "effectif": 15,
-          "etpt": 15.0,
+          "effectif": 16,
+          "etpt": 16.0,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 15,
-              "etpt": 15.0
+              "effectif": 16,
+              "etpt": 16.0
             }
           ],
           "detailsParPoste": [
@@ -1877,6 +2053,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé(e) d'études navires et technologies vertes",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé(e) d'études navires et « technologies vertes »",
               "service": "DGAMPA",
               "effectif": 1,
@@ -1901,13 +2083,13 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef bureau sécurité navires et innovation navale",
+              "poste": "Chef mission gestion sécu surveillance organismes habilités",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Chef mission gestion sécu surveillance organismes habilités",
+              "poste": "Conseiller(ère) juridique",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -1923,8 +2105,8 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 165,
-          "etpt": 161.6,
+          "effectif": 170,
+          "etpt": 166.6,
           "detailsParService": [
             {
               "service": "DIRM NANTES",
@@ -1933,8 +2115,8 @@
             },
             {
               "service": "DIRM LE HAVRE",
-              "effectif": 39,
-              "etpt": 37.4
+              "effectif": 42,
+              "etpt": 40.4
             },
             {
               "service": "DIRM MED",
@@ -1943,18 +2125,13 @@
             },
             {
               "service": "DIRM BORDEAUX",
-              "effectif": 21,
-              "etpt": 20.6
+              "effectif": 22,
+              "etpt": 21.6
             },
             {
               "service": "DM MARTINIQUE",
-              "effectif": 8,
-              "etpt": 8.0
-            },
-            {
-              "service": "DML CORSE",
-              "effectif": 5,
-              "etpt": 5.0
+              "effectif": 10,
+              "etpt": 10.0
             },
             {
               "service": "DMSOI",
@@ -1967,6 +2144,11 @@
               "etpt": 3.0
             },
             {
+              "service": "DML CORSE",
+              "effectif": 3,
+              "etpt": 3.0
+            },
+            {
               "service": "SAM NOUV.CALEDONIE",
               "effectif": 3,
               "etpt": 3.0
@@ -1975,14 +2157,19 @@
               "service": "DGTM GUYANE",
               "effectif": 2,
               "etpt": 2.0
+            },
+            {
+              "service": "SAM POLYNESIE",
+              "effectif": 1,
+              "etpt": 1.0
             }
           ],
           "detailsParPoste": [
             {
               "poste": "Inspecteur(trice) sécurité des navires",
               "service": "DIRM LE HAVRE",
-              "effectif": 19,
-              "etpt": 17.9
+              "effectif": 21,
+              "etpt": 19.9
             },
             {
               "poste": "Inspecteur de sécurité des navires",
@@ -1991,22 +2178,16 @@
               "etpt": 16.6
             },
             {
+              "poste": "Inspecteur sécurité des navires",
+              "service": "DIRM LE HAVRE",
+              "effectif": 6,
+              "etpt": 6.0
+            },
+            {
               "poste": "Inspecteur sécurité navires",
               "service": "DIRM BORDEAUX",
               "effectif": 6,
               "etpt": 5.8
-            },
-            {
-              "poste": "Inspecteur sécurité des navires",
-              "service": "DIRM LE HAVRE",
-              "effectif": 5,
-              "etpt": 5.0
-            },
-            {
-              "poste": "Gestionnaire du centre de gestion des activités maritimes",
-              "service": "DML CORSE",
-              "effectif": 4,
-              "etpt": 4.0
             },
             {
               "poste": "Inspecteur de la sécurité des navires",
@@ -2023,6 +2204,12 @@
             {
               "poste": "Chef de centre de sécurité des navires",
               "service": "DIRM LE HAVRE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Gestionnaire du centre de gestion des activités maritimes",
+              "service": "DML CORSE",
               "effectif": 2,
               "etpt": 2.0
             },
@@ -2123,12 +2310,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Agent de contr. et de surveil. des affaires maritimes",
-              "service": "DM GUADELOUPE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Agent de service",
               "service": "DIRM MED",
               "effectif": 1,
@@ -2173,6 +2354,12 @@
             {
               "poste": "Chargé de mission temporaire",
               "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef de centre de sécurité",
+              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2267,6 +2454,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Coordinateur Commission Régjionale",
+              "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Directeur adjoint DAM et chef de service",
               "service": "SAM NOUV.CALEDONIE",
               "effectif": 1,
@@ -2275,6 +2468,12 @@
             {
               "poste": "Directeur de la direction des affaires maritimes",
               "service": "SAM NOUV.CALEDONIE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Dérog-Inspecteur de la sécurité navires centre de sécurité",
+              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2292,6 +2491,12 @@
             },
             {
               "poste": "INSPECTEUR DE LA SECURITE DES NAVIRES ET DE LA PREVENTION DE",
+              "service": "DM MARTINIQUE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "INSPECTEUR DE LA SECURITE RESPONSABLE ANTENNE GUADELOUPE",
               "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
@@ -2405,6 +2610,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Inspecteur sécurité des navires-Inspecteur police des pêches",
+              "service": "SAM POLYNESIE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Inspecteur sécurité navires (F/H)",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
@@ -2413,6 +2624,12 @@
             {
               "poste": "Inspecteur sécurité navires et prév risques pro maritime H/F",
               "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Inspecteur à la sécurité des navires/Délégué d'antenne IDN",
+              "service": "DM GUADELOUPE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -2567,12 +2784,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "agent en charge instruction et secrétariat CNL",
-              "service": "DM MARTINIQUE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "assistante de gestion du CSN La Rochelle",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
@@ -2640,20 +2851,20 @@
       "id": "pasa4",
       "code": "217-11-04",
       "title": "PASA 4 — Contrôle des activités en mer",
-      "lignesAnalysees": 418,
-      "totalEffectif": 415,
-      "totalEtpt": 421.4,
+      "lignesAnalysees": 459,
+      "totalEffectif": 456,
+      "totalEtpt": 461.4,
       "categories": [
         {
           "id": "controle_ac",
           "label": "Contrôle des activités en mer administration centrale",
-          "effectif": 29,
-          "etpt": 29.0,
+          "effectif": 28,
+          "etpt": 28.0,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 29,
-              "etpt": 29.0
+              "effectif": 28,
+              "etpt": 28.0
             }
           ],
           "detailsParPoste": [
@@ -2664,12 +2875,6 @@
               "etpt": 2.0
             },
             {
-              "poste": "Adjoint(e) au sous-directeur",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Adjoint(e) chef de bureau CAM2",
               "service": "DGAMPA",
               "effectif": 1,
@@ -2677,6 +2882,12 @@
             },
             {
               "poste": "Analyste données surveillance/contrôle environnement marin",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "CM outils mise en oeuvre et évaluation planification",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -2719,12 +2930,6 @@
             },
             {
               "poste": "Chargé réseau des agents de contrôle, formation et parcours",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chargé(e) de mission radiocommunications et fréquences",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -2802,7 +3007,7 @@
               "etpt": 1.0
             },
             {
-              "poste": "Sous-Directeur",
+              "poste": "Sous-directeur.trice du contrôle des activités maritimes",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -2830,18 +3035,18 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 386,
-          "etpt": 392.4,
+          "effectif": 428,
+          "etpt": 433.4,
           "detailsParService": [
             {
               "service": "DIRM NANTES",
-              "effectif": 39,
-              "etpt": 38.9
+              "effectif": 40,
+              "etpt": 39.9
             },
             {
               "service": "DIRM LE HAVRE",
-              "effectif": 35,
-              "etpt": 34.6
+              "effectif": 39,
+              "etpt": 38.6
             },
             {
               "service": "DIRM BORDEAUX",
@@ -2850,8 +3055,13 @@
             },
             {
               "service": "DIRM MED",
-              "effectif": 30,
-              "etpt": 29.8
+              "effectif": 31,
+              "etpt": 30.8
+            },
+            {
+              "service": "DML CORSE",
+              "effectif": 15,
+              "etpt": 25.0
             },
             {
               "service": "DDTM 17",
@@ -2859,14 +3069,14 @@
               "etpt": 24.0
             },
             {
-              "service": "DML CORSE",
-              "effectif": 14,
-              "etpt": 24.0
+              "service": "DDTM 29",
+              "effectif": 22,
+              "etpt": 21.4
             },
             {
-              "service": "DDTM 29",
-              "effectif": 21,
-              "etpt": 20.4
+              "service": "DDTM 22",
+              "effectif": 19,
+              "etpt": 18.6
             },
             {
               "service": "DDTM 14",
@@ -2874,14 +3084,9 @@
               "etpt": 18.0
             },
             {
-              "service": "DDTM 22",
-              "effectif": 18,
-              "etpt": 17.6
-            },
-            {
               "service": "DDTM 44",
-              "effectif": 16,
-              "etpt": 15.8
+              "effectif": 18,
+              "etpt": 17.8
             },
             {
               "service": "DDTM 62",
@@ -2889,9 +3094,39 @@
               "etpt": 15.7
             },
             {
+              "service": "DDTM 56",
+              "effectif": 14,
+              "etpt": 13.6
+            },
+            {
               "service": "DDTM 50",
               "effectif": 13,
               "etpt": 12.6
+            },
+            {
+              "service": "DGTM GUYANE",
+              "effectif": 12,
+              "etpt": 11.8
+            },
+            {
+              "service": "DDTM 34",
+              "effectif": 12,
+              "etpt": 11.6
+            },
+            {
+              "service": "DM MARTINIQUE",
+              "effectif": 11,
+              "etpt": 11.0
+            },
+            {
+              "service": "DDTM 76",
+              "effectif": 11,
+              "etpt": 10.8
+            },
+            {
+              "service": "DDTM 64",
+              "effectif": 10,
+              "etpt": 10.0
             },
             {
               "service": "DDTM 35",
@@ -2899,14 +3134,9 @@
               "etpt": 9.9
             },
             {
-              "service": "DGTM GUYANE",
+              "service": "DM GUADELOUPE",
               "effectif": 10,
-              "etpt": 9.8
-            },
-            {
-              "service": "DDTM 64",
-              "effectif": 9,
-              "etpt": 9.0
+              "etpt": 9.5
             },
             {
               "service": "DDTM 66",
@@ -2919,39 +3149,19 @@
               "etpt": 8.0
             },
             {
-              "service": "DDTM 34",
-              "effectif": 8,
-              "etpt": 8.0
-            },
-            {
-              "service": "DDTM 76",
-              "effectif": 8,
-              "etpt": 8.0
-            },
-            {
-              "service": "DM MARTINIQUE",
-              "effectif": 8,
-              "etpt": 8.0
-            },
-            {
-              "service": "DM GUADELOUPE",
-              "effectif": 8,
-              "etpt": 7.5
-            },
-            {
               "service": "DDTM 06",
               "effectif": 7,
               "etpt": 7.0
             },
             {
               "service": "DDTM 85",
-              "effectif": 6,
-              "etpt": 6.0
+              "effectif": 7,
+              "etpt": 7.0
             },
             {
               "service": "DDTM 83",
-              "effectif": 5,
-              "etpt": 5.0
+              "effectif": 6,
+              "etpt": 6.0
             },
             {
               "service": "DEALM MAYOTTE",
@@ -2998,6 +3208,12 @@
               "etpt": 5.0
             },
             {
+              "poste": "Agent de contrôle des affaires maritimes",
+              "service": "DGTM GUYANE",
+              "effectif": 5,
+              "etpt": 5.0
+            },
+            {
               "poste": "Agent pont PAM",
               "service": "DIRM LE HAVRE",
               "effectif": 5,
@@ -3006,12 +3222,6 @@
             {
               "poste": "AGENT ULAM",
               "service": "DM GUADELOUPE",
-              "effectif": 4,
-              "etpt": 4.0
-            },
-            {
-              "poste": "Agent de contrôle des affaires maritimes",
-              "service": "DGTM GUYANE",
               "effectif": 4,
               "etpt": 4.0
             },
@@ -3036,6 +3246,12 @@
             {
               "poste": "Chef de quart PAM",
               "service": "DIRM LE HAVRE",
+              "effectif": 4,
+              "etpt": 4.0
+            },
+            {
+              "poste": "Contrôle en mer et sécurité",
+              "service": "DDTM 83",
               "effectif": 4,
               "etpt": 4.0
             },
@@ -3076,8 +3292,8 @@
               "etpt": 3.0
             },
             {
-              "poste": "Contrôle en mer et sécurité",
-              "service": "DDTM 83",
+              "poste": "agent ULAM",
+              "service": "DDTM 56",
               "effectif": 3,
               "etpt": 3.0
             },
@@ -3226,6 +3442,12 @@
               "etpt": 2.0
             },
             {
+              "poste": "Chef mécanicien PAM",
+              "service": "DIRM LE HAVRE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
               "poste": "Chef(fe) de l'unité littorale des affaires maritimes 2A",
               "service": "DML CORSE",
               "effectif": 1,
@@ -3258,6 +3480,18 @@
             {
               "poste": "Commandant second navire civil de l'Etat",
               "service": "DIRM MED",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Contrôleur Unité Littorale des Affaires Maritimes",
+              "service": "DDTM 64",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Contrôleur des Cultures Marines",
+              "service": "DDTM 56",
               "effectif": 2,
               "etpt": 2.0
             },
@@ -3334,6 +3568,12 @@
               "etpt": 1.8
             },
             {
+              "poste": "contrôleur cultures marines environnement",
+              "service": "DDTM 56",
+              "effectif": 2,
+              "etpt": 1.8
+            },
+            {
               "poste": "ADJOINT RESPONSABLE ULAM",
               "service": "DM MARTINIQUE",
               "effectif": 1,
@@ -3366,6 +3606,12 @@
             {
               "poste": "Adjoint au Chef du pôle maritime -chef unité activités marit",
               "service": "DDTM 13",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint au chef ULAM agent de controle ULAM",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3466,8 +3712,20 @@
               "etpt": 1.0
             },
             {
+              "poste": "Adjoint(e) chef ULAM Cayenne",
+              "service": "DGTM GUYANE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Adjoint(e) chef(fe) de service et chef(fe) d'unité gens mer",
               "service": "DDTM 22",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) chef(fe) unité opérationnelle ULAM",
+              "service": "DDTM 34",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3520,14 +3778,38 @@
               "etpt": 1.0
             },
             {
+              "poste": "Agent contrôle ULAM2A - référent grand sud",
+              "service": "DML CORSE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Agent cultures marines, adjoint Chef d'Unité",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Agent d'une unité littorale des affaires maritimes",
               "service": "DDTM 34",
               "effectif": 1,
               "etpt": 1.0
             },
             {
+              "poste": "Agent de contr. et de surveil. des affaires maritimes",
+              "service": "DM GUADELOUPE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Agent de contrôle ULAM",
               "service": "DDTM 06",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Agent de contrôle ULAM",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3563,6 +3845,12 @@
             },
             {
               "poste": "Agent de contrôle des affaires maritimes",
+              "service": "DDTM 44",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Agent de contrôle des affaires maritimes",
               "service": "DDTM 85",
               "effectif": 1,
               "etpt": 1.0
@@ -3582,6 +3870,12 @@
             {
               "poste": "Agent de contrôle des affaires maritimes ULAM 64/40",
               "service": "DDTM 64",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Agent de contrôle et administratif polyvalent du pôle GELM",
+              "service": "DDTM 44",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3730,6 +4024,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Agent-e mécanicien-ne sur patrouilleur THEMIS _ Bordée A",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Agent·e du pôle gens de mer et plaisance",
               "service": "DDTM 62",
               "effectif": 1,
@@ -3808,8 +4108,20 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé de mission environnement littoral et milieux marins",
+              "service": "DDTM 76",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé de mission gestion du littoral et qualité des eaux",
               "service": "DDTM 14",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé de rédaction réglementaire - pêche maritime",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3822,6 +4134,12 @@
             {
               "poste": "Chargé du suivi et de l'application de la réglementation",
               "service": "DDTM 50",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) contrôle activités nautiques",
+              "service": "DDTM 22",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3862,6 +4180,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé(e) de mission pêche - adjoint au chef de l'unité",
+              "service": "DDTM 76",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé(e) de mission pêche et cultures marines",
               "service": "DDTM 66",
               "effectif": 1,
@@ -3882,6 +4206,12 @@
             {
               "poste": "Chargé(e) du contrôle de la navigation professionnelle",
               "service": "DDTM 66",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) du suivi des contrôles maritimes",
+              "service": "DDTM 34",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3918,6 +4248,12 @@
             {
               "poste": "Chargée de la réglementation et du suivi des ACM",
               "service": "DDTM 64",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef Unité Littorale des Affaires Matitimes (ULAM)",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -3982,6 +4318,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef de service",
+              "service": "DMSOI",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef du bureau Unité Littorale des Affaires Maritimes",
               "service": "DDTM 83",
               "effectif": 1,
@@ -4012,6 +4354,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef du service de la sécurité et de la police maritimes",
+              "service": "DM MARTINIQUE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef du service réglementation et contrôle",
               "service": "DIRM MED",
               "effectif": 1,
@@ -4020,12 +4368,6 @@
             {
               "poste": "Chef mécanicien",
               "service": "DIRM MED",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef mécanicien PAM",
-              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -4156,6 +4498,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef/fe de Service Actions Intermin. et Sécurité en Mer",
+              "service": "DM GUADELOUPE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef·fe du Service des Affaires Maritimes et du Littoral",
               "service": "DDTM 62",
               "effectif": 1,
@@ -4228,12 +4576,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Contrôleur Unité Littorale des Affaires Maritimes",
-              "service": "DDTM 64",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Contrôleur des affaires maritimes -  ULAM",
               "service": "DDTM 13",
               "effectif": 1,
@@ -4272,6 +4614,18 @@
             {
               "poste": "Cusinier PAM",
               "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "DIRM - Vacataires - BOP 205",
+              "service": "DIRM MED",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Dérog-Adjoint au chef de service mer et littoral",
+              "service": "DDTM 85",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -4366,6 +4720,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Infirmier SSGM Dunkerque",
+              "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Instructeur Cultures Marines",
               "service": "DDTM 17",
               "effectif": 1,
@@ -4421,6 +4781,12 @@
             },
             {
               "poste": "Instructeur·trice des navigations professionnelles",
+              "service": "DDTM 34",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Instruction dossiers cultures marines",
               "service": "DDTM 34",
               "effectif": 1,
               "etpt": 1.0
@@ -4612,6 +4978,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Technicien(ne) cultures marines-référent contrôles et police",
+              "service": "DDTM 29",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "[G] CLD SML",
               "service": "DDTM 50",
               "effectif": 1,
@@ -4624,8 +4996,20 @@
               "etpt": 1.0
             },
             {
+              "poste": "adjoint.e au chef du SRCAM",
+              "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "adjointeau chef de pôle « gestion du littoral »",
               "service": "DDTM 14",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "agent  ULAM",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -4636,20 +5020,32 @@
               "etpt": 1.0
             },
             {
+              "poste": "agent d'unité",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "agent de la Cellule Plaisance Environnement maritime",
               "service": "DM GUADELOUPE",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "agent mécanicien",
-              "service": "DIRM BORDEAUX",
+              "poste": "agent en charge instruction et secrétariat CNL",
+              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "agent polyvalent compétences mécanique",
-              "service": "DMSOI",
+              "poste": "agent instructeur sur le DPM",
+              "service": "DM MARTINIQUE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "agent mécanicien",
+              "service": "DIRM BORDEAUX",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -4756,6 +5152,12 @@
               "etpt": 0.9
             },
             {
+              "poste": "Agent d?unité Cultures Marines ? chargé environnement",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 0.8
+            },
+            {
               "poste": "Agent(e) de contrôle de l?unité littorale des Affaires Marit",
               "service": "DMSOI",
               "effectif": 1,
@@ -4770,6 +5172,12 @@
             {
               "poste": "Chargé(e) des cultures marines et ajoint(e) chef(fe) d'unité",
               "service": "DDTM 22",
+              "effectif": 1,
+              "etpt": 0.8
+            },
+            {
+              "poste": "Chef(ffe) de l'unité plaisance - affaires nautiques",
+              "service": "DDTM 76",
               "effectif": 1,
               "etpt": 0.8
             },
@@ -4816,6 +5224,12 @@
               "etpt": 0.6
             },
             {
+              "poste": "agent.e de controle des affaires maritimes",
+              "service": "DDTM 34",
+              "effectif": 1,
+              "etpt": 0.6
+            },
+            {
               "poste": "Agent de la cellulle domaine public maritime - suivi des PV",
               "service": "DM GUADELOUPE",
               "effectif": 1,
@@ -4829,30 +5243,30 @@
       "id": "pasa5",
       "code": "217-11-05",
       "title": "PASA 5 — Soutien",
-      "lignesAnalysees": 176,
-      "totalEffectif": 173,
-      "totalEtpt": 169.04,
+      "lignesAnalysees": 199,
+      "totalEffectif": 196,
+      "totalEtpt": 191.44,
       "categories": [
         {
           "id": "tous",
           "label": "Tous les agents",
-          "effectif": 173,
-          "etpt": 169.04,
+          "effectif": 196,
+          "etpt": 191.44,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 68,
-              "etpt": 66.84
+              "effectif": 79,
+              "etpt": 77.84
             },
             {
               "service": "DIRM NANTES",
-              "effectif": 24,
-              "etpt": 24.0
+              "effectif": 32,
+              "etpt": 32.0
             },
             {
               "service": "DIRM LE HAVRE",
-              "effectif": 21,
-              "etpt": 19.8
+              "effectif": 23,
+              "etpt": 21.8
             },
             {
               "service": "DIRM BORDEAUX",
@@ -4866,18 +5280,23 @@
             },
             {
               "service": "SAM POLYNESIE",
-              "effectif": 10,
-              "etpt": 10.0
+              "effectif": 8,
+              "etpt": 8.0
             },
             {
               "service": "DM MARTINIQUE",
-              "effectif": 9,
-              "etpt": 9.0
+              "effectif": 7,
+              "etpt": 7.0
             },
             {
               "service": "DGTM GUYANE",
-              "effectif": 3,
-              "etpt": 3.0
+              "effectif": 4,
+              "etpt": 4.0
+            },
+            {
+              "service": "DTAM ST-PIERRE/MIQ",
+              "effectif": 4,
+              "etpt": 3.6
             },
             {
               "service": "DM GUADELOUPE",
@@ -4903,9 +5322,20 @@
               "service": "DMSOI",
               "effectif": 1,
               "etpt": 1.0
+            },
+            {
+              "service": "DDTM 85",
+              "effectif": 1,
+              "etpt": 0.8
             }
           ],
           "detailsParPoste": [
+            {
+              "poste": "GENERIQUE CDD 6 SEXIES P205 (1 %)",
+              "service": "DIRM NANTES",
+              "effectif": 7,
+              "etpt": 7.0
+            },
             {
               "poste": "[G] CDD 6 sex P205-3633-3633057-SG",
               "service": "DIRM BORDEAUX",
@@ -4943,6 +5373,18 @@
               "etpt": 2.0
             },
             {
+              "poste": "Chargé.e de la gestion des missions",
+              "service": "DGAMPA",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Administrateur système du pôle livraison",
+              "service": "DGAMPA",
+              "effectif": 2,
+              "etpt": 1.8
+            },
+            {
               "poste": "ADMINISTRATEUR DES RESEAUX",
               "service": "DM MARTINIQUE",
               "effectif": 1,
@@ -4963,6 +5405,12 @@
             {
               "poste": "Adjoint CIR",
               "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint au chef de bureau - Chef du pôle appui métier",
+              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -5009,6 +5457,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Adjoint chef du bureau de la gestion du site de Saint-Malo",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Adjoint chef mission chef bureau pilotage ressources budget",
               "service": "DGAMPA",
               "effectif": 1,
@@ -5029,6 +5483,12 @@
             {
               "poste": "Adjoint(e) à la cheffe de la mission performance et pilotage",
               "service": "DM MARTINIQUE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) à la responsable de l'unité comptabilité centrale",
+              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -5057,14 +5517,14 @@
               "etpt": 1.0
             },
             {
-              "poste": "Administrateur/trice systèmes information sécurité maritime",
+              "poste": "Administrateur du SI SM",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Agent instructeur du pôle « Animation des filières »",
-              "service": "DM MARTINIQUE",
+              "poste": "Administrateur/trice systèmes information sécurité maritime",
+              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -5129,6 +5589,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Assistant(e) administratif(ve)",
+              "service": "DGTM GUYANE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Assistant(e) de gestion comptable",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
@@ -5160,6 +5626,12 @@
             },
             {
               "poste": "Assistant.e PND et de gestion sécurité maritime",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Assistant.e de direction SPMAD",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -5267,6 +5739,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé(e) de maintenance des bâtiments administratifs",
+              "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé(e) de mission «performance et pilotage des moyens»",
               "service": "DM MARTINIQUE",
               "effectif": 1,
@@ -5275,6 +5753,12 @@
             {
               "poste": "Chargé(e) de projet immobilier et valorisation du patrimoine",
               "service": "DIRM BORDEAUX",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé(e) des approvisionnements et du suivi budgétaire",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -5303,12 +5787,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé.e de la gestion des missions",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Chargé.e de mission budgétaires et financières",
               "service": "DGAMPA",
               "effectif": 1,
@@ -5317,6 +5795,12 @@
             {
               "poste": "Chargé.e de mission expertise ressources humaines (RH)",
               "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef bureau Services d?Infrastructure, Innovation num, Data",
+              "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -5429,7 +5913,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef.fe bureau finances-immobilier_Référent marchés publics",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef.fe de projet appui métier",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef.fe du bureau Gouvernance et assistance aux usagers",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -5442,6 +5938,12 @@
             },
             {
               "poste": "Chef.fe du pôle organisation et logistique",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Conducteur(trice) de véhicules pool",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -5465,6 +5967,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Directeur de produits « appui métier »",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Directeur produits appui métier (ctrle déclaration activité)",
               "service": "DGAMPA",
               "effectif": 1,
@@ -5472,6 +5980,12 @@
             },
             {
               "poste": "Directeur produits appui métier (sécurité maritime-navires)",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Directeur(trice) de produits « réalisation » pêche",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -5585,26 +6099,14 @@
               "etpt": 1.0
             },
             {
-              "poste": "INSPECTEUR DE LA SECURITE RESPONSABLE ANTENNE GUADELOUPE",
-              "service": "DM MARTINIQUE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Inspecteur sécurité des navires-Inspecteur police des pêches",
-              "service": "SAM POLYNESIE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Instructeur francisation des navires SAM PF",
-              "service": "SAM POLYNESIE",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Resp. Mobilité/Recrutement & pilotage-suivi des efffectifs",
               "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Responsable EJ Chorus, référent(e) RCAI, tvx fin de gestion",
+              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -5849,8 +6351,8 @@
               "etpt": 0.9
             },
             {
-              "poste": "Administrateur système du pôle livraison",
-              "service": "DGAMPA",
+              "poste": "ASSISTANT DE PREVENTION",
+              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 0.8
             },
@@ -5861,8 +6363,20 @@
               "etpt": 0.8
             },
             {
+              "poste": "Gestionnaire financière",
+              "service": "DDTM 85",
+              "effectif": 1,
+              "etpt": 0.8
+            },
+            {
               "poste": "Gestionnaire référent.e en ressources humaines",
               "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 0.8
+            },
+            {
+              "poste": "Responsable Unité Comptabilité Centrale",
+              "service": "DTAM ST-PIERRE/MIQ",
               "effectif": 1,
               "etpt": 0.8
             },
@@ -5910,18 +6424,23 @@
       "id": "pasa7",
       "code": "217-11-07",
       "title": "PASA 7 — Pêche et aquaculture",
-      "lignesAnalysees": 162,
-      "totalEffectif": 162,
-      "totalEtpt": 159.9,
+      "lignesAnalysees": 183,
+      "totalEffectif": 183,
+      "totalEtpt": 180.3,
       "categories": [
         {
           "id": "peche",
           "label": "Pêche",
-          "effectif": 57,
-          "etpt": 55.5,
+          "effectif": 64,
+          "etpt": 62.3,
           "detailsParService": [
             {
               "service": "DIRM BORDEAUX",
+              "effectif": 8,
+              "etpt": 8.0
+            },
+            {
+              "service": "DIRM LE HAVRE",
               "effectif": 8,
               "etpt": 8.0
             },
@@ -5931,24 +6450,19 @@
               "etpt": 7.8
             },
             {
-              "service": "DIRM LE HAVRE",
-              "effectif": 7,
-              "etpt": 7.0
-            },
-            {
               "service": "DDTM 29",
               "effectif": 6,
               "etpt": 5.9
             },
             {
+              "service": "DDTM 17",
+              "effectif": 4,
+              "etpt": 4.0
+            },
+            {
               "service": "DDTM 85",
               "effectif": 4,
               "etpt": 3.8
-            },
-            {
-              "service": "DDTM 17",
-              "effectif": 3,
-              "etpt": 3.0
             },
             {
               "service": "DDTM 35",
@@ -5966,6 +6480,11 @@
               "etpt": 2.9
             },
             {
+              "service": "DDTM 56",
+              "effectif": 3,
+              "etpt": 2.8
+            },
+            {
               "service": "DDTM 66",
               "effectif": 3,
               "etpt": 2.6
@@ -5981,6 +6500,11 @@
               "etpt": 2.0
             },
             {
+              "service": "DDTM 34",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "service": "DDTM 50",
               "effectif": 1,
               "etpt": 1.0
@@ -5992,6 +6516,11 @@
             },
             {
               "service": "DDTM 76",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6034,6 +6563,12 @@
             {
               "poste": "Agent chargé de la réglementation du contrôle des pêches",
               "service": "DDTM 59",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Agent instructeur du pôle « Animation des filières »",
+              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6176,8 +6711,20 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef(fe) de service coordonnateur mission sauvetage",
+              "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef(fe) de service des activités maritimes",
               "service": "DDTM 29",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef(fe) du pôle pêche professionnelle",
+              "service": "DDTM 34",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6218,8 +6765,20 @@
               "etpt": 1.0
             },
             {
+              "poste": "Gestionnaire activités nautiques et procédures maritimes",
+              "service": "DDTM 17",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Gestionnaire affaires économiques",
               "service": "DGTM GUYANE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Gestionnaire des droits de pêche",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6268,6 +6827,12 @@
             {
               "poste": "Instructeur-trice gestion des procédures maritimes",
               "service": "DM GUADELOUPE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Responsable de l?unité pêche et réglementation",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6338,6 +6903,12 @@
               "etpt": 0.8
             },
             {
+              "poste": "Gestionnaire des droits de pêche maritime",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 0.8
+            },
+            {
               "poste": "Agent.e cell nat certif captures à l'export",
               "service": "DDTM 62",
               "effectif": 1,
@@ -6348,13 +6919,13 @@
         {
           "id": "aquaculture",
           "label": "Aquaculture",
-          "effectif": 33,
-          "etpt": 33.5,
+          "effectif": 37,
+          "etpt": 37.3,
           "detailsParService": [
             {
               "service": "DDTM 17",
-              "effectif": 12,
-              "etpt": 13.0
+              "effectif": 13,
+              "etpt": 13.8
             },
             {
               "service": "DDTM 85",
@@ -6370,6 +6941,11 @@
               "service": "DDTM 50",
               "effectif": 4,
               "etpt": 3.7
+            },
+            {
+              "service": "DDTM 34",
+              "effectif": 3,
+              "etpt": 3.0
             },
             {
               "service": "DM MARTINIQUE",
@@ -6415,6 +6991,12 @@
               "service": "DDTM 17",
               "effectif": 1,
               "etpt": 2.0
+            },
+            {
+              "poste": "Adjoint (e) du chef de l'unité cultures marines et littoral",
+              "service": "DDTM 34",
+              "effectif": 1,
+              "etpt": 1.0
             },
             {
               "poste": "Agent instructeur du pôle « Pêche et aquaculture »",
@@ -6479,6 +7061,18 @@
             {
               "poste": "Instructeur cultures marines, appui missions zoo-sanitaires",
               "service": "DDTM 17",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Instructeur dossiers cultures marines (F/H)",
+              "service": "DDTM 34",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Instruction dossiers cultures marines",
+              "service": "DDTM 34",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -6577,19 +7171,25 @@
               "service": "DDTM 50",
               "effectif": 1,
               "etpt": 0.8
+            },
+            {
+              "poste": "assistant gestionnaire DPM Cultures marines",
+              "service": "DDTM 17",
+              "effectif": 1,
+              "etpt": 0.8
             }
           ]
         },
         {
           "id": "peche_aqua_ac",
           "label": "Pêche et aquaculture administration centrale",
-          "effectif": 67,
-          "etpt": 66.8,
+          "effectif": 71,
+          "etpt": 70.8,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 67,
-              "etpt": 66.8
+              "effectif": 71,
+              "etpt": 70.8
             }
           ],
           "detailsParPoste": [
@@ -6780,6 +7380,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé mission pisciculture, environnement et planification",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé mission pêche durable régions Ultrapériphériques",
               "service": "DGAMPA",
               "effectif": 1,
@@ -6864,6 +7470,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé.e de mission appui à la gestion quotas pêches fr",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé.e de mission entreprises de pêche",
               "service": "DGAMPA",
               "effectif": 1,
@@ -6936,6 +7548,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chef(fe) du PND Pêche et aquaculture",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef.fe de bureau des fonds européens et d'investissement",
               "service": "DGAMPA",
               "effectif": 1,
@@ -6955,6 +7573,12 @@
             },
             {
               "poste": "Gestionnaire procédures appui scientifique et donnée",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Négociateur avec le Royaume-Uni sur la pêche maritime",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -6994,13 +7618,23 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 5,
-          "etpt": 4.1,
+          "effectif": 11,
+          "etpt": 9.9,
           "detailsParService": [
+            {
+              "service": "DIRM NANTES",
+              "effectif": 4,
+              "etpt": 3.5
+            },
             {
               "service": "DDTM 17",
               "effectif": 2,
               "etpt": 2.0
+            },
+            {
+              "service": "DDTM 34",
+              "effectif": 1,
+              "etpt": 1.0
             },
             {
               "service": "DDTM 85",
@@ -7008,17 +7642,28 @@
               "etpt": 1.0
             },
             {
+              "service": "DML CORSE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 0.8
+            },
+            {
               "service": "DDTM 29",
               "effectif": 1,
               "etpt": 0.6
-            },
-            {
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 0.5
             }
           ],
           "detailsParPoste": [
+            {
+              "poste": "GENERIQUE CDD 6 SEXIES P205 (0 %)",
+              "service": "DIRM NANTES",
+              "effectif": 3,
+              "etpt": 3.0
+            },
             {
               "poste": "Gestionnaire instructeur administratif",
               "service": "DDTM 17",
@@ -7032,10 +7677,28 @@
               "etpt": 1.0
             },
             {
+              "poste": "[G]CONTRACTUEL(LE) CDD SEB 205-07",
+              "service": "DML CORSE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "[G]DDTM DML 6 SEXIES ET CDD",
+              "service": "DDTM 34",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "chargé de mission auprès du DML",
               "service": "DDTM 17",
               "effectif": 1,
               "etpt": 1.0
+            },
+            {
+              "poste": "Adj au resp d'unité et chargé manifestation nautiques",
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 0.8
             },
             {
               "poste": "Gestionnaire financier et coordinateur opérationnel",
@@ -7057,15 +7720,15 @@
       "id": "pasa8",
       "code": "217-11-08",
       "title": "PASA 8 — Planification et plaisance",
-      "lignesAnalysees": 194,
-      "totalEffectif": 194,
-      "totalEtpt": 189.8,
+      "lignesAnalysees": 201,
+      "totalEffectif": 201,
+      "totalEtpt": 197.8,
       "categories": [
         {
           "id": "planification",
           "label": "Planification (DIRM)",
-          "effectif": 45,
-          "etpt": 45.1,
+          "effectif": 46,
+          "etpt": 46.1,
           "detailsParService": [
             {
               "service": "DIRM BORDEAUX",
@@ -7073,14 +7736,14 @@
               "etpt": 8.7
             },
             {
+              "service": "DIRM LE HAVRE",
+              "effectif": 7,
+              "etpt": 7.8
+            },
+            {
               "service": "DM MARTINIQUE",
               "effectif": 7,
               "etpt": 7.0
-            },
-            {
-              "service": "DIRM LE HAVRE",
-              "effectif": 6,
-              "etpt": 6.8
             },
             {
               "service": "DIRM NANTES",
@@ -7158,6 +7821,12 @@
             {
               "poste": "Adjoint(e) au chef de la mission coordination politiques pub",
               "service": "DM GUADELOUPE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) chef(fe) MICO",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7370,8 +8039,8 @@
         {
           "id": "plaisance",
           "label": "Plaisance (DDTM)",
-          "effectif": 102,
-          "etpt": 99.9,
+          "effectif": 104,
+          "etpt": 102.9,
           "detailsParService": [
             {
               "service": "DDTM 29",
@@ -7385,8 +8054,8 @@
             },
             {
               "service": "DML CORSE",
-              "effectif": 7,
-              "etpt": 9.0
+              "effectif": 9,
+              "etpt": 12.0
             },
             {
               "service": "DDTM 14",
@@ -7409,17 +8078,17 @@
               "etpt": 6.4
             },
             {
-              "service": "DDTM 76",
-              "effectif": 6,
-              "etpt": 6.0
-            },
-            {
               "service": "DDTM 66",
               "effectif": 6,
               "etpt": 5.6
             },
             {
               "service": "DDTM 50",
+              "effectif": 5,
+              "etpt": 5.0
+            },
+            {
+              "service": "DDTM 76",
               "effectif": 5,
               "etpt": 5.0
             },
@@ -7464,6 +8133,11 @@
               "etpt": 2.0
             },
             {
+              "service": "DDTM 56",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "service": "DDTM 62",
               "effectif": 1,
               "etpt": 1.0
@@ -7483,6 +8157,12 @@
             },
             {
               "poste": "Chef(fe) du service économie bleue",
+              "service": "DML CORSE",
+              "effectif": 1,
+              "etpt": 2.0
+            },
+            {
+              "poste": "DMLC 6 SEXIES CDD P205",
               "service": "DML CORSE",
               "effectif": 1,
               "etpt": 2.0
@@ -7590,14 +8270,14 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chargé de mission Activités en mer et sur le littoral",
-              "service": "DML CORSE",
+              "poste": "Chargé de mission \"réglementation plaisance\"",
+              "service": "DDTM 56",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Chargé de mission affaires nautiques",
-              "service": "DDTM 76",
+              "poste": "Chargé de mission Activités en mer et sur le littoral",
+              "service": "DML CORSE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -7920,6 +8600,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "[G]CONTRACTUEL(LE) CDD SEB 205-08",
+              "service": "DML CORSE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "agent de la cellule Plaisance Environnement maritime",
               "service": "DM GUADELOUPE",
               "effectif": 1,
@@ -8056,13 +8742,13 @@
         {
           "id": "plaisance_ac",
           "label": "Plaisance administration centrale",
-          "effectif": 25,
-          "etpt": 23.3,
+          "effectif": 29,
+          "etpt": 27.3,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 25,
-              "etpt": 23.3
+              "effectif": 29,
+              "etpt": 27.3
             }
           ],
           "detailsParPoste": [
@@ -8080,6 +8766,12 @@
             },
             {
               "poste": "Adjoint chef mission nautisme et plaisance chef bureau MNP2",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé d'étude innovation de la plaisance",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8127,6 +8819,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé(e) de mission navigation et permis plaisance",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chef de la mission du nautisme et de la plaisance",
               "service": "DGAMPA",
               "effectif": 1,
@@ -8146,6 +8844,12 @@
             },
             {
               "poste": "Instructeur DAN appui référent exonérations",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Instructeur droits annuels de navigation et accueil usagers",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8176,6 +8880,12 @@
             },
             {
               "poste": "Instructeur pénalités et contrôles réf droit de passeport",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Instructeur/Instructrice pénalités et contrôles",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8221,16 +8931,22 @@
         {
           "id": "planification_ac",
           "label": "Planification administration centrale",
-          "effectif": 19,
-          "etpt": 18.5,
+          "effectif": 18,
+          "etpt": 17.5,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 19,
-              "etpt": 18.5
+              "effectif": 18,
+              "etpt": 17.5
             }
           ],
           "detailsParPoste": [
+            {
+              "poste": "Adjoint CB pilotage des stratégies maritimes et littorales",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
             {
               "poste": "Adjoint CB économie maritime et accompagnement territoires",
               "service": "DGAMPA",
@@ -8239,12 +8955,6 @@
             },
             {
               "poste": "Adjoint Chef Bureau Responsable pôle gouvernance/stratégies",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Adjoint chef service  espaces maritimes et littoraux",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8263,12 +8973,6 @@
             },
             {
               "poste": "Assistante service espaces maritimes et littoraux",
-              "service": "DGAMPA",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "CM outils mise en oeuvre et évaluation planification",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8316,7 +9020,7 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef du service des espaces maritimes et littoraux",
+              "poste": "Chef de projet « innovation maritime » (hors décarbonation)",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8350,8 +9054,8 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 3,
-          "etpt": 3.0,
+          "effectif": 4,
+          "etpt": 4.0,
           "detailsParService": [
             {
               "service": "DEALM MAYOTTE",
@@ -8360,6 +9064,11 @@
             },
             {
               "service": "DMSOI",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "service": "SAM NOUV.CALEDONIE",
               "effectif": 1,
               "etpt": 1.0
             }
@@ -8378,6 +9087,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Dérog-Instructeur francisation des navires SAM NC",
+              "service": "SAM NOUV.CALEDONIE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "secrétaire de direction de la DMSOI",
               "service": "DMSOI",
               "effectif": 1,
@@ -8391,25 +9106,31 @@
       "id": "pasa11",
       "code": "217-11-11",
       "title": "PASA 11 — CROSS",
-      "lignesAnalysees": 92,
-      "totalEffectif": 92,
-      "totalEtpt": 91.7,
+      "lignesAnalysees": 89,
+      "totalEffectif": 89,
+      "totalEtpt": 88.8,
       "categories": [
         {
           "id": "cross_ac",
           "label": "CROSS administration centrale",
-          "effectif": 9,
-          "etpt": 9.0,
+          "effectif": 12,
+          "etpt": 12.0,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 9,
-              "etpt": 9.0
+              "effectif": 12,
+              "etpt": 12.0
             }
           ],
           "detailsParPoste": [
             {
               "poste": "Adjoint au chef du bureau SNPL1/Chef du pôle opérations",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint(e) au sous-directeur",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8427,6 +9148,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé(e) de mission radiocommunications et fréquences",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé(e) de mission recherche et sauvetage mer et port",
               "service": "DGAMPA",
               "effectif": 1,
@@ -8434,6 +9161,12 @@
             },
             {
               "poste": "Chef Centre Contrôle Fr Mission (FMCC) COSPAS-SARSAT",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef bureau sécurité navires et innovation navale",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8451,13 +9184,13 @@
               "etpt": 1.0
             },
             {
-              "poste": "Chef.fe projet de la stratégie pour les ports décentralisés",
+              "poste": "Expert(e) des systèmes réseaux des CROSS",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
             },
             {
-              "poste": "Expert(e) des systèmes réseaux des CROSS",
+              "poste": "Sous-Directeur",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -8467,18 +9200,18 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 83,
-          "etpt": 82.7,
+          "effectif": 77,
+          "etpt": 76.8,
           "detailsParService": [
-            {
-              "service": "DIRM NANTES",
-              "effectif": 31,
-              "etpt": 30.7
-            },
             {
               "service": "DIRM LE HAVRE",
               "effectif": 24,
               "etpt": 24.0
+            },
+            {
+              "service": "DIRM NANTES",
+              "effectif": 24,
+              "etpt": 23.8
             },
             {
               "service": "DIRM MED",
@@ -8486,14 +9219,19 @@
               "etpt": 14.0
             },
             {
-              "service": "DMSOI",
-              "effectif": 7,
-              "etpt": 7.0
-            },
-            {
               "service": "DM MARTINIQUE",
               "effectif": 6,
               "etpt": 6.0
+            },
+            {
+              "service": "DMSOI",
+              "effectif": 6,
+              "etpt": 6.0
+            },
+            {
+              "service": "SAM NOUV.CALEDONIE",
+              "effectif": 2,
+              "etpt": 2.0
             },
             {
               "service": "SAM POLYNESIE",
@@ -8503,12 +9241,6 @@
           ],
           "detailsParPoste": [
             {
-              "poste": "Chef(fe) de service coordonnateur mission sauvetage",
-              "service": "DIRM LE HAVRE",
-              "effectif": 3,
-              "etpt": 3.0
-            },
-            {
               "poste": "Adjoint au chef du service technique",
               "service": "DIRM LE HAVRE",
               "effectif": 2,
@@ -8516,6 +9248,12 @@
             },
             {
               "poste": "Agent chargé de maintenance des installations",
+              "service": "DIRM LE HAVRE",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Chef(fe) de service coordonnateur mission sauvetage",
               "service": "DIRM LE HAVRE",
               "effectif": 2,
               "etpt": 2.0
@@ -8557,18 +9295,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Agent filière C.E.I. et gardiennage",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Agent-e polyvalent-e spécialisé-e en électrotechnique_DPBBN",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Assistant(e) de Direction - CROSS JOBOURG",
               "service": "DIRM LE HAVRE",
               "effectif": 1,
@@ -8577,6 +9303,12 @@
             {
               "poste": "Assistant-e administratif/ve et comptable du CROSS Corsen",
               "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "CMS /Chef du service vie courante",
+              "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -8595,12 +9327,6 @@
             {
               "poste": "Che-fe Serv. Intérieur/Ressources Humaines CROSS Etel (CMS)",
               "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Chef de service",
-              "service": "DMSOI",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -8707,6 +9433,18 @@
               "etpt": 1.0
             },
             {
+              "poste": "Directeur adjoint COSS NC",
+              "service": "SAM NOUV.CALEDONIE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Directeur du COSS",
+              "service": "SAM NOUV.CALEDONIE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Directeur du CROSS",
               "service": "DIRM MED",
               "effectif": 1,
@@ -8768,12 +9506,6 @@
             },
             {
               "poste": "EEI_Technicien.ne maintenance d'ESM et équipements de CROSS",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "OPA  Spécialité peintre et polyvalent",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
@@ -8887,12 +9619,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Technicien-ne de maintenance des ESM et CROSS",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Technicien-ne de maintien conditions opérationnelles CROSS",
               "service": "DIRM NANTES",
               "effectif": 1,
@@ -8929,24 +9655,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Électricien-ne polyvalent-e Centre exploitation PB Vendée",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Électrotechnicien-ne maintenance Phares & Balises et CROSS",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Technicien-ne au CEI de la DPB Bretagne-Sud et CROSS d'Etel",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 0.9
-            },
-            {
               "poste": "Secrétaire du CROSS, Chargé(e) de la gestion financière",
               "service": "DIRM NANTES",
               "effectif": 1,
@@ -8960,20 +9668,20 @@
       "id": "pasa13",
       "code": "217-11-13",
       "title": "PASA 13 — Phares et Balises (dont POLMAR)",
-      "lignesAnalysees": 579,
-      "totalEffectif": 558,
-      "totalEtpt": 558.8,
+      "lignesAnalysees": 647,
+      "totalEffectif": 619,
+      "totalEtpt": 626.7,
       "categories": [
         {
           "id": "phares_balises_ac",
           "label": "Phares et Balises administration centrale",
-          "effectif": 9,
-          "etpt": 8.8,
+          "effectif": 10,
+          "etpt": 9.8,
           "detailsParService": [
             {
               "service": "DGAMPA",
-              "effectif": 9,
-              "etpt": 8.8
+              "effectif": 10,
+              "etpt": 9.8
             }
           ],
           "detailsParPoste": [
@@ -8985,6 +9693,12 @@
             },
             {
               "poste": "Adj chef pôle protection littoral/Chef opérations POLMAR-Ter",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "CM ingénierie aides à la navigation et maîtrise d'ouvrage",
               "service": "DGAMPA",
               "effectif": 1,
               "etpt": 1.0
@@ -9030,23 +9744,23 @@
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 549,
-          "etpt": 550.0,
+          "effectif": 609,
+          "etpt": 616.9,
           "detailsParService": [
             {
               "service": "APB",
-              "effectif": 213,
-              "etpt": 213.0
+              "effectif": 264,
+              "etpt": 264.0
             },
             {
               "service": "DIRM NANTES",
-              "effectif": 115,
-              "etpt": 113.7
+              "effectif": 128,
+              "etpt": 126.6
             },
             {
               "service": "DIRM MED",
-              "effectif": 56,
-              "etpt": 55.9
+              "effectif": 57,
+              "etpt": 56.9
             },
             {
               "service": "DIRM BORDEAUX",
@@ -9055,8 +9769,8 @@
             },
             {
               "service": "DIRM LE HAVRE",
-              "effectif": 45,
-              "etpt": 44.6
+              "effectif": 46,
+              "etpt": 45.6
             },
             {
               "service": "DM GUADELOUPE",
@@ -9089,12 +9803,12 @@
               "etpt": 6.8
             },
             {
-              "service": "DDTM 62",
-              "effectif": 3,
-              "etpt": 3.0
+              "service": "DMSOI",
+              "effectif": 4,
+              "etpt": 4.0
             },
             {
-              "service": "DMSOI",
+              "service": "DDTM 62",
               "effectif": 3,
               "etpt": 3.0
             },
@@ -9153,6 +9867,18 @@
               "etpt": 2.0
             },
             {
+              "poste": "Agent filière C.E.I. et gardiennage",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Agent-e polyvalent-e spécialisé-e en électrotechnique_DPBBN",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 2.0
+            },
+            {
               "poste": "Chef(fe) de l'unité Surveillance du milieu marin et POLMAR-T",
               "service": "DML CORSE",
               "effectif": 1,
@@ -9160,6 +9886,18 @@
             },
             {
               "poste": "Marin ? officier 127",
+              "service": "APB",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Marin ? officier 73",
+              "service": "APB",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 108",
               "service": "APB",
               "effectif": 2,
               "etpt": 2.0
@@ -9192,6 +9930,18 @@
               "poste": "Marin ? personnel d?ex?cution 88",
               "service": "APB",
               "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Marins des phares et balises",
+              "service": "APB",
+              "effectif": 2,
+              "etpt": 2.0
+            },
+            {
+              "poste": "OPA  Spécialité peintre et polyvalent",
+              "service": "DIRM NANTES",
+              "effectif": 1,
               "etpt": 2.0
             },
             {
@@ -9237,6 +9987,12 @@
               "etpt": 2.0
             },
             {
+              "poste": "Technicien-ne de maintenance des ESM et CROSS",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 2.0
+            },
+            {
               "poste": "[G] CDD 6 sex P205-3633-3633052-PB64",
               "service": "DIRM BORDEAUX",
               "effectif": 2,
@@ -9265,6 +10021,24 @@
               "service": "DIRM BORDEAUX",
               "effectif": 2,
               "etpt": 2.0
+            },
+            {
+              "poste": "Électricien-ne polyvalent-e Centre exploitation PB Vendée",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Électrotechnicien-ne maintenance Phares & Balises et CROSS",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 2.0
+            },
+            {
+              "poste": "Technicien-ne au CEI de la DPB Bretagne-Sud et CROSS d'Etel",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.8
             },
             {
               "poste": "ADJOINT TECHNIQUE-RESPONSABLE DU PARC DE MATERIEL ROULANT",
@@ -9371,6 +10145,12 @@
             {
               "poste": "Adjoint(e) opérationnel(e) - SPB Le Havre",
               "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Adjoint-e au chef de centre PB de Vendée _ Chargé-e d'études",
+              "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -9561,12 +10341,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Agent filière C.E.I. et gardiennage",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Agent mécanicien Polyvalent",
               "service": "DIRM BORDEAUX",
               "effectif": 1,
@@ -9645,12 +10419,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Agent-e polyvalent-e spécialisé-e en électrotechnique_DPBBN",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Agent·e du pôle risques et connaissance",
               "service": "DDTM 62",
               "effectif": 1,
@@ -9695,6 +10463,12 @@
             {
               "poste": "Assistant.e des services brestois de la DIRM NAMO",
               "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Assistant.e du BAAF- service phares et balises méditerranée",
+              "service": "DIRM MED",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -9789,8 +10563,20 @@
               "etpt": 1.0
             },
             {
+              "poste": "Chargé-e d'études Conventions Phares & Balises",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Chargé.e contrôles & réglementation des ANM en Côtes-d'Armor",
               "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chargé.e de procédure marchés et achats",
+              "service": "APB",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -9862,6 +10648,12 @@
             },
             {
               "poste": "Chef d'équipe Atelier Mécanique - SPB Brest",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Chef d'équipe Mécanique-chaudronnerie à l'atelier de Brest",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
@@ -10137,6 +10929,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "GENERIQUE CDD 6 SEXIES P205 (3 %)",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Geomaticien - chargé mission POLMAR",
               "service": "DDTM 50",
               "effectif": 1,
@@ -10269,6 +11067,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 105",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 106",
               "service": "APB",
               "effectif": 1,
@@ -10299,6 +11103,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 110",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 111",
               "service": "APB",
               "effectif": 1,
@@ -10318,6 +11128,18 @@
             },
             {
               "poste": "Marin ? officier 114",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 115",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 116",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10359,6 +11181,18 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 124",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 125",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 126",
               "service": "APB",
               "effectif": 1,
@@ -10372,6 +11206,12 @@
             },
             {
               "poste": "Marin ? officier 13",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 131",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10395,7 +11235,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 17",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 19",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 2",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10425,6 +11277,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 25",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 26",
               "service": "APB",
               "effectif": 1,
@@ -10443,7 +11301,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 3",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 30",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 31",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10473,6 +11343,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 40",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 41",
               "service": "APB",
               "effectif": 1,
@@ -10485,7 +11361,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 45",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 47",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 48",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10503,6 +11391,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 52",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 54",
               "service": "APB",
               "effectif": 1,
@@ -10510,6 +11404,12 @@
             },
             {
               "poste": "Marin ? officier 55",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 56",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10545,7 +11445,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 64",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 66",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 67",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10569,7 +11481,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 72",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 74",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 75",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10599,6 +11523,24 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 81",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 83",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 85",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 86",
               "service": "APB",
               "effectif": 1,
@@ -10611,7 +11553,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? officier 88",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? officier 89",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 9",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10636,6 +11590,12 @@
             },
             {
               "poste": "Marin ? officier 94",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? officier 95",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10803,6 +11763,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 122",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 123",
               "service": "APB",
               "effectif": 1,
@@ -10881,6 +11847,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 139",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 14",
               "service": "APB",
               "effectif": 1,
@@ -10923,7 +11895,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 146",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 148",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 149",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10941,6 +11925,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 151",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 152",
               "service": "APB",
               "effectif": 1,
@@ -10948,6 +11938,24 @@
             },
             {
               "poste": "Marin ? personnel d?ex?cution 153",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 154",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 155",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 156",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -10989,6 +11997,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 17",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 18",
               "service": "APB",
               "effectif": 1,
@@ -10996,6 +12010,12 @@
             },
             {
               "poste": "Marin ? personnel d?ex?cution 19",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 2",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -11037,7 +12057,19 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 28",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 3",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 30",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -11050,6 +12082,12 @@
             },
             {
               "poste": "Marin ? personnel d?ex?cution 32",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 33",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -11127,6 +12165,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 51",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 53",
               "service": "APB",
               "effectif": 1,
@@ -11187,6 +12231,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 63",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 64",
               "service": "APB",
               "effectif": 1,
@@ -11218,6 +12268,12 @@
             },
             {
               "poste": "Marin ? personnel d?ex?cution 7",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Marin ? personnel d?ex?cution 70",
               "service": "APB",
               "effectif": 1,
               "etpt": 1.0
@@ -11313,6 +12369,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 87",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 89",
               "service": "APB",
               "effectif": 1,
@@ -11361,6 +12423,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Marin ? personnel d?ex?cution 96",
+              "service": "APB",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Marin ? personnel d?ex?cution 97",
               "service": "APB",
               "effectif": 1,
@@ -11379,12 +12447,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Marins des phares et balises",
-              "service": "APB",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Maçon  (pôle Génie civil et Bâtiment  LS)",
               "service": "DIRM NANTES",
               "effectif": 1,
@@ -11398,6 +12460,12 @@
             },
             {
               "poste": "Maçon au Parc de balisage de Noirmoutier",
+              "service": "DIRM NANTES",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Maçon polyvalent (agt expl) à la DPBBS-Antenne de Concarneau",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
@@ -11428,12 +12496,6 @@
             },
             {
               "poste": "Mécanicien-ne de maintenance des matériels Phares et Balises",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "OPA  Spécialité peintre et polyvalent",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
@@ -11488,6 +12550,12 @@
             },
             {
               "poste": "Ouvrier de maintenance du pôle de Cherbourg",
+              "service": "DIRM LE HAVRE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "Ouvrier de maintenance polyvalent",
               "service": "DIRM LE HAVRE",
               "effectif": 1,
               "etpt": 1.0
@@ -11895,12 +12963,6 @@
               "etpt": 1.0
             },
             {
-              "poste": "Technicien-ne de maintenance des ESM et CROSS",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
               "poste": "Technicien-ne méthodes & logistique au pôle travaux-POLMAR",
               "service": "DIRM NANTES",
               "effectif": 1,
@@ -11981,6 +13043,12 @@
             {
               "poste": "agent en charge de la comptabilité",
               "service": "DM MARTINIQUE",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
+              "poste": "agent polyvalent compétences mécanique",
+              "service": "DMSOI",
               "effectif": 1,
               "etpt": 1.0
             },
@@ -12141,19 +13209,13 @@
               "etpt": 1.0
             },
             {
-              "poste": "Électricien-ne polyvalent-e Centre exploitation PB Vendée",
+              "poste": "Électro-mécanicien-ne de maintenance matériels PB et POLMAR",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
             },
             {
               "poste": "Électromécanicien & polyvalent d'atelier - CEI Concarneau",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "Électrotechnicien-ne maintenance Phares & Balises et CROSS",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 1.0
@@ -12172,12 +13234,6 @@
             },
             {
               "poste": "Technicien polyvalent en travaux chaudronnerie & mécanique",
-              "service": "DIRM NANTES",
-              "effectif": 1,
-              "etpt": 0.9
-            },
-            {
-              "poste": "Technicien-ne au CEI de la DPB Bretagne-Sud et CROSS d'Etel",
               "service": "DIRM NANTES",
               "effectif": 1,
               "etpt": 0.9
@@ -12262,23 +13318,36 @@
       "id": "pasa16",
       "code": "217-11-16",
       "title": "PASA 16 — Capitaineries",
-      "lignesAnalysees": 151,
-      "totalEffectif": 150,
-      "totalEtpt": 168.5,
+      "lignesAnalysees": 155,
+      "totalEffectif": 154,
+      "totalEtpt": 172.5,
       "categories": [
         {
           "id": "capitaineries_ac",
           "label": "Capitaineries administration centrale",
-          "effectif": 0,
-          "etpt": 0.0,
-          "detailsParService": [],
-          "detailsParPoste": []
+          "effectif": 1,
+          "etpt": 1.0,
+          "detailsParService": [
+            {
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            }
+          ],
+          "detailsParPoste": [
+            {
+              "poste": "Chef.fe projet de la stratégie pour les ports décentralisés",
+              "service": "DGAMPA",
+              "effectif": 1,
+              "etpt": 1.0
+            }
+          ]
         },
         {
           "id": "autres",
           "label": "Autres / non classés",
-          "effectif": 150,
-          "etpt": 168.5,
+          "effectif": 153,
+          "etpt": 171.5,
           "detailsParService": [
             {
               "service": "DML CORSE",
@@ -12287,8 +13356,8 @@
             },
             {
               "service": "DDTM 29",
-              "effectif": 31,
-              "etpt": 30.5
+              "effectif": 32,
+              "etpt": 31.5
             },
             {
               "service": "DDTM 62",
@@ -12297,6 +13366,11 @@
             },
             {
               "service": "DDTM 14",
+              "effectif": 10,
+              "etpt": 10.0
+            },
+            {
+              "service": "DDTM 76",
               "effectif": 10,
               "etpt": 10.0
             },
@@ -12321,19 +13395,14 @@
               "etpt": 9.0
             },
             {
-              "service": "DDTM 76",
-              "effectif": 8,
-              "etpt": 8.0
-            },
-            {
               "service": "DDTM 83",
               "effectif": 7,
               "etpt": 7.0
             },
             {
               "service": "DDTM 06",
-              "effectif": 5,
-              "etpt": 5.0
+              "effectif": 6,
+              "etpt": 6.0
             },
             {
               "service": "DDTM 85",
@@ -12344,11 +13413,6 @@
               "service": "DDTM 17",
               "effectif": 2,
               "etpt": 2.0
-            },
-            {
-              "service": "DM MARTINIQUE",
-              "effectif": 1,
-              "etpt": 1.0
             },
             {
               "service": "DTAM ST-PIERRE/MIQ",
@@ -12404,6 +13468,12 @@
               "service": "DDTM 29",
               "effectif": 4,
               "etpt": 4.0
+            },
+            {
+              "poste": "Officier de port adjoint",
+              "service": "DDTM 76",
+              "effectif": 3,
+              "etpt": 3.0
             },
             {
               "poste": "Officier(ère) de port",
@@ -12504,12 +13574,6 @@
             {
               "poste": "Officier de port",
               "service": "DDTM 85",
-              "effectif": 2,
-              "etpt": 2.0
-            },
-            {
-              "poste": "Officier de port adjoint",
-              "service": "DDTM 76",
               "effectif": 2,
               "etpt": 2.0
             },
@@ -12688,6 +13752,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Commandant de port-Capitainerie de St Malo",
+              "service": "DDTM 29",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Commandant des ports de commerce Rochefort Tonnay Charente",
               "service": "DDTM 17",
               "effectif": 1,
@@ -12784,6 +13854,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Officier de port Responsable matériels & travaux portuaires",
+              "service": "DDTM 06",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Officier de port adjoint",
               "service": "DDTM 06",
               "effectif": 1,
@@ -12856,6 +13932,12 @@
               "etpt": 1.0
             },
             {
+              "poste": "Officier(e) de port adjoint(e)- Capitainerie de Dieppe",
+              "service": "DDTM 76",
+              "effectif": 1,
+              "etpt": 1.0
+            },
+            {
               "poste": "Officier.ère de port",
               "service": "DDTM 34",
               "effectif": 1,
@@ -12888,12 +13970,6 @@
             {
               "poste": "agent de vigie",
               "service": "DDTM 76",
-              "effectif": 1,
-              "etpt": 1.0
-            },
-            {
-              "poste": "agent instructeur sur le DPM",
-              "service": "DM MARTINIQUE",
               "effectif": 1,
               "etpt": 1.0
             },
