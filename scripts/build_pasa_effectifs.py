@@ -5,7 +5,7 @@ Extrait les effectifs PASA depuis l'export RenoiRH ETPT_RPROG
 
 Usage :
   python3 scripts/build_pasa_effectifs.py
-  python3 scripts/build_pasa_effectifs.py trdata/2026_03_Suivi_des_emplois_en_ETPT_RPROG.xlsx
+  python3 scripts/build_pasa_effectifs.py trdata/2026_08_Suivi_des_emplois_en_ETPT_RPROG_fiabilise.xlsx
 """
 
 from __future__ import annotations
@@ -418,8 +418,10 @@ def aggregate(rows: list[dict[str, Any]], mois_ref: Optional[int], pasa_cfg: dic
     }
 
 
-def build(chemin: Path) -> dict[str, Any]:
+def build(chemin: Path, mois_override: Optional[int] = None) -> dict[str, Any]:
     rows, nb_brut, mois_ref = load_rows(chemin)
+    if mois_override is not None:
+        mois_ref = mois_override
     return {
         "metadonnees": {
             "dateExport": datetime.now().strftime("%Y-%m-%d"),
@@ -427,7 +429,7 @@ def build(chemin: Path) -> dict[str, Any]:
             "feuille": SHEET_NAME,
             "moisReference": mois_ref,
             "lignesBrutes": nb_brut,
-            "description": "Effectifs PASA dérivés indépendamment de agents.json",
+            "description": "Effectifs PASA dérivés indépendamment de agents.json. Données fiabilisées (245 corrections de taggage intégrées, mois 09).",
         },
         "actions": [aggregate(rows, mois_ref, cfg) for cfg in PASA_CONFIG],
     }
@@ -435,12 +437,20 @@ def build(chemin: Path) -> dict[str, Any]:
 
 def main() -> None:
     base = Path(__file__).parent.parent
-    args = [a for a in sys.argv[1:] if str(a).lower().endswith(".xlsx")]
-    chemin = Path(args[0]) if args else base / "trdata" / "2026_03_Suivi_des_emplois_en_ETPT_RPROG.xlsx"
+    args = [a for a in sys.argv[1:] if not str(a).isdigit()]
+    mois_args = [int(a) for a in sys.argv[1:] if str(a).isdigit()]
+    mois_override = mois_args[0] if mois_args else None
+
+    chemin = Path(args[0]) if args else base / "trdata" / "2026_08_Suivi_des_emplois_en_ETPT_RPROG_fiabilise.xlsx"
+    if not chemin.exists():
+        chemin = base / "trdata" / "2026_03_Suivi_des_emplois_en_ETPT_RPROG.xlsx"
     if not chemin.exists():
         raise SystemExit(f"Fichier introuvable : {chemin}")
 
-    data = build(chemin)
+    if mois_override is None and "fiabilise" in chemin.name.lower():
+        mois_override = 9
+
+    data = build(chemin, mois_override)
     for out in (
         base / "public" / "data" / "pasa-effectifs.json",
         base / "src" / "data" / "pasa-effectifs.json",
